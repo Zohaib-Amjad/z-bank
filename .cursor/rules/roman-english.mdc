@@ -1,0 +1,12 @@
+---
+description: Use Roman Urdu, referred to by the user as Roman-English, for this project's user-facing copy.
+alwaysApply: true
+---
+
+# Project language
+
+- Write user-facing labels, definitions, explanations, examples, and help text in Roman Urdu using the Latin alphabet.
+- Keep product names, editor names, technical terms, and acronyms in English when that is clearer.
+- Use English prose only when the user explicitly asks for it.
+- Make pages as graphical and visual as practical. Use cards, icons, diagrams, dividers, and connector lines to organize content and show relationships.
+- Prefer line-based visual structure when it helps explain connections, comparisons, or hierarchy.

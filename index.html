@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101713" />
+    <title>Fieldnotes — Science, made clear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <main id="top">
+        <section class="library">
+          <div class="department-tabs" role="tablist" aria-label="Science topics">
+            <button class="department-tab active" id="tab-biology" type="button" role="tab" aria-selected="true" aria-controls="department-content" data-department="biology">
+              <span class="tab-icon biology-icon">✿</span><span>Definitions</span><span class="tab-count">03</span>
+            </button>
+            <button class="department-tab" id="tab-chemistry" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="chemistry" tabindex="-1">
+              <span class="tab-icon chemistry-icon">◉</span><span>Abbreviations</span><span class="tab-count">03</span>
+            </button>
+            <button class="department-tab" id="tab-physics" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="physics" tabindex="-1">
+              <span class="tab-icon physics-icon">⌁</span><span>Physics</span><span class="tab-count">03</span>
+            </button>
+          </div>
+
+          <div class="department-panel" id="department-content" role="tabpanel" aria-labelledby="tab-biology" tabindex="0">
+            <aside class="chapter-rail" aria-label="Chapters">
+              <div class="rail-heading"><span class="rail-index" id="chapter-count">03 CHAPTERS</span></div>
+              <nav id="chapter-list" class="chapter-list" aria-label="Choose a chapter"></nav>
+              <div class="rail-note"><span class="note-spark">✳</span><span>Take it one idea<br />at a time.</span></div>
+            </aside>
+
+            <article class="lesson" id="lesson-card" aria-live="polite"></article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

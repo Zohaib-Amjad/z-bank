@@ -1,0 +1,13 @@
+{
+  "name": "z-bank",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Roman-English learning library built with HTML, CSS and JavaScript",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
