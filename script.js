@@ -1,3 +1,13 @@
+const linkGroups = [];
+for (const link of window.zbookLinks || []) {
+  let group = linkGroups.find((item) => item.title === link.group);
+  if (!group) {
+    group = { title: link.group, items: [] };
+    linkGroups.push(group);
+  }
+  group.items.push({ term: link.name, detail: link.use, example: link.example, url: link.url });
+}
+
 const departments = {
   biology: {
     name: 'Biology',
@@ -111,6 +121,13 @@ const departments = {
           { name: 'bun', summary: 'Bohat tez; all-in-one' },
           { name: 'yarn', summary: 'Reliable aur consistent' },
         ],
+        packageInstallGuide: {
+          local: 'Local install project ki dependencies ke liye hoti hai. Package files project root ke `node_modules/` mein milti hain aur dependency `package.json`/lockfile mein record hoti hai.',
+          global: 'Global install aam tor par command-line tool ko mukhtalif folders se chalane ke liye hoti hai. Yeh current project ki dependency nahi banti.',
+          localCommand: 'npm install lodash',
+          globalCommand: 'npm install --global typescript',
+          checkCommand: 'npm root  ·  npm root --global',
+        },
       },
       {
         title: 'Row-Level Security (RLS)',
@@ -739,71 +756,1481 @@ const departments = {
           'Migration sirf tab chalayein jab project mein database aur migration script waqai configured hon.',
         ],
       },
+      {
+        title: 'Acronyms & Common Terms',
+        heading: 'Computer aur technology ke aam terms',
+        definition: 'Short forms, networking, hardware, coding aur rozmarra ke technical alfaaz ko aik jagah samjhein.',
+        concept: 'QUICK GLOSSARY · A-Z',
+        glossarySections: [
+          {
+            title: 'Web, software aur internet',
+            items: [
+              { term: 'Acronym aur initialism', detail: 'Acronym ke initials mil kar aik lafz ki tarah bole jate hain, jaise NASA. Initialism mein har letter alag bola jata hai, jaise DOM.' },
+              { term: 'API', detail: 'Application Programming Interface: rules aur functions ka woh interface jiske zariye software ke hisson ko aik doosre se baat karne ka tareeqa milta hai.' },
+              { term: 'DOM', detail: 'Document Object Model: HTML ya XML document ki tree-shaped representation aur usay read ya update karne wali programming interface. DOM aam tor par letters ke naam se bola jata hai.' },
+              { term: 'HTTP', detail: 'Hypertext Transfer Protocol: web par browser aur server ke darmiyan requests aur responses ke liye istemaal hone wala protocol.' },
+              { term: 'IP address', detail: 'Internet Protocol address network par kisi interface ko pehchanne aur data route karne mein madad deta hai. Yeh private ya public ho sakta hai aur badal bhi sakta hai.' },
+              { term: 'ISP', detail: 'Internet Service Provider: company ya idara jo internet connection deta hai; kuch ISPs email, hosting ya doosri services bhi dete hain.' },
+              { term: 'JSON', detail: 'JavaScript Object Notation: applications ke darmiyan structured data bhejne aur receive karne ka text format. JSON khud API nahi hota; API JSON use kar sakti hai.' },
+              { term: 'Pull request (PR)', detail: 'Repository mein proposed code changes ko review karne aur baad mein merge karne ka tareeqa.' },
+              { term: 'Same-origin policy', detail: 'Browser security rule jo aik origin ke page ko doosre origin ka data freely read karne se rokta hai. Origin mein scheme, host aur port shamil hote hain.' },
+              { term: 'Open source', detail: 'Software jiska source code available ho aur license use, change ya share karne ki ijazat de. Har open-source software lazmi free of cost nahi hota.' },
+              { term: 'Virus', detail: 'Malware ki aik qisam jo doosri files ya programs ke saath attach ho kar phail sakti hai. Har malware virus nahi hota.' },
+            ],
+          },
+          {
+            title: 'Networks aur mobile data',
+            items: [
+              { term: 'LAN', detail: 'Local Area Network: ghar, school, lab ya office jaisi mehdood jagah ke devices ko jorne wala network.' },
+              { term: 'MAN', detail: 'Metropolitan Area Network: aik shehar ya metropolitan area mein mukhtalif LANs ko jorne wala network.' },
+              { term: 'WAN', detail: 'Wide Area Network: bari geographic distance par offices, data centers ya networks ko jorne wala network; Internet iski aik wasee misaal hai.' },
+              { term: 'PAN', detail: 'Personal Area Network: aik shakhs ke qareeb personal devices ka network, jaise Bluetooth se phone aur headphones ka connection. Range technology aur environment ke mutabiq hoti hai.' },
+              { term: 'GPRS', detail: 'General Packet Radio Service: GSM mobile networks par packet-based data service, jo aam tor par 2G se mansub hai.' },
+            ],
+          },
+          {
+            title: 'Computer hardware aur electronics',
+            items: [
+              { term: 'BIOS', detail: 'Basic Input/Output System: motherboard firmware jo computer start hote waqt hardware initialize karke boot process shuru karta hai. Naye systems mein aam tor par UEFI use hota hai.' },
+              { term: 'MSINFO32', detail: 'Windows System Information utility ko kholne wala command. Yeh hardware, system components aur software environment ki maloomat jama karke diagnostics mein madad deta hai.' },
+              { term: 'CMD', detail: 'Windows Command Prompt ka aam naam. Yeh command-line interpreter hai; terminal woh app hoti hai jisme command-line shell chal sakta hai.' },
+              { term: 'LCD', detail: 'Liquid Crystal Display: display technology jo liquid crystals aur light control karke image dikhati hai.' },
+              { term: 'LED', detail: 'Light-Emitting Diode: semiconductor component jo current guzarnay par roshni nikalta hai.' },
+              { term: 'POST', detail: 'Power-On Self-Test: startup par firmware ke basic hardware checks, jo computer boot hone se pehle chal sakte hain.' },
+              { term: 'SMPS', detail: 'Switched-Mode Power Supply: power supply jo switching circuits ke zariye voltage convert aur regulate karti hai.' },
+              { term: 'USB', detail: 'Universal Serial Bus: devices ko connect karne aur supported standards ke mutabiq data ya power transfer karne ka standard.' },
+              { term: 'VDU', detail: 'Visual Display Unit: screen ya monitor jaisa output device jo computer ki visual information dikhata hai.' },
+            ],
+          },
+          {
+            title: 'Programming ke bunyadi concepts',
+            items: [
+              { term: 'Function definition', detail: 'Function define karna uska naam, parameters aur body likhna hai; body batati hai function call hone par kya kaam karega.' },
+              { term: 'Parameter aur argument', detail: 'Parameter function definition mein naam diya gaya input hota hai. Argument function call karte waqt di gayi asal value hoti hai.' },
+              { term: 'return statement', detail: 'Function mein return execution ko khatam karke optional value caller ko deta hai. React component ka returned JSX React render karta hai; woh khud HTML ID mein direct nahi jata.' },
+              { term: 'Conditional rendering', detail: 'JavaScript mein condition ? thenValue : elseValue ka matlab hai: condition true ho to pehli value, warna doosri. React mein isay UI ki shartiya rendering ke liye use kar sakte hain.' },
+              { term: 'React Fragment', detail: 'Fragment multiple React children ko aik group mein rakhta hai magar extra wrapper element DOM mein add nahi karta.' },
+              { term: 'HTML boilerplate', detail: 'HTML document ka starter structure, aam tor par doctype, html, head aur body sections par mushtamil hota hai.' },
+              { term: 'HTML button type', detail: 'Form ke andar &lt;button&gt; ka default type submit hota hai. Menu ya dialog kholne jaisay action ke liye `type="button"` dein, taake form ghalti se submit na ho.' },
+              { term: 'Framework aur library', detail: 'Library ko app ka code zaroorat par call karta hai. Framework aam tor par app ka overall flow sambhalta hai aur aapke code ko muqarrar points par call karta hai.' },
+              { term: 'High-level language (HLL)', detail: 'Programming language jo insani samajh ke zyada qareeb hoti hai aur hardware details ko chhupati hai.' },
+              { term: 'Low-level language (LLL)', detail: 'Programming language jo machine instructions ya hardware ke zyada qareeb hoti hai; machine code binary instructions ki aik misaal hai.' },
+            ],
+          },
+          {
+            title: 'Word casing',
+            items: [
+              { term: 'camelCase', detail: 'Pehla word lowercase hota hai; aglay words ka pehla letter capital hota hai, jaise heIsABoy.' },
+              { term: 'kebab-case', detail: 'Words lowercase mein hote hain aur hyphen se judte hain, jaise he-is-a-boy.' },
+              { term: 'PascalCase', detail: 'Har word ka pehla letter capital hota hai aur spaces nahi hotin, jaise HeIsABoy.' },
+              { term: 'SCREAMING_SNAKE_CASE', detail: 'Tamam letters uppercase aur words underscore se alag hote hain, jaise HE_IS_A_BOY.' },
+              { term: 'snake_case', detail: 'Tamam words lowercase aur underscore se alag hote hain, jaise he_is_a_boy.' },
+            ],
+          },
+          {
+            title: 'Media, business aur doosre terms',
+            items: [
+              { term: 'Android', detail: 'Mobile operating system platform. Android kisi company ka naam nahi; Google Android platform aur AOSP project ki development mein aham kirdar rakhta hai.' },
+              { term: 'Apple', detail: 'Technology company jo iPhone, Mac, operating systems aur doosri products banati hai.' },
+              { term: 'AVI', detail: 'Audio Video Interleave: digital video aur audio ko aik file mein rakhne wala multimedia container format.' },
+              { term: 'ICO', detail: 'Initial Coin Offering: crypto project token offer karke funds jama karne ka tareeqa. Is mein investment risk bohat zyada ho sakta hai.' },
+              { term: 'IPO', detail: 'Initial Public Offering: jab private company pehli dafa public investors ko apne shares offer karti hai.' },
+              { term: 'MP3', detail: 'Digital audio ko compress aur store karne ka mashhoor lossy audio format; yeh AVI jaisa general multimedia container nahi.' },
+              { term: 'OMR', detail: 'Optical Mark Recognition: paper forms par bhare hue bubbles ya marks ko scan karke pehchanne ki technology.' },
+              { term: 'SaaS', detail: 'Software as a Service: internet par provider ke hosted software ko app ya browser se use karna; billing subscription ya usage-based ho sakti hai.' },
+              { term: 'Service-based aur product-based company', detail: 'Service-based company clients ke liye kaam ya expertise deti hai. Product-based company apna product banati aur bechti hai. Aik company dono kar sakti hai.' },
+              { term: 'CV', detail: 'Curriculum Vitae: taleem, kaam ke tajurbe, skills aur relevant achievements ka record jo job ya academic application ke saath diya jata hai. CV ki lambai aur format ilaqay aur role ke mutabiq farq ho sakta hai.' },
+              { term: 'Cover letter', detail: 'Job application ke saath bheja gaya mukhtasar, role-specific khat. Is mein bataya jata hai ke aapka tajurba aur skills us position se kaise match karte hain; yeh CV ko repeat karne ke bajaye usay context deta hai.' },
+              { term: 'TIME Magazine', detail: 'TIME magazine ka naam hai; “The International Magazine of Events” iska official full form nahi. TIME apne aaghaz ko 1923 ke weekly news magazine ke taur par bayan karta hai.' },
+            ],
+          },
+          {
+            title: 'Number systems aur bases',
+            items: [
+              { term: 'Duotrigesimal', detail: 'Base-32 positional number system ka naam. Har digit ki jagah 32 ki power ko represent karti hai. Digit symbols ki notation scheme badal sakti hai; aik common scheme mein 0–9 ke baad A–V use hote hain.' },
+            ],
+          },
+          {
+            title: 'English ke aam lafz',
+            items: [
+              { term: 'Psst', detail: 'Halki ya chupke se nikali jane wali awaaz, aksar kisi ki tawajjoh lene ke liye.' },
+              { term: 'Grunting', detail: 'Gale se nikali jane wali chhoti, bhaari awaaz; kabhi mehnat, takleef ya narazgi mein.' },
+              { term: 'Chuckling', detail: 'Dheemi ya halki hansi.' },
+              { term: 'Atheist', detail: 'Aisa shakhs jo God ya gods par yaqeen nahi rakhta.' },
+              { term: 'Agnostic', detail: 'Aisa shakhs jo God ya gods ke wajood ko maloom ya yaqini taur par sabit karna mumkin na samjhe. Atheism aur agnosticism aik doosre ko lazmi tor par exclude nahi karte.' },
+              { term: 'Sporadically', detail: 'Kabhi kabhar ya ghair-muqarrar waqfon se; yani regular schedule par nahi.' },
+              { term: 'Dictate', detail: 'Context ke mutabiq zor se bol kar likhwana, hukm dena, ya kisi cheez ko tay/control karna.' },
+              { term: 'Disposal', detail: 'Kisi cheez se chutkara pane ka amal; “at your disposal” ka matlab hai aap ke istemaal ke liye dastiyab.' },
+              { term: 'Sparingly', detail: 'Kam miqdaar mein ya ehtiyaat se, taa-ke cheez zaya na ho.' },
+              { term: 'Pseudo', detail: 'Aisa prefix jo kisi cheez ko zahiri ya naqli bataye, magar asal/genuine na ho.' },
+              { term: 'Sophisticated', detail: 'Context ke mutabiq advanced aur complex, ya refined aur bareek samajh wala.' },
+              { term: 'Catalyst', detail: 'Aapka original note: “Catalyst != Hindrance.” Dono aik jaisa matlab nahi rakhte, magar strict antonyms bhi nahi. Catalyst tabdeeli ko shuru ya tez karne wala sabab hai; science mein reaction ko tez karta hai aur khud permanently consume nahi hota.' },
+              { term: 'Hindrance', detail: 'Rukawat ya mushkil jo kaam ko dheema ya mushkil banaye.' },
+              { term: 'Freaked out', detail: 'Aapka original note: “Freaked = behave in a wild and irregular way.” “Freaked out” informal phrase hai jo achanak bohat ghabra ya pareshan hone ko kehti hai; “freak” ke aur meanings bhi context par depend karte hain.' },
+              { term: 'Sacrifice', detail: 'Aapka original note: “Sacrifice = mean it’s dead from my side.” Yeh aapka personal/mnemonic sense hai, dictionary meaning nahi. Aam meaning: kisi maqsad ke liye qeemti cheez, waqt ya aaraam chhorna.' },
+            ],
+          },
+          {
+            title: 'Software aur web ke concepts',
+            items: [
+              { term: 'Browser extension / plug-in', detail: 'Aapka original note: “Plug-ins are computer programs that extend standard functionality of browser, like FoodPanda, InDrive etc.” Pehla hissa durust hai; Foodpanda aur InDrive standalone apps/services hain. Browser ad blocker ya password manager extension browser mein feature add karte hain.' },
+              { term: 'Cache', detail: 'Aapka original note: “Cache = Internet history, you visited recently.” Correction: cache data ki aarzi copy hai jo dobara use karke loading tez kar sakti hai. Browsing history visited pages ki alag list hoti hai.' },
+              { term: 'Default import', detail: 'ES module ka default export import karte waqt local naam aap khud rakh sakte hain. Misal: `import api from "./client.js"` mein `api` local naam hai.' },
+              { term: 'Configure', detail: 'Software ya device ki settings ko zaroorat ke mutabiq set ya arrange karna.' },
+              { term: 'Alias', detail: 'Aapka original note: “Alias = false or assumed identity.” Assumed/alternate naam iska aik meaning ho sakta hai; har alias false nahi hota. Programming mein alias kisi cheez ka doosra naam hota hai; import mein `as` use kar sakte hain.' },
+              { term: 'Vite aur React', detail: 'Aapka original note: “Vite is upgraded version of React.” Correction: Vite development server/build tool hai; React UI banane ki JavaScript library hai. Dono aik project mein saath kaam karte hain.' },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Windows Version History',
+        heading: 'Windows ka safar: 1985 se 2021 tak',
+        definition: 'Microsoft Windows ki major desktop releases ko chronological order mein dekhein. Har version ka year launch year hai; yeh tamam editions ki mukammal list nahi.',
+        concept: 'WINDOWS · RELEASE TIMELINE',
+        timelineFooter: '1985 → 2021 · MAJOR RELEASES',
+        windowsTimeline: [
+          { version: 'Windows 1.0', year: '1985', detail: 'Windows ki pehli retail release; MS-DOS ke upar graphical interface deti thi.' },
+          { version: 'Windows 2.0', year: '1987', detail: 'Windows ke pehle versions mein se aik jahan application windows overlap kar sakti thin.' },
+          { version: 'Windows 3.0', year: '1990', detail: 'Behtar graphics aur Program Manager ke saath Windows ka istemaal zyada aam hua.' },
+          { version: 'Windows 95', year: '1995', detail: 'Start menu aur taskbar introduce hue; 32-bit applications ko bhi support mila.' },
+          { version: 'Windows 98', year: '1998', detail: 'USB devices aur internet use ke liye behtar support diya gaya.' },
+          { version: 'Windows Me', year: '2000', detail: '“Millennium Edition” ka short naam. Ghar ke users ke liye multimedia features aur System Restore par focus tha.' },
+          { version: 'Windows XP', year: '2001', detail: 'Consumer Windows ko Windows NT core par le aaya; stability aur aik consistent interface is ki pehchan bane.' },
+          { version: 'Windows Vista', year: '2007', detail: 'Aero visual design aur User Account Control jaisi security changes ke saath aaya.' },
+          { version: 'Windows 7', year: '2009', detail: 'Windows Vista ke baad performance, usability aur taskbar mein behtari par focus kiya.' },
+          { version: 'Windows 8', year: '2012', detail: 'Touch screens ko madde nazar rakh kar Start screen aur naya interface diya gaya.' },
+          { version: 'Windows 8.1', year: '2013', detail: 'Windows 8 ka update; Start button wapas aaya aur interface ko refine kiya gaya.' },
+          { version: 'Windows 10', year: '2015', detail: 'Start menu wapas laya aur Windows-as-a-Service ke zariye regular feature updates ka model apnaya.' },
+          { version: 'Windows 11', year: '2021', detail: 'Naya visual design aur Snap Layouts ke saath release hua; is ke hardware requirements Windows 10 se mukhtalif hain.' },
+        ],
+      },
+      {
+        title: 'Network Control & Security Flow',
+        heading: 'Network par control aur security ki layers',
+        definition: 'Firmware, firewall, router, VPN, proxy aur DNS aik hi kaam nahi karte. Yeh mukhtalif jagahon par mil kar kaam kar sakte hain; in sab ka koi universal “override order” nahi.',
+        concept: 'DEVICE → NETWORK → WEB',
+        glossaryFooter: 'NAME RESOLUTION · ROUTING · POLICY · ENCRYPTION',
+        glossarySections: [
+          {
+            title: 'Device startup aur local security',
+            items: [
+              { term: 'BIOS aur UEFI', detail: 'Aapka original note firmware ko “nervous system b/w hardware and windows” kehta hai. Yeh yaad rakhne ki tashbeeh hai; zyada durust taur par firmware startup par platform initialize karke OS boot ko hand off karta hai. BIOS purana PC firmware interface hai aur UEFI modern firmware specification.' },
+              { term: 'TPM', detail: 'Trusted Platform Module: hardware ya firmware-based security component jo cryptographic keys protect karne aur platform integrity checks mein madad deta hai. Yeh aksar motherboard ya platform ke andar hota hai, magar har TPM alag motherboard chip nahi hota.' },
+              { term: 'System firewall', detail: 'Device par network connections ko rules ke mutabiq allow ya block karta hai. VPN chalne par bhi host firewall apne rules laga sakta hai.' },
+              { term: 'Hosts file', detail: 'Device ki local text file jo hostnames ko addresses se map kar sakti hai. Aam resolver setups mein yeh DNS query se pehle check hoti hai; exact behavior operating system aur app par depend karta hai.' },
+            ],
+          },
+          {
+            title: 'Network path aur traffic controls',
+            items: [
+              { term: 'Router / network gateway', detail: 'IP packets ko mukhtalif networks ke darmiyan forward karta hai. Router ki configuration mein NAT, firewall ya DNS relay bhi ho sakte hain, magar yeh alag functions hain.' },
+              { term: 'Enterprise firewall aur DPI', detail: 'Organization ka firewall network policy ke mutabiq traffic allow, block ya log karta hai. Deep Packet Inspection packet details dekh sakti hai; HTTPS/TLS payload ko parhne ke liye aam tor par managed TLS inspection/termination chahiye.' },
+              { term: 'VPN', detail: 'Aapka original note: “VPN is strong, encrypted proxy for everything.” Yeh dono alag technologies hain. VPN device/server ke darmiyan encrypted tunnel banata hai; full-tunnel zyada traffic bhejta hai, jab ke split-tunnel sirf configured routes. VPN firewall ko lazman bypass nahi karta.' },
+              { term: 'Proxy', detail: 'Aapka original note proxy ko “middle man between device & internet” aur absent friend ki fake attendance se compare karta hai. Yeh forwarding ko yaad rakhne ki misaal hai: proxy client ki requests relay karta hai. Forward proxy app/browser ke liye configure ho sakta hai; reverse proxy server ke aagay requests leta hai. HTTP, SOCKS aur transparent proxy ke tareeqay mukhtalif hain.' },
+            ],
+          },
+          {
+            title: 'Naam dhoondhna aur web connection',
+            items: [
+              { term: 'DNS aur DNS resolver', detail: 'Aapka original note DNS ko “internet’s phonebook” aur “number to number translator” kehta hai. Phonebook tashbeeh theek hai; number-to-number kehna ghalat hai. DNS hostname (facebook.com) ke records dhoondta hai; A/AAAA record IP address deta hai. Resolver query ka jawab dhoondta hai.' },
+              { term: 'HTTP', detail: 'HyperText Transfer Protocol browser/app aur server ke darmiyan requests aur responses ka web protocol hai. Akela HTTP traffic encrypt nahi karta.' },
+              { term: 'HTTPS, TLS aur SSL', detail: 'HTTPS, HTTP ko TLS ke zariye protect karta hai. TLS connection ko encrypt karta aur server identity certificate ke zariye verify karne mein madad deta hai. SSL purana, obsolete protocol hai; modern HTTPS TLS use karta hai. Yeh protection transit ke liye hai, device par saved data ke liye nahi, aur na hi har website ko trustworthy sabit karti hai.' },
+            ],
+          },
+          {
+            title: 'Order ko kaise samjhein',
+            items: [
+              { term: 'Universal override chain nahi', detail: 'Aapka original order Firmware > TPM > DPI/enterprise firewall > router > VPN > system firewall > proxy > hosts file > DNS > HTTPS/TLS > HTTP tha. Yeh layers ka universal dominance order nahi: firmware boot mein, DNS lookup mein, router forwarding mein, firewall policy mein, aur TLS encryption mein kaam karta hai.' },
+              { term: 'VPN “sab par haavi” nahi hota', detail: 'Aapka original note: “Routing control is dominance. Therefore VPN dominates.” Route ko VPN tunnel se guzarna configure ho sakta hai, magar host firewall, enterprise policy, proxy aur DNS bhi asar karte hain. Result device aur network settings par depend karta hai.' },
+              { term: 'Yaad rakhne ka seedha tareeqa', detail: 'Aapka original mnemonic: “DNS decides where to go. Proxy decides who goes. VPN decides how safely you go.” Yaad rakhne ke liye useful hai, lekin mukhtasar: DNS naam ka record dhoondta hai, proxy request relay karta hai, VPN configured routes ko tunnel karta hai.' },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'International Contact Numbering',
+        heading: 'International phone codes aur numbering zones',
+        definition: 'Aapka original contact-numbering note aur uski correction yahan saath hain. Aaj ka ITU-T E.164 standard country codes ko one, two ya three digits deta hai. Pehla digit purane world numbering zones se region ka andaza deta hai, lekin yeh sakht continent boundaries nahi aur assignments waqt ke saath badal sakti hain.',
+        concept: 'COUNTRY CODE · WORLD ZONES · E.164',
+        glossaryFooter: 'ORIGINAL NOTE · CORRECTION · EXAMPLES',
+        glossarySections: [
+          {
+            title: 'Aapka original note aur bunyadi farq',
+            items: [
+              { term: 'Original contact-number note', detail: 'Aapka original note: “IInternational Telecommunication Union divided the numbers and gave prefix like +92 for pakistan. It divided world into 9 regions. +1 for NANP (North American Numbering Planning); +2 for African with three digits starting; +3, +4 lies in Europe and could be two or three starting digits; +5 for people of North America which are not part of NANP; +6 for Oceania & South Asian Countries with two or three digits; +7 for Soviet Countries; +8 for East Asian countries; +9 for South Asia & Middle East.” Is original ko yaad rakhne ke liye yahan preserve kiya hai; neeche verified correction hai.' },
+              { term: 'Country calling code aur dialling prefix', detail: '+92 Pakistan ka country calling code hai. Yeh international access/dialling prefix se alag hota hai; bahar se call shuru karne ke digits caller ke mulk par depend karte hain. E.164 international number mein country code ke baad national number aata hai.' },
+              { term: 'Nine world numbering zones', detail: 'Yeh pehle digit ke mutabiq codes ko yaad rakhne ki riwayati grouping hai, literal taur par duniya ko 9 siyasi ya geographic regions mein baantna nahi. Country calling codes one, two ya three digits ke ho sakte hain; kuch codes countries ke bajaye services ke liye bhi hain.' },
+            ],
+          },
+          {
+            title: 'Zones 1 se 5',
+            items: [
+              { term: 'Zone 1 — NANP', detail: '+1 North American Numbering Plan ke liye hai. Is shared plan mein United States, Canada aur Caribbean ke kai mulk/ilaqay shamil hain; Mexico +1 NANP ka hissa nahi.' },
+              { term: 'Zone 2 — Africa', detail: '+2 se shuru hone wale country codes zyada tar African mulkon ke hain. Codes do ya teen digits ke ho sakte hain.' },
+              { term: 'Zones 3 aur 4 — Europe', detail: '+3 aur +4 se shuru hone wale codes zyada tar European mulkon ko diye gaye hain. Code length do ya teen digits ho sakti hai; har code ka format alag assigned hota hai.' },
+              { term: 'Zone 5 — Central aur South America', detail: '+5 zone sirf North America ke woh hisse nahi jo NANP se bahar hon; yeh Mexico samet Central aur South America ke codes ko cover karta hai.' },
+            ],
+          },
+          {
+            title: 'Zones 6 se 9',
+            items: [
+              { term: 'Zone 6 — Southeast Asia aur Oceania', detail: '+6 series Southeast Asia aur Oceania ke kai codes ko cover karti hai. South Asia ko poora zone 6 kehna sahi nahi.' },
+              { term: 'Zone 7 — Russia aur Kazakhstan', detail: '+7 Soviet-era numbering zone se aaya. Aaj +7 Russia aur Kazakhstan share karte hain; tamam former Soviet republics +7 use nahi karte.' },
+              { term: 'Zone 8 — East Asia aur kuch special codes', detail: '+8 series East Asia ke codes ke liye mashhoor hai, lekin is mein special services aur Bangladesh ka +880 code bhi aata hai; region mapping bilkul exclusive nahi.' },
+              { term: 'Zone 9 — South Asia aur Middle East', detail: '+9 series mein Pakistan, India, Turkey aur Middle East ke kai mulkon ke codes hain. Is zone mein kuch Central/South Asian codes bhi shamil hain.' },
+            ],
+          },
+          {
+            title: 'Official references',
+            items: [
+              { term: 'ITU-T E.164 standard', detail: 'ITU ki current E.164 recommendation international public telephone numbers ki structure aur country-code assignment samjhati hai.', url: 'https://www.itu.int/rec/T-REC-E.164-202602-I', example: 'Country calling code ki length ya international number structure check karne ke liye E.164 recommendation kholo.' },
+              { term: 'ITU legacy numbering-zone list (1991)', detail: 'ITU ka purana annex traditional world numbering zones aur us waqt ke country codes list karta hai. Isay historical zone grouping samjho; current assigned codes ke liye latest ITU register check karo.', url: 'https://www.itu.int/rec/dologin_pub.asp?id=T-REC-E.164-199108-S%21%21PDF-E&lang=e&type=items', example: 'Zone numbering ka historical pattern samajhne ke liye is purane annex ko current E.164 recommendation ke saath compare karo.' },
+              { term: 'NANPA — NANP overview', detail: 'Official overview batata hai ke +1 NANP ko assign hai aur yeh shared numbering plan kin mulkon/ilaqon ko serve karta hai.', url: 'https://nanpa.com/about', example: 'Kisi +1 number ko dekh kar NANP ka area code aur 7-digit local number format overview se compare karo.' },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'CSS Layout & Responsive Design',
+        heading: 'CSS selectors, centering aur responsive screens',
+        definition: 'CSS selectors elements ko target karte hain; layout rules unhein arrange karte hain; media queries screen ya user preference ke mutabiq style badalti hain.',
+        concept: 'SELECT · LAYOUT · RESPOND',
+        glossaryFooter: 'SELECTOR → LAYOUT → MEDIA CONDITION',
+        glossarySections: [
+          {
+            title: 'Selectors aur hover states',
+            items: [
+              { term: ':has() selector', detail: ':has() parent ya element ko tab select karta hai jab us ke relative selector se koi matching element milay.' },
+              { term: 'Hover ke baghair siblings', detail: '`.container:hover > :not(:hover)` hovered container ke un direct children ko target karta hai jo khud hover nahi ho rahe.' },
+            ],
+          },
+          {
+            title: 'Element ko center karne ke tareeqay',
+            items: [
+              { term: 'CSS Grid centering', detail: 'Grid container par `place-items: center` child ko horizontal aur vertical center karta hai.' },
+              { term: 'Flexbox centering', detail: 'Flex container mein `justify-content: center` aur `align-items: center` dono axes par content center karte hain.' },
+              { term: 'Position centering', detail: 'Positioned child ko `top: 50%` aur `left: 50%` par la kar `transform: translate(-50%, -50%)` se us ke apne size ke mutabiq wapas shift karte hain.' },
+            ],
+          },
+          {
+            title: 'Media queries aur breakpoints',
+            items: [
+              { term: 'Media query', detail: 'Media query condition match hone par CSS rules apply karti hai; misal ke taur par viewport narrow ho to layout stack karna.' },
+              { term: 'Media types', detail: '`screen` screen devices, `print` printed output aur `all` tamam media types ke liye hai. `speech` speech output ke liye defined hai, magar support har browser mein barabar nahi.' },
+              { term: 'Media features', detail: '`min-width`, `orientation` aur `prefers-reduced-motion` jaisi features device ya user preference check karti hain.' },
+              { term: 'Breakpoint', detail: 'Breakpoint woh width hai jahan layout ko badalna zaroori ho. 600, 768, 992 ya 1200px common starting points ho sakte hain; yeh fixed standard nahi, content ke mutabiq choose karein.' },
+              { term: 'Orientation', detail: '`orientation: portrait` ya `landscape` viewport ki shape ke mutabiq styles badal sakta hai.' },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Programming Concepts & Text Encoding',
+        heading: 'Iteration, recursion, references aur UTF-16',
+        definition: 'Yeh concepts code ke repeat hone, function ke dobara chalne, objects ko refer karne aur JavaScript strings ke andar text store hone ka tareeqa samjhate hain.',
+        concept: 'REPEAT · REFER · ENCODE',
+        glossaryFooter: 'CONCEPT → PRACTICAL EXAMPLE',
+        glossarySections: [
+          {
+            title: 'Loops aur recursion',
+            items: [
+              { term: 'Iteration aur list traversal', detail: 'Iteration loop ka aik chakkar hai. Array values ke liye `for...of` use karein; `for...in` array ke keys/indexes deta hai.' },
+              { term: 'Iterable object', detail: 'JavaScript object tab iterable hota hai jab us par `[Symbol.iterator]` protocol ho. Plain object default se `for...of` mein nahi chalta; `Object.entries()` uski key-value pairs ko iterable array mein deta hai.' },
+              { term: 'Recursion', detail: 'Recursive function apne aap ko chhoti input ke saath call karta hai aur rokne ke liye base case rakhta hai.' },
+            ],
+          },
+          {
+            title: 'Objects aur text encoding',
+            items: [
+              { term: 'Object reference aur equality', detail: 'Object variable aksar object ka reference rakhta hai. Do variables same object ko point karein to `===` true hota hai; alag objects ki properties same hon tab bhi references alag ho sakte hain.' },
+              { term: 'UTF-16', detail: 'JavaScript strings UTF-16 code units mein represent hoti hain. Kuch Unicode characters aik code unit lete hain, aur kuch—jaise kai emoji—do code units.' },
+            ],
+          },
+        ],
+      },
     ],
   },
   chemistry: {
-    name: 'Chemistry',
+    name: 'Abbreviations',
     chapters: [
       {
-        title: 'Atoms & elements',
-        heading: 'The building blocks of matter',
-        definition: 'An <strong>atom</strong> is the smallest unit of an element that still has that element’s properties. An element is a pure substance made from just one kind of atom.',
-        example: 'A piece of pure gold is made of gold atoms. Oxygen, carbon, and iron are other examples of elements.',
-        concept: 'MATTER AT ITS SMALLEST',
+        title: 'Computer & Hardware Abbreviations',
+        heading: 'Computer ke parts aur systems ke short forms',
+        definition: 'Hardware aur operating-system ke aam abbreviations ke full forms aur unka seedha kaam.',
+        concept: 'HARDWARE · SYSTEMS',
+        glossaryFooter: 'SHORT FORM → FULL FORM → KAAM',
+        glossarySections: [{
+          title: 'Computer hardware aur systems',
+          items: [
+            { term: 'BIOS', detail: 'Basic Input/Output System: motherboard firmware jo hardware initialize karke boot process shuru karta hai.' },
+            { term: 'CPU', detail: 'Central Processing Unit: instructions chalata aur computer ke aam hisaab aur operations karta hai.' },
+            { term: 'GPU', detail: 'Graphics Processing Unit: graphics render karta hai aur parallel calculations ke liye bhi use hota hai.' },
+            { term: 'HDD', detail: 'Hard Disk Drive: magnetic platters par data store karne wali storage drive.' },
+            { term: 'LCD', detail: 'Liquid Crystal Display: liquid-crystal technology se image dikhane wali screen.' },
+            { term: 'LED', detail: 'Light-Emitting Diode: current milne par roshni dene wala semiconductor component.' },
+            { term: 'OS', detail: 'Operating System: software jo hardware resources manage karta aur apps chalane ka platform deta hai.' },
+            { term: 'PC', detail: 'Personal Computer: aik shakhs ke aam istemaal ke liye bana computer.' },
+            { term: 'POST', detail: 'Power-On Self-Test: startup par firmware ke basic hardware checks.' },
+            { term: 'PSU', detail: 'Power Supply Unit: computer ke components ko zaroori voltage aur power deti hai.' },
+            { term: 'RAM', detail: 'Random Access Memory: chalti hui apps aur data ke liye temporary, aam tor par volatile memory.' },
+            { term: 'ROM', detail: 'Read-Only Memory: non-volatile memory ka naam; modern ROM-type memory ko update bhi kiya ja sakta hai.' },
+            { term: 'SMPS', detail: 'Switched-Mode Power Supply: switching circuits se voltage convert aur regulate karti hai.' },
+            { term: 'SSD', detail: 'Solid-State Drive: flash memory par data store karne wali storage drive; is mein moving platters nahi hote.' },
+            { term: 'USB', detail: 'Universal Serial Bus: devices connect karne aur compatible standards ke mutabiq data ya power dene ka standard.' },
+            { term: 'UPS', detail: 'Uninterruptible Power Supply: bijli jane par limited waqt ke liye backup power deti hai.' },
+            { term: 'VDU', detail: 'Visual Display Unit: monitor ya screen jaisa visual output device.' },
+          ],
+        }],
       },
       {
-        title: 'Chemical bonds',
-        heading: 'What holds atoms together',
-        definition: 'A <strong>chemical bond</strong> is an attraction that holds atoms together. Atoms can share or transfer tiny particles called electrons to form bonds.',
-        example: 'In a water molecule, two hydrogen atoms bond with one oxygen atom. The atoms form a stable group: H₂O.',
-        concept: 'ATOMS JOIN TOGETHER',
+        title: 'Software, Media & Business Abbreviations',
+        heading: 'Software, media aur business ke short forms',
+        definition: 'Development, data, finance aur media mein baar baar dikhne wale abbreviations ko samjhein.',
+        concept: 'SOFTWARE · DATA · BUSINESS',
+        glossaryFooter: 'SHORT FORM → FULL FORM → KAAM',
+        glossarySections: [{
+          title: 'Software, data aur business',
+          items: [
+            { term: 'AI', detail: 'Artificial Intelligence: computer systems ke zariye aise kaam karna jo aam tor par insani intelligence mangte hain.' },
+            { term: 'AVI', detail: 'Audio Video Interleave: audio aur video ko aik file mein rakhne wala multimedia container format.' },
+            { term: 'CLI', detail: 'Command-Line Interface: text commands ke zariye software ya operating system se kaam karne ka interface.' },
+            { term: 'CMD', detail: 'Windows Command Prompt ka aam short name; command-line interpreter chalane ke liye use hota hai.' },
+            { term: 'CMS', detail: 'Content Management System: website ya digital content create, edit aur organize karne ka software.' },
+            { term: 'CV', detail: 'Curriculum Vitae: job ya academic application ke liye taleem, tajurbe, skills aur relevant achievements ka document. Iski detail aur format mulk aur role ke mutabiq badal sakti hai.' },
+            { term: 'DBMS', detail: 'Database Management System: database ko create, query, update aur manage karne wala software.' },
+            { term: 'GA4', detail: 'Google Analytics 4: Google Analytics ki event-based analytics property.' },
+            { term: 'GUI', detail: 'Graphical User Interface: windows, icons, menus aur buttons ke zariye software use karne ka interface.' },
+            { term: 'HLL', detail: 'High-Level Language: aisi programming language jo insani soch ke qareeb syntax deti aur hardware details chhupati hai.' },
+            { term: 'ICO (crypto)', detail: 'Initial Coin Offering: crypto project ka tokens offer karke funds jama karne ka tareeqa. Is term ko `.ico` icon-file extension se alag rakha gaya hai.', example: 'project ICO ke zariye tokens offer kar sakta hai; yeh Windows icon file nahi hoti.' },
+            { term: 'IDE', detail: 'Integrated Development Environment: code editor ke saath build, run aur debugging tools dene wala app.' },
+            { term: 'IPO', detail: 'Initial Public Offering: company ka pehli dafa public investors ko shares offer karna.' },
+            { term: 'LLL', detail: 'Low-Level Language: machine instructions ya hardware ke qareeb programming language.' },
+            { term: 'ML', detail: 'Machine Learning: AI ka hissa jahan model data se patterns seekh kar predictions ya decisions karta hai.' },
+            { term: 'MP3', detail: 'MPEG-1 Audio Layer III: digital audio ko compress karne ka mashhoor lossy format.' },
+            { term: 'OMR', detail: 'Optical Mark Recognition: forms par bhare hue bubbles ya marks ko pehchanne ki technology.' },
+            { term: 'PR', detail: 'Pull Request: code changes ko review karne aur repository mein merge karne ke liye proposed change.' },
+            { term: 'RDBMS', detail: 'Relational Database Management System: tables aur unke relationships ki bunyaad par data manage karta hai.' },
+            { term: 'RLS', detail: 'Row-Level Security: database policy jo tay karti hai ke user kaunsi rows dekh ya badal sakta hai.' },
+            { term: 'SaaS', detail: 'Software as a Service: provider ke hosted software ko internet par use karna; billing subscription ya usage-based ho sakti hai.' },
+            { term: 'SDK', detail: 'Software Development Kit: kisi platform ya service ke liye app banane ke tools, libraries aur documentation.' },
+            { term: 'SQL', detail: 'Structured Query Language: relational database mein data query aur manage karne ki language.' },
+            { term: 'UI', detail: 'User Interface: screen par woh controls aur content jin se user software ke saath interact karta hai.' },
+            { term: 'UX', detail: 'User Experience: product use karte waqt user ka overall tajurba, asaani aur satisfaction.' },
+          ],
+        }],
       },
       {
-        title: 'Reactions',
-        heading: 'When substances become something new',
-        definition: 'A <strong>chemical reaction</strong> rearranges atoms to turn starting substances into new substances. The atoms are still there; they have simply been connected in a different way.',
-        example: 'When iron rusts, iron reacts with oxygen to form a new substance called iron oxide.',
-        concept: 'CHANGE & TRANSFORMATION',
+        title: 'Web & Network Abbreviations',
+        heading: 'Web aur networking ke short forms',
+        definition: 'Web pages, browser, data exchange aur networks ke liye istemaal hone wale common abbreviations.',
+        concept: 'WEB · NETWORKS',
+        glossaryFooter: 'SHORT FORM → FULL FORM → KAAM',
+        glossarySections: [{
+          title: 'Web, internet aur networking',
+          items: [
+            { term: 'API', detail: 'Application Programming Interface: software ke hisson ko aik doosre se interact karne ka agreed interface.' },
+            { term: 'CDN', detail: 'Content Delivery Network: distributed servers ka network jo images, scripts aur doosre web assets ko users ke qareeb se serve kar sakta hai.' },
+            { term: 'CSS', detail: 'Cascading Style Sheets: web page ke rang, layout aur visual style define karne ki language.' },
+            { term: 'DNS', detail: 'Domain Name System: domain name, jaise example.com, ko IP address se map karta hai.' },
+            { term: 'DOM', detail: 'Document Object Model: HTML document ki tree representation aur usay read ya update karne wali interface.' },
+            { term: 'GPRS', detail: 'General Packet Radio Service: GSM mobile networks par packet-based data service, aam tor par 2G se mansub.' },
+            { term: 'HTML', detail: 'HyperText Markup Language: web page ke content aur structure ko mark up karne ki language.' },
+            { term: 'HTTP', detail: 'Hypertext Transfer Protocol: browser aur server ke darmiyan web requests aur responses ka protocol.' },
+            { term: 'HTTPS', detail: 'HTTP Secure: TLS encryption ke zariye HTTP connection ko protect karta hai.' },
+            { term: 'IP', detail: 'Internet Protocol: network par packets address aur route karne ke rules ka set.' },
+            { term: 'ISP', detail: 'Internet Service Provider: company ya idara jo internet connection deta hai.' },
+            { term: 'JSON', detail: 'JavaScript Object Notation: structured data exchange ka text format; JSON khud API nahi hota.' },
+            { term: 'LAN', detail: 'Local Area Network: ghar, school ya office jaisi chhoti jagah ka network.' },
+            { term: 'MAC', detail: 'Media Access Control: network interface ka link-layer address; local network par device interface ko identify karta hai.' },
+            { term: 'MAN', detail: 'Metropolitan Area Network: aik shehar ya metropolitan area mein networks ko jorne wala network.' },
+            { term: 'PAN', detail: 'Personal Area Network: aik shakhs ke qareeb personal devices ka network, jaise Bluetooth connection.' },
+            { term: 'TCP', detail: 'Transmission Control Protocol: reliable, ordered data delivery ke liye transport protocol.' },
+            { term: 'TLD', detail: 'Top-Level Domain: domain name ka aakhri hissa, jaise `.com` ya `.dev`.', example: '`example.dev` mein `.dev` TLD hai.' },
+            { term: 'UDP', detail: 'User Datagram Protocol: connectionless transport protocol; delivery ya order ki guarantee nahi deta.' },
+            { term: 'URI', detail: 'Uniform Resource Identifier: resource ko identify karne wali string; URL URI ki aik qisam hai.' },
+            { term: 'URL', detail: 'Uniform Resource Locator: web ya network resource ka address aur us tak pohanchne ka tareeqa.' },
+            { term: 'VPN', detail: 'Virtual Private Network: public network par encrypted tunnel ke zariye private network access ya traffic protection deta hai.' },
+            { term: 'WAN', detail: 'Wide Area Network: bari geographic distance par networks ko jorne wala network.' },
+            { term: 'WWW', detail: 'World Wide Web: internet par linked pages aur resources ka system, jo web protocols se access hota hai.' },
+          ],
+        }],
+      },
+      {
+        title: 'Programming & Security Abbreviations',
+        heading: 'Programming aur security ke mazeed short forms',
+        definition: 'Development aur security ke useful terms, sahi full forms aur mukhtasar context ke saath.',
+        concept: 'CODE · SECURITY',
+        glossaryFooter: 'SHORT FORM → FULL FORM → CONTEXT',
+        glossarySections: [{
+          title: 'Code, web development aur security',
+          items: [
+            { term: '2FA', detail: 'Two-Factor Authentication: login ke liye password ke saath aik doosra saboot, jaise authenticator code.' },
+            { term: 'ABAC', detail: 'Attribute-Based Access Control: user, resource aur request ke attributes dekh kar access ka faisla karne ka model.' },
+            { term: 'AJAX', detail: 'Asynchronous JavaScript and XML: page reload kiye baghair server se data lena ya bhejna; aaj kal JSON bhi aam hai.' },
+            { term: 'ASI', detail: 'Automatic Semicolon Insertion: JavaScript parser kuch jagahon par semicolon khud insert karta hai.' },
+            { term: 'CJS', detail: 'CommonJS: JavaScript modules ka format jo aksar Node.js mein `require()` aur `module.exports` use karta hai.' },
+            { term: 'CORS', detail: 'Cross-Origin Resource Sharing: browser aur server ke darmiyan mukhtalif origins se request ki ijazat dene wala mechanism.' },
+            { term: 'CRLF', detail: 'Carriage Return + Line Feed: Windows text files mein line khatam karne ke liye aam tor par istemaal hone wale do characters.' },
+            { term: 'CRUD', detail: 'Create, Read, Update, Delete: data ko banane, parhne, badalne aur mitane ke bunyadi operations.' },
+            { term: 'DRY', detail: 'Don’t Repeat Yourself: aik hi knowledge ya logic ko bila-zaroorat kai jagah duplicate na karna.' },
+            { term: 'ES Modules', detail: 'ECMAScript Modules: JavaScript ka standard module system, jo `import` aur `export` use karta hai.' },
+            { term: 'FIFO', detail: 'First In, First Out: queue ka rule jahan sab se pehle aane wala item sab se pehle nikalta hai.' },
+            { term: 'IIFE', detail: 'Immediately Invoked Function Expression: function expression jo define hote hi foran chal jata hai.' },
+            { term: 'ISR', detail: 'Incremental Static Regeneration: Next.js Pages Router ka feature jo static page ko deploy ke baad dobara generate kar sakta hai.' },
+            { term: 'JWT', detail: 'JSON Web Token: claims ko JSON format mein represent karne wala token format, jo aksar digitally signed hota hai.' },
+            { term: 'LIFO', detail: 'Last In, First Out: stack ka rule jahan sab se aakhir mein rakha gaya item sab se pehle nikalta hai.' },
+            { term: 'OAuth', detail: 'OAuth 2.0 aik authorization framework hai jo app ko user ki ijazat se limited access deta hai; yeh khud login protocol nahi.' },
+            { term: 'PAT', detail: 'Personal Access Token: account ya service ke liye banaya gaya token jo scripts aur tools ko limited access de sakta hai.' },
+            { term: 'PHP', detail: 'PHP: Hypertext Preprocessor: server-side web development mein istemaal hone wali programming language; yeh recursive acronym hai.' },
+            { term: 'PWA', detail: 'Progressive Web App: web app jo browser APIs se app jaisa installable aur offline-capable tajurba de sakti hai.' },
+            { term: 'REST', detail: 'Representational State Transfer: web services design karne ke architectural constraints ka set.' },
+            { term: 'SSG', detail: 'Static Site Generation: pages ko build ke waqt HTML mein render karna, phir tayyar files serve karna.' },
+            { term: 'SSR', detail: 'Server-Side Rendering: request ke waqt server par page ka HTML render karna.' },
+            { term: 'VCS', detail: 'Version Control System: files ki tabdeeliyan record aur versions ko manage karne wala system, jaise Git.' },
+            { term: 'XSS', detail: 'Cross-Site Scripting: web security flaw jahan attacker ka script doosre users ke browser mein chal sakta hai.' },
+            { term: 'XAMPP', detail: 'Cross-platform development stack ka naam. Is mein Apache aur PHP shamil hain; database component version ke mutabiq MySQL ya MariaDB ho sakta hai.' },
+            { term: 'XHTML', detail: 'Extensible HyperText Markup Language: HTML ko XML ke zyada sakht syntax rules ke saath likhne wala markup format.' },
+            { term: 'XML', detail: 'Extensible Markup Language: structured data ko tags ke zariye represent karne ka markup format.' },
+            { term: 'Yarn', detail: 'JavaScript packages manage karne wala package manager; naam “Yet Another Resource Negotiator” se aaya hai.' },
+          ],
+        }],
+      },
+      {
+        title: 'Devices, Media & Connectivity',
+        heading: 'Devices, media aur connectivity ke short forms',
+        definition: 'Hardware, file formats aur mobile networks mein aam abbreviations ko examples ke saath dekhein.',
+        concept: 'DEVICES · MEDIA · NETWORKS',
+        glossaryFooter: 'SHORT FORM → FULL FORM → CONTEXT',
+        glossarySections: [{
+          title: 'Hardware, formats aur mobile networks',
+          items: [
+            { term: 'AAC', detail: 'Advanced Audio Coding: digital audio ka lossy compression format.' },
+            { term: 'AMR', detail: 'Adaptive Multi-Rate: speech audio ke liye banaya gaya audio codec.' },
+            { term: 'APNG', detail: 'Animated Portable Network Graphics: PNG format ki extension jo animation support karti hai.' },
+            { term: 'AT&T', detail: 'American Telephone and Telegraph: American telecommunications company ka naam.' },
+            { term: 'ATM', detail: 'Automated Teller Machine: bank card se cash nikalne aur kuch banking kaam karne wali machine.' },
+            { term: 'AVIF', detail: 'AV1 Image File Format: AV1 video codec par mabni modern image format.' },
+            { term: 'CD', detail: 'Compact Disc: optical disc jis par digital audio ya data store kiya ja sakta hai.' },
+            { term: 'CDMA', detail: 'Code Division Multiple Access: radio communication mein users ko mukhtalif codes se alag karne ki technique.' },
+            { term: 'DRAM', detail: 'Dynamic Random-Access Memory: RAM ki qisam jise data barqarar rakhne ke liye refresh karna hota hai.' },
+            { term: 'DVD', detail: 'Digital Versatile Disc: optical storage disc; “Digital Video Disc” bhi pehle istemaal hota tha.' },
+            { term: 'EEPROM', detail: 'Electrically Erasable Programmable Read-Only Memory: aisi non-volatile memory jise bijli se erase aur dobara program kiya ja sakta hai.' },
+            { term: 'EPROM', detail: 'Erasable Programmable Read-Only Memory: chip memory jise ultraviolet light se erase karke dobara program kiya ja sakta hai.' },
+            { term: 'FDD', detail: 'Floppy Disk Drive: floppy disk par data read aur write karne wali drive.' },
+            { term: 'FTP', detail: 'File Transfer Protocol: network par files transfer karne ka protocol.' },
+            { term: 'GIF', detail: 'Graphics Interchange Format: indexed-color image format jo simple animation bhi rakh sakta hai.' },
+            { term: 'GPS', detail: 'Global Positioning System: satellites ki madad se location aur waqt ka andaza dene wala navigation system.' },
+            { term: 'GSM', detail: 'Global System for Mobile Communications: 2G cellular networks ka mashhoor standard.' },
+            { term: 'HDMI', detail: 'High-Definition Multimedia Interface: digital video aur audio bhejne ka interface.' },
+            { term: 'IC', detail: 'Integrated Circuit: aik chhoti semiconductor chip par banaya gaya electronic circuit.' },
+            { term: 'JAR', detail: 'Java Archive: Java classes aur resources ko aik archive file mein jama karne ka format.' },
+            { term: 'JPEG', detail: 'Joint Photographic Experts Group: committee ka naam aur us ke banaye image compression standards ke liye aam naam.' },
+            { term: 'Kbps', detail: 'Kilobits per second: data rate ki unit; telecom usage mein 1 kbps aam tor par 1,000 bits per second hota hai.' },
+            { term: 'Mbps', detail: 'Megabits per second: data rate ki unit; MB/s se alag hai kyun ke bit aur byte mukhtalif hain.' },
+            { term: 'NVMe', detail: 'Non-Volatile Memory Express: PCI Express par flash storage ke liye banaya gaya storage protocol.' },
+            { term: 'PDF', detail: 'Portable Document Format: documents ko mukhtalif devices par milte-julte layout mein dikhane ka format.' },
+            { term: 'PNG', detail: 'Portable Network Graphics: lossless raster image format jo transparency ko support karta hai.' },
+            { term: 'PIN', detail: 'Personal Identification Number: identity verify karne ke liye istemaal hone wala numeric code.' },
+            { term: 'PROM', detail: 'Programmable Read-Only Memory: non-volatile memory jise aam tor par aik martaba program kiya jata hai.' },
+            { term: 'SIM', detail: 'Subscriber Identity Module: mobile subscription aur network identity se mutaliq credentials rakhne wala module.' },
+            { term: 'SMS', detail: 'Short Message Service: cellular network par text messages bhejne ka service.' },
+            { term: 'UMTS', detail: 'Universal Mobile Telecommunications System: 3G mobile communication standards ka aik system.' },
+            { term: 'VGA', detail: 'Video Graphics Array: IBM ka display standard; VGA connector naam bhi isi se mashhoor hua.' },
+            { term: 'VRAM', detail: 'Video Random-Access Memory: graphics processor ke liye istemaal hone wali memory.' },
+            { term: 'VRM', detail: 'Voltage Regulator Module: motherboard ya graphics card par processor ko munasib voltage dene wala circuit.' },
+            { term: '3G', detail: 'Third Generation: mobile network technology ki teesri nasal.' },
+            { term: '3GPP', detail: '3rd Generation Partnership Project: telecommunications standards tayyar karne wali standards organization.' },
+            { term: '3GP', detail: '3GPP se mutaliq multimedia container format; iska official full form “3rd Generation Project” nahi.' },
+          ],
+        }, {
+          title: 'Image, audio aur file format labels',
+          items: [
+            { term: 'BAT', detail: 'Windows batch file extension; batch file commands ka group chala sakti hai.', example: '`build.bat` command prompt par project ke build commands chala sakti hai.' },
+            { term: 'CUR', detail: 'Windows cursor image extension. Aapke note mein `.cur` ko ICO ke saath list kiya tha; cursor file format ka naam expansion nahi.', example: '`pointer.cur` mouse pointer ke custom image ko store kar sakti hai.' },
+            { term: 'DOC', detail: 'Word document ki legacy extension; “document” aam label hai, lekin `.doc` ka koi universal acronym expansion nahi.', example: 'purana Word file `letter.doc` ke naam se ho sakta hai.' },
+            { term: 'DOCX', detail: 'Office Open XML Word document format. Aapke note mein “office open XML document” tha; yeh sahi expansion ke qareeb hai.', example: '`resume.docx` editable Word-compatible document hota hai.' },
+            { term: 'EXE', detail: 'Executable file extension, Windows programs ke liye; yeh standard acronym expansion nahi.', example: '`setup.exe` installer launch kar sakta hai.' },
+            { term: 'ICO (icon file)', detail: 'Windows icon file format/extension. Aapke note mein “Microsoft Icon” likha tha; `.ico` ka standard expanded acronym nahi, yeh icon format ka extension hai.', example: 'website browser tab ke liye `favicon.ico` serve kar sakti hai.' },
+            { term: 'INI', detail: 'Initialization file: configuration settings rakhne wali file extension.', example: '`app.ini` mein server port ki setting ho sakti hai.' },
+            { term: 'MD', detail: 'Aapke note mein “Markdown / make directory” likha tha. File extension `.md` aam tor par Markdown document hai; directory banane ke liye `mkdir` command hota hai.', example: '`README.md` mein headings aur code blocks likho.' },
+            { term: 'MIDI', detail: 'Musical Instrument Digital Interface: instruments aur music software ke darmiyan performance instructions ka standard.', example: 'MIDI keyboard ke notes ko DAW mein record karke piano sound se play karo.' },
+            { term: 'MKV', detail: 'Matroska Video: Matroska multimedia container ki aam extension.', example: '`film.mkv` mein video ke saath multiple subtitle tracks ho sakte hain.' },
+            { term: 'MP4', detail: 'MPEG-4 Part 14: audio, video aur metadata rakhne wala multimedia container.', example: 'phone video `clip.mp4` mein save ho sakti hai.' },
+            { term: 'MPEG', detail: 'Moving Picture Experts Group: audio/video standards banane wali group ka naam.', example: 'MPEG-4 Part 14 ko aam tor par MP4 kaha jata hai.' },
+            { term: 'OGG / OOG', detail: 'Ogg container format ka naam OGG hai; aapke note ka `.oog` likely typo hai. Ogg khud acronym expansion nahi.', example: '`.ogg` audio file ko Ogg-compatible player mein kholo.' },
+            { term: 'RAR', detail: 'Roshal Archive: compressed archive format ka naam.', example: '`backup.rar` ko archive utility se extract karo.' },
+            { term: 'SVG', detail: 'Scalable Vector Graphics: scalable vector image format.', example: '`logo.svg` ko bara karne par bhi edges sharp rehte hain.' },
+            { term: 'TXT', detail: 'Plain-text file extension; `.txt` aam tor par text file ko indicate karta hai.', example: '`notes.txt` ko simple text editor mein kholo.' },
+            { term: 'WAV', detail: 'Waveform Audio File Format: audio file format, aksar uncompressed PCM audio ke liye.', example: 'studio recording `take.wav` mein save karo.' },
+            { term: 'WMA', detail: 'Windows Media Audio: Microsoft se mutaliq audio codec/format.', example: '`voice.wma` ko WMA-compatible player mein chalao.' },
+            { term: 'XLSX', detail: 'Office Open XML spreadsheet format. Aapke note mein sirf extension tha.', example: '`budget.xlsx` workbook mein monthly expenses rakho.' },
+            { term: 'ZIP archive', detail: 'Compressed archive format. Aapke note ka “Zone Improvement Plan” postal ZIP Code ka expansion hai, ZIP file ka nahi.', example: '`project.zip` mein project ki multiple files jama ho sakti hain.' },
+          ],
+        }],
+      },
+      {
+        title: 'Everyday Terms & Reference',
+        heading: 'Rozmarrah short forms aur chhoti reference list',
+        definition: 'Chat, organizations aur technical reference ke common short forms. Ghalat mashhoor expansions ko bhi alag se clear kiya gaya hai.',
+        concept: 'EVERYDAY · REFERENCE',
+        glossaryFooter: 'SHORT FORM → MEANING → NOTE',
+        glossarySections: [
+          {
+            title: 'Chat, organizations aur aam istemaal',
+            items: [
+              { term: 'AKA', detail: 'Also Known As: kisi shakhs ya cheez ke doosre naam se pehchane jane par.' },
+              { term: 'BBC', detail: 'British Broadcasting Corporation: United Kingdom ka public service broadcaster.' },
+              { term: 'BMW', detail: 'Bayerische Motoren Werke: German vehicle company ka naam.' },
+              { term: 'BRB', detail: 'Be Right Back: chat mein batane ke liye ke aap jald wapas aayenge.' },
+              { term: 'BTW', detail: 'By The Way: guftagu mein aik extra baat shuru karne ke liye.' },
+              { term: 'DIY', detail: 'Do It Yourself: kisi kaam ko khud karna, bajaye tayyar service lene ke.' },
+              { term: 'FAQ', detail: 'Frequently Asked Questions: baar baar pooche jane wale sawalat aur unke jawab.' },
+              { term: 'FYI', detail: 'For Your Information: maloomat dene ke liye; zaroori nahi ke jawab darkar ho.' },
+              { term: 'GMT', detail: 'Greenwich Mean Time: Greenwich se mansub time standard; UTC iska modern atomic time standard hai.' },
+              { term: 'IBM', detail: 'International Business Machines: technology company ka naam.' },
+              { term: 'IDC', detail: 'I Don’t Care: chat mein be-parwahi ya faisle se dilchaspi na hone ka izhar.' },
+              { term: 'IDK', detail: 'I Don’t Know: “mujhe nahi maloom” ka short form.' },
+              { term: 'IG', detail: 'Instagram ke liye aam short form; chat mein context ke mutabiq “I guess” bhi ho sakta hai.' },
+              { term: 'IQ', detail: 'Intelligence Quotient: standardized test score jo kuch cognitive abilities ko compare karta hai; yeh poori intelligence ka paimana nahi.' },
+              { term: 'IRL', detail: 'In Real Life: online ke bajaye rozmarrah ya physical duniya mein.' },
+              { term: 'JK', detail: 'Just Kidding: batane ke liye ke baat mazaq mein kahi gayi thi.' },
+              { term: 'LASER', detail: 'Light Amplification by Stimulated Emission of Radiation: focused light banane wali technology.' },
+              { term: 'LMK', detail: 'Let Me Know: “mujhe bata dena” ka short form.' },
+              { term: 'LOL', detail: 'Laughing Out Loud: chat mein hansi ya mazaq ka reaction.' },
+              { term: 'LPA', detail: 'Lakh Per Annum: South Asia mein salary batane ka aam tareeqa, yani saal bhar mein lakh rupay.' },
+              { term: 'LPA', detail: 'Lasting Power of Attorney: UK ka legal document jahan koi shakhs mustaqbil mein faisle karne ke liye attorney muqarrar karta hai.' },
+              { term: 'LTS', detail: 'Long-Term Support: software version jise aam releases se zyada arsay tak updates milte hain.' },
+              { term: 'MIPS', detail: 'Million Instructions Per Second: processor performance ka aik purana metric; mukhtalif architectures ko seedha compare karna mushkil hai.' },
+              { term: 'NFT', detail: 'Non-Fungible Token: blockchain par unique token; token ki ownership ka matlab zaroori nahi ke underlying art ke copyright ki ownership bhi ho.' },
+              { term: 'NSA', detail: 'National Security Agency: United States ka intelligence aur cybersecurity idara.' },
+              { term: 'OCD', detail: 'Obsessive-Compulsive Disorder: mental health condition jismein obsessions aur/ya compulsions hoti hain.' },
+              { term: 'POV', detail: 'Point of View: kisi shakhs ka nazariya ya kahani dikhane ka perspective.' },
+              { term: 'RIP', detail: 'Rest in Peace: wafat shuda shakhs ke liye izzat aur afsos ka jumla.' },
+              { term: 'RTS', detail: 'Real-Time Strategy: strategy video game genre jahan players aik hi waqt mein units aur resources manage karte hain.' },
+              { term: 'SMH', detail: 'Shaking My Head: na-pasand, hairani ya mayoosi ka chat reaction.' },
+              { term: 'SOS', detail: 'Morse code mein distress signal, jo `... --- ...` hota hai. “Save Our Souls/Ship” iski asal official expansion nahi.' },
+              { term: 'TBD', detail: 'To Be Determined: jis baat ka faisla baad mein hona ho.' },
+              { term: 'TBH', detail: 'To Be Honest: “sach kahun to” ke maani mein.' },
+              { term: 'UNICEF', detail: 'Aaj ka official naam United Nations Children’s Fund hai. Purane naam “United Nations International Children’s Emergency Fund” se acronym barqarar raha.' },
+              { term: 'UTC', detail: 'Coordinated Universal Time: duniya bhar ke clocks aur time zones ke liye bunyadi time standard.' },
+              { term: 'VIP', detail: 'Very Important Person: khaas ahmiyat ya protocol rakhne wala shakhs.' },
+              { term: 'W3C', detail: 'World Wide Web Consortium: web ke standards aur guidelines tayyar karne wali organization.' },
+              { term: 'WRT', detail: 'With Respect To: “ke hawale se” ya “ke mutaliq”.' },
+              { term: 'ZIP code', detail: 'United States ka postal code; ZIP ka full form Zone Improvement Plan hai.' },
+            ],
+          },
+          {
+            title: 'Naam, terms aur ghalat mashhoor full forms',
+            items: [
+              { term: 'Bun', detail: 'JavaScript runtime aur toolkit ka proper name hai; “all-in-one” uski description hai, full form nahi.' },
+              { term: 'CRON', detail: 'Unix-like systems mein scheduled jobs chalane ka tareeqa/daemon. Is naam ko Greek “Chronos” se jorna mashhoor tashreeh hai, lekin yeh standard acronym expansion nahi.' },
+              { term: 'HEAD', detail: 'Git mein current checkout ko point karne wala reference; aksar current branch ya commit ki taraf ishara karta hai. Yeh full-form acronym nahi.' },
+              { term: 'ISO', detail: 'International Organization for Standardization ka short naam. “ISO” mukhtalif languages mein naam ke liye aik hi form hai; yeh English initials ka seedha acronym nahi.' },
+              { term: 'Wi-Fi', detail: 'Wireless networking technology ka brand name; “Wireless Fidelity” official full form nahi.' },
+              { term: 'SQL keywords', detail: 'ALTER, CREATE, DELETE, SELECT, UPDATE, DROP, EXISTS, USING, WITH CHECK, PERMISSIVE aur RESTRICTIVE SQL ke keywords ya clauses hain, abbreviations nahi.' },
+              { term: 'YAHOO!', detail: 'Internet company ka naam; is ke liye “Yet Another Hierarchical Officious Oracle” aik baad mein diya gaya backronym hai, naam ki asal expansion nahi.' },
+              { term: 'Virus', detail: 'Computer virus malware ki aik qisam hai. “Vital Information Resource Under Seized” iska asal full form nahi, sirf ghalat backronym hai.' },
+            ],
+          },
+          {
+            title: 'Operators aur digital data units',
+            items: [
+              { term: 'LAST-ACT-B', detail: 'Programming operators yaad rakhne ki mnemonic: Logical, Arithmetic, String, Typeof, Assignment, Comparison, Ternary, Bitwise. Language ke mutabiq operator precedence alag ho sakti hai.' },
+              { term: 'Bit aur byte', detail: '8 bits = 1 byte. 4 bits ke group ko aam tor par nibble kehte hain.' },
+              { term: 'KB aur KiB', detail: '1 KB = 1,000 bytes (decimal). 1 KiB = 1,024 bytes (binary). Isi tarah MiB, GiB waghera binary units hain.' },
+              { term: 'Binary size conversions', detail: '1 KiB = 1,024 bytes; 1 MiB = 1,024 KiB; 1 GiB = 1,024 MiB; phir isi tarah TiB, PiB, EiB, ZiB aur YiB.' },
+            ],
+          },
+          {
+            title: 'Safar aur currency ke short labels',
+            items: [
+              { term: 'LHR', detail: 'London Heathrow Airport ka IATA airport code. Aap apni list mein Lahore ke liye “LHR” use karte ho; Lahore ke Allama Iqbal International Airport ka code `LHE` hai, is liye travel booking mein `LHE` likhna sahi rahega.', example: 'Misal: Lahore se flight dhoondte hue departure code LHE use karo; Heathrow ke liye LHR.' },
+              { term: 'LHE', detail: 'Allama Iqbal International Airport, Lahore ka IATA airport code.', example: 'Misal: Lahore flight itinerary par destination airport `LHE` ho sakta hai.' },
+              { term: 'PKR', detail: 'Pakistani rupee ka ISO 4217 currency code.', example: 'Misal: price ko `PKR 2,000` likhne se currency wazeh rehti hai.' },
+              { term: 'Rs.', detail: 'Rupees ke liye aam istemaal hone wala mukhtasar label; mukhtalif mulkon mein currency batane ke liye code (jaise PKR) zyada clear hota hai.', example: 'Misal: Pakistan ki list mein `Rs. 2,000` ka matlab 2,000 Pakistani rupees hai.' },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Security, Data & Platform Abbreviations',
+        heading: 'Definitions lessons ke mazeed short forms',
+        definition: 'Definitions ke networking, security, database, analytics aur platform lessons mein istemaal hue abbreviations yahan jama hain.',
+        concept: 'SECURITY · DATA · PLATFORMS',
+        glossaryFooter: 'SHORT FORM → FULL FORM → LESSON CONTEXT',
+        glossarySections: [
+          {
+            title: 'Software, databases aur analytics',
+            items: [
+              { term: 'AOSP', detail: 'Android Open Source Project: Android platform ka open-source project.' },
+              { term: 'CTA', detail: 'Call to Action: button ya link jo user ko agla qadam lene ki dawat de, jaise “Sign up”.' },
+              { term: 'DAC', detail: 'Discretionary Access Control: access model jahan resource ka owner tay karta hai ke kis user ko permission mile.' },
+              { term: 'GIN', detail: 'Generalized Inverted Index: PostgreSQL index type jo JSONB, arrays aur multi-value search ko support karta hai.' },
+              { term: 'ID', detail: 'Identifier: kisi user, record ya object ko pehchanne wala naam ya value.' },
+              { term: 'JS', detail: 'JavaScript ka aam short form.' },
+              { term: 'JSONB', detail: 'PostgreSQL ka JSON data type jo JSON ko decomposed binary form mein store karta hai aur indexing/query options deta hai.' },
+              { term: 'JSX', detail: 'JavaScript XML: JavaScript mein UI jaisi markup likhne ki syntax extension, jo aksar React ke saath use hoti hai.' },
+              { term: 'LLM', detail: 'Large Language Model: bohat se text data par trained model jo text samajhne aur generate karne ke kaam aata hai.' },
+              { term: 'NASA', detail: 'National Aeronautics and Space Administration: United States ka civil space program aur aeronautics research agency.' },
+              { term: 'NLU', detail: 'Natural Language Understanding: natural-language systems ka hissa jo user ke lafzon se intent ya entities samajhne ki koshish karta hai.' },
+              { term: 'ROAS', detail: 'Return on Ad Spend: advertising par kharch ke muqable mein attributed revenue; yeh profit margin nahi hota.' },
+            ],
+          },
+          {
+            title: 'Security, networking aur platform',
+            items: [
+              { term: 'DOS', detail: 'Disk Operating System: disk aur files manage karne wala operating system; MS-DOS is naam ka Microsoft version tha.' },
+              { term: 'DPI', detail: 'Deep Packet Inspection: network traffic ke packet headers ke saath payload ko inspect karne ki technique; encrypted TLS payload ko dekhne ke liye alag TLS inspection chahiye.' },
+              { term: 'HOF', detail: 'Is project ke “HOF Pack” naam ka project-specific short label. Is context mein iska koi universal official full form nahi diya gaya.' },
+              { term: 'HR', detail: 'Human Resources: organization ka woh function jo hiring, employee support aur workplace policies sambhalta hai.' },
+              { term: 'IVR', detail: 'Interactive Voice Response: phone system jo recorded prompts aur keypad ya voice input se callers ko guide karta hai.' },
+              { term: 'MS-DOS', detail: 'Microsoft Disk Operating System: Microsoft ka command-line disk operating system, jis ke upar pehle Windows versions chalte thay.' },
+              { term: 'NAT', detail: 'Network Address Translation: router/gateway par IP addresses ko translate karne ki technique, aksar private network devices ko public address ke zariye internet access dene ke liye.' },
+              { term: 'NT', detail: 'Windows NT product family ke naam mein “New Technology” se mansub initials; Windows XP isi NT family par mabni tha.' },
+              { term: 'QUIC', detail: 'Modern transport protocol. Naam historically “Quick UDP Internet Connections” se aaya; aaj QUIC protocol ka proper naam hai, UDP ka synonym nahi.' },
+              { term: 'SOCKS', detail: 'Network proxy protocol family ka naam, aam tor par “Socket Secure” kaha jata hai. SOCKS proxy apps ki TCP aur kuch versions mein UDP traffic relay kar sakta hai.' },
+              { term: 'SSL', detail: 'Secure Sockets Layer: TLS se pehle istemaal hone wala secure-connection protocol. SSL ke tamam versions obsolete hain; modern HTTPS TLS use karta hai.' },
+              { term: 'TLS', detail: 'Transport Layer Security: network par do endpoints ke darmiyan encrypted aur authenticated connection banane ka protocol.' },
+              { term: 'TPM', detail: 'Trusted Platform Module: cryptographic keys aur platform integrity features ke liye security component.' },
+              { term: 'UEFI', detail: 'Unified Extensible Firmware Interface: modern PCs ke firmware aur operating-system boot ke darmiyan standard interface.' },
+              { term: 'Windows Me', detail: 'Windows Millennium Edition ka product name. “Me” Millennium Edition ko represent karta hai.' },
+              { term: 'Windows XP', detail: 'Windows XP ke “XP” ko “eXPerience” se jora gaya tha; yeh product name hai, technical protocol ka acronym nahi.' },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Architecture, AI & Networking Abbreviations',
+        heading: 'Web architecture, AI aur networking ke short forms',
+        definition: 'Pasted notes se chunay gaye useful technical abbreviations—correct full forms aur practical examples ke saath.',
+        concept: 'ARCHITECTURE · AI · NETWORKS',
+        glossaryFooter: 'SHORT FORM → FULL FORM → EXAMPLE',
+        glossarySections: [
+          {
+            title: 'Networking aur device memory',
+            items: [
+              { term: 'CSMA', detail: 'Carrier Sense Multiple Access: network devices transmit karne se pehle shared channel ko check karte hain; CSMA/CA Wi-Fi mein collision se bachne ki koshish karta hai.' },
+              { term: 'LPDDR', detail: 'Low-Power Double Data Rate: mobile devices ke liye kam power use karne wali SDRAM family.' },
+            ],
+          },
+          {
+            title: 'International telephone numbering',
+            items: [
+              { term: 'E.164', detail: 'ITU-T ki international public telephone numbering recommendation. Geographic country calling codes one, two ya three digits ke ho sakte hain.' },
+              { term: 'ITU', detail: 'International Telecommunication Union: United Nations ki specialized agency jo telecommunications standards aur international coordination par kaam karti hai.' },
+              { term: 'NANP', detail: 'North American Numbering Plan: +1 country code ke andar United States, Canada aur Caribbean ke participating countries/territories ka shared telephone numbering plan.' },
+              { term: 'NANPA', detail: 'North American Numbering Plan Administrator: NANP numbering resources ki neutral administration karne wala idara.' },
+              { term: 'ITU-T', detail: 'International Telecommunication Union Telecommunication Standardization Sector: ITU ka sector jo telecommunications ke international standards aur recommendations banata hai.' },
+            ],
+          },
+          {
+            title: 'Software interfaces aur configuration',
+            items: [
+              { term: 'IDL', detail: 'Interface Description Language: language-neutral tareeqa jo software components ya services ke interface aur unke data/operations ko describe karta hai.' },
+              { term: 'SCI', detail: 'Software Configuration Item: configuration management ke tehat pehchana aur track kiya jane wala software artifact, jaise source file, build script ya release document.' },
+              { term: 'WASM', detail: 'WebAssembly (Wasm): portable binary instruction format aur compilation target, jise compatible runtimes web ya doosre environments mein chala sakte hain.' },
+            ],
+          },
+          {
+            title: 'Web, architecture aur AI',
+            items: [
+              { term: 'CAPTCHA', detail: 'Completely Automated Public Turing test to tell Computers and Humans Apart: website par automated abuse kam karne ke liye challenge.' },
+              { term: 'MVC', detail: 'Model-View-Controller: software ko data/model, display/view aur request/controller responsibilities mein organize karne ka pattern.' },
+              { term: 'SERP', detail: 'Search Engine Results Page: search engine par query bhejne ke baad dikhne wale results ka page. “Search Engine Research Pages” sahi expansion nahi.' },
+              { term: 'VLM', detail: 'Vision-Language Model: image ya video jaisi visual input aur text dono ko process karne wala AI model.' },
+            ],
+          },
+          {
+            title: 'Character encoding',
+            items: [
+              { term: 'UTF-16', detail: 'Unicode Transformation Format – 16-bit: Unicode text ko 16-bit code units mein encode karta hai; kuch characters do code units lete hain.' },
+            ],
+          },
+        ],
       },
     ],
   },
-  physics: {
-    name: 'Physics',
+  links: {
+    name: 'Links',
+    chapters: linkGroups.map((section) => ({
+      title: section.title,
+      heading: section.title,
+      definition: 'Project chats aur pasted notes se share hue links. Har link ke saath uska use aur aik misaal di gayi hai.',
+      concept: 'LINKS · PURPOSE · EXAMPLE',
+      glossaryFooter: `${section.items.length} LINKS · USER-SHARED RESOURCE REGISTER`,
+      glossarySections: [section],
+    })),
+  },
+  types: {
+    name: 'Types',
     chapters: [
       {
-        title: 'Motion',
-        heading: 'Describing how things move',
-        definition: '<strong>Motion</strong> is a change in an object’s position over time. We can describe it by measuring how far the object travels and how long the journey takes.',
-        example: 'A bicycle moving 10 meters each second has a speed of 10 meters per second.',
-        concept: 'POSITION, DISTANCE & TIME',
+        title: 'Shoes',
+        heading: 'Shoes ki aam qismein',
+        definition: 'Jootay comfort, activity aur occasion ke mutabiq chune jate hain. Har style ka sole, fit aur support alag ho sakta hai.',
+        concept: 'SHOES · STYLE · USE',
+        apparelTypes: [
+          { name: 'Black lassesless (lace-less)', detail: 'Aapka original label “Black lassesless”; mumkin sahi spelling “black lace-less” hai. Exact shoe style ko photo se confirm karein.', example: 'black lace-less shoes ko formal trousers ke saath pehnne se pehle fit aur slip-on design check karo.' },
+          { name: 'Blue sports', detail: 'Aapki list ka blue sports-shoe option.', example: 'blue sports shoes ko walk ya workout ke waqt comfortable socks ke saath pehno.' },
+          { name: 'Black sports', detail: 'Aapki list ka black sports-shoe option.', example: 'black sports shoes ko gym mein pehnne se pehle sole ki grip check karo.' },
+          { name: 'Brown Balochi', detail: 'Aapki list ka brown Balochi-style shoe label; design ki exact details note mein nahi thin.', example: 'brown Balochi shoes ko traditional kapron ke saath pehn kar outfit match dekho.' },
+          { name: 'Sneakers', detail: 'Rozmarra casual wear ke liye flexible sole wale shoes.', example: 'Jeans aur plain T-shirt ke saath white sneakers pehne ja sakte hain.' },
+          { name: 'Running shoes', detail: 'Daurne ke liye banaye gaye shoes jin mein cushioning aur grip hoti hai.', example: 'Jogging se pehle running shoes pehno taa-ke qadam ko support mile.' },
+          { name: 'Formal shoes', detail: 'Office, ceremony ya formal dress ke saath pehne jane wale polished shoes.', example: 'Black leather shoes suit ke saath formal event mein pehne ja sakte hain.' },
+          { name: 'Boots', detail: 'Ankle ya us se upar tak cover karne wale mazboot shoes.', example: 'Hiking boots uneven trail par paon ko cover aur grip dete hain.' },
+          { name: 'Sandals', detail: 'Khule design ke shoes jo straps se paon par tikte hain.', example: 'Garam mausam mein casual walk ke liye comfortable sandals pehno.' },
+          { name: 'Loafers', detail: 'Slip-on shoes jin mein lace bandhne ki zaroorat nahi hoti.', example: 'Brown loafers chinos ke saath smart-casual look dete hain.' },
+          { name: 'Khussa / jutti', detail: 'South Asian traditional flat footwear, aksar embroidered ya decorated hota hai.', example: 'Khussa shalwar kameez ke saath shaadi ya Eid par pehna ja sakta hai.' },
+        ],
       },
       {
-        title: 'Forces',
-        heading: 'Pushes and pulls that change motion',
-        definition: 'A <strong>force</strong> is a push or pull on an object. Forces can start or stop motion, change direction, or change an object’s shape.',
-        example: 'When you kick a stationary ball, your foot applies a force that makes the ball move.',
-        concept: 'PUSH, PULL & CHANGE',
+        title: 'T-Shirts',
+        heading: 'T-shirts ke aapke listed designs',
+        definition: 'T-shirt casual knit shirt hoti hai. Neeche aapke diye hue labels rakhe hain; horse ka lafz color hai ya graphic design, yeh note se clear nahi.',
+        concept: 'T-SHIRTS · DESIGN · EXAMPLE',
+        apparelTypes: [
+          { name: 'White horse', detail: 'Aapka original T-shirt label. White color, horse graphic, ya dono ka exact matlab confirm nahi.', example: 'order se pehle listing ki photo dekh kar confirm karo ke “White horse” white T-shirt hai ya horse-print design.' },
+          { name: 'Dark horse', detail: 'Aapka original T-shirt label. Is se dark color ya horse graphic murad hai, yeh note se clear nahi.', example: '“Dark horse” T-shirt select karte waqt color aur print ki product photo verify karo.' },
+        ],
       },
       {
-        title: 'Energy',
-        heading: 'The ability to make change happen',
-        definition: '<strong>Energy</strong> is the ability to cause change or do work. It can take many forms, including movement, heat, light, and stored energy.',
-        example: 'A stretched rubber band stores energy. When released, that stored energy helps the band snap back.',
-        concept: 'STORED & MOVING ENERGY',
+        title: 'Shirts',
+        heading: 'Shirts ki aam qismein',
+        definition: 'Shirt ka collar, sleeves, buttons aur fabric uske style aur use ko badalte hain.',
+        concept: 'SHIRTS · COLLAR · OCCASION',
+        apparelTypes: [
+          { name: 'T-shirt', detail: 'Aam tor par soft knit fabric ki short-sleeve shirt; collar ya buttons zaroori nahi.', example: 'Plain cotton T-shirt ghar ya casual outing ke liye pehni ja sakti hai.' },
+          { name: 'Polo shirt', detail: 'Collar aur chhoti button placket wali knit shirt.', example: 'Polo shirt ko chinos ke saath casual office day par pehna ja sakta hai.' },
+          { name: 'Dress shirt', detail: 'Collar aur front buttons wali shirt jo formal ya office outfit ke liye hoti hai.', example: 'White dress shirt suit ke neeche interview mein pehni ja sakti hai.' },
+          { name: 'Casual button-down', detail: 'Buttons aur collar wali relaxed shirt, jo formal dress shirt se zyada casual fabric ya pattern mein hoti hai.', example: 'Check button-down ko jeans ke saath weekend par pehna ja sakta hai.' },
+          { name: 'Henley shirt', detail: 'Round neckline aur chhoti button placket wali casual shirt, aam tor par bina collar.', example: 'Long-sleeve Henley thanday din mein jacket ke neeche pehni ja sakti hai.' },
+          { name: 'Kurta', detail: 'South Asian lambi shirt jo aam tor par side slits aur front placket ke saath hoti hai.', example: 'Cotton kurta garmiyon mein shalwar ya trousers ke saath pehna ja sakta hai.' },
+        ],
+      },
+      {
+        title: 'Pants (Pents)',
+        heading: 'Pants ki aam qismein',
+        definition: 'Aapka original menu label “Pents”; standard English spelling “Pants” hai. Cut, fabric aur pockets ke mutabiq pants casual ya formal ho sakti hain.',
+        concept: 'PANTS · FIT · FABRIC',
+        apparelTypes: [
+          { name: 'Jeans', detail: 'Denim fabric ki mazboot casual pants.', example: 'Blue jeans T-shirt aur sneakers ke saath rozmarra pehni ja sakti hain.' },
+          { name: 'Chinos', detail: 'Cotton twill ki halki aur smart-casual pants.', example: 'Beige chinos polo shirt aur loafers ke saath pehne ja sakte hain.' },
+          { name: 'Dress trousers', detail: 'Formal kapray ki tailored pants jo suit ya office outfit ka hissa ho sakti hain.', example: 'Navy dress trousers matching blazer ke saath formal meeting mein pehne ja sakte hain.' },
+          { name: 'Cargo pants', detail: 'Side par extra pockets wali casual ya utility pants.', example: 'Cargo pants mein chhoti cheezein rakh kar outdoor walk par ja sakte ho.' },
+          { name: 'Joggers', detail: 'Relaxed pants jin ke ankle par aksar elastic ya cuff hota hai.', example: 'Joggers workout ya ghar par aaraam ke liye pehne ja sakte hain.' },
+          { name: 'Shalwar', detail: 'South Asian loose-fit trousers jo aksar kameez ya kurta ke saath pehne jate hain.', example: 'Safed shalwar ko rozmarra cotton kameez ke saath pehna ja sakta hai.' },
+        ],
+      },
+      {
+        title: 'Caps',
+        heading: 'Caps ke aapke listed designs',
+        definition: 'Cap headwear hota hai; aapka diya hua label “Black Markhor” yahan preserve kiya hai. Exact logo ya fabric details note mein nahi thin.',
+        concept: 'CAPS · DESIGN · EXAMPLE',
+        apparelTypes: [
+          { name: 'Black Markhor', detail: 'Aapki list ka black Markhor cap label; mumkin hai Markhor ka logo/design ho.', example: 'cap khareedne se pehle front par Markhor ka logo aur black shade ki photo dekh lo.' },
+        ],
+      },
+      {
+        title: 'Belts',
+        heading: 'Belts ke aapke listed options',
+        definition: 'Belt ka color, strap aur buckle uski style batate hain. Aapke original labels aur mumkin spelling corrections saath diye hain.',
+        concept: 'BELTS · COLOR · BUCKLE',
+        apparelTypes: [
+          { name: 'Orange', detail: 'Aapki list ka orange belt option.', example: 'orange belt ko neutral rang ke kapron ke saath accent ke taur par pehno.' },
+          { name: 'Black Tread (original wording)', detail: 'Aapka original label “Black Tread”; mumkin spelling “Black thread” ho sakti hai, lekin exact design confirm nahi.', example: 'belt order se pehle strap ki texture wali close-up photo check karo.' },
+          { name: 'Black backal pin (possibly buckle pin)', detail: 'Aapka original label “Black backal pin”; mumkin sahi term “black buckle pin” hai. Exact buckle style verify karni hogi.', example: 'purchase se pehle buckle aur pin ka close-up dekh kar fastening confirm karo.' },
+        ],
+      },
+      {
+        title: 'Salwar Kameez',
+        heading: 'Salwar kameez ke aapke listed options',
+        definition: 'Aapke diye hue rang aur fabric/embroidery labels yahan jyon ke tyon rakhe hain.',
+        concept: 'SALWAR KAMEEZ · FABRIC · COLOR',
+        apparelTypes: [
+          { name: 'White shiny thread', detail: 'Safed kapray ya design par chamakdar dhaage ka aapka label.', example: 'close-up photo dekh kar white shiny-thread embroidery ki chamak aur placement check karo.' },
+          { name: 'White cotton', detail: 'Safed cotton salwar kameez option.', example: 'garm din mein white cotton suit rozmarra pehnne ke liye halka rehta hai.' },
+          { name: 'Light Green', detail: 'Aapka light-green color option.', example: 'light green suit ke saath white dupatta rang ko balance kar sakta hai.' },
+          { name: 'Little dark green', detail: 'Aapka original shade label “Little dark green”; mumkin matlab halka sa dark-green shade hai.', example: 'kapray ko daylight mein dekh kar confirm karo ke shade kitna dark hai.' },
+          { name: 'Dark Blue', detail: 'Aapka dark-blue color option.', example: 'dark blue suit ke saath light-colored khussa ya dupatta contrast de sakta hai.' },
+        ],
+      },
+      {
+        title: 'Trousers',
+        heading: 'Trousers ki aam qismein',
+        definition: 'Trousers lafz aksar formal ya tailored pants ke liye use hota hai; regional usage mein pants aur trousers overlap bhi karte hain.',
+        concept: 'TROUSERS · FIT · OCCASION',
+        apparelTypes: [
+          { name: 'Dress trousers', detail: 'Formal kapray ki tailored trousers.', example: 'navy dress trousers office shirt aur blazer ke saath pehne ja sakte hain.' },
+          { name: 'Pleated trousers', detail: 'Waist ke paas pleats/folds wali trousers.', example: 'pleated trousers ko tucked-in shirt ke saath formal event par pehno.' },
+          { name: 'Flat-front trousers', detail: 'Front par pleats ke baghair seedha, simple cut.', example: 'flat-front trousers ko polo shirt ke saath smart-casual look ke liye pehno.' },
+          { name: 'Wide-leg trousers', detail: 'Leg ke neeche tak zyada khula cut.', example: 'wide-leg trousers ke saath fitted shirt proportions ko balance karti hai.' },
+          { name: 'Slim-fit trousers', detail: 'Leg ke saath relatively fitted cut.', example: 'slim-fit trousers ko aisi shirt ke saath pehno jo movement ko tang na kare.' },
+        ],
+      },
+      {
+        title: 'Pent-Coat',
+        heading: 'Pant-coat ke aam styles',
+        definition: 'Aapka original label “Pent-Coat”; standard spelling “pant coat” ya “pant-coat suit” hoti hai.',
+        concept: 'PANT-COAT · SUIT · EXAMPLE',
+        apparelTypes: [
+          { name: 'Two-piece pant coat', detail: 'Matching coat/blazer aur trousers ka set.', example: 'charcoal two-piece pant coat ko white shirt aur formal shoes ke saath pehno.' },
+          { name: 'Three-piece pant coat', detail: 'Coat, trousers aur matching waistcoat ka set.', example: 'wedding ya formal event par three-piece suit ke saath tie pehni ja sakti hai.' },
+          { name: 'Single-breasted coat', detail: 'Front par buttons ki aik row wala coat.', example: 'single-breasted coat ko interview ke liye matching trousers ke saath pehno.' },
+        ],
+      },
+      {
+        title: 'Vase-coat (Waistcoat)',
+        heading: 'Waistcoat ke aapke listed option',
+        definition: 'Aapka original label “Vase-coat”; sahi English spelling “Waistcoat” hai. Waistcoat sleeveless vest hoti hai jo shirt ya suit ke upar pehni jati hai.',
+        concept: 'WAISTCOAT · COLOR · DETAIL',
+        apparelTypes: [
+          { name: 'Black with red tissue', detail: 'Aapka original waistcoat design label. “Red tissue” kis fabric ya decoration ko kehta hai, yeh note mein clear nahi.', example: 'kapra order karne se pehle seller se red tissue detail ki close-up photo mangwao.' },
+        ],
+      },
+      {
+        title: 'Glasses',
+        heading: 'Glasses ki aam qismein',
+        definition: 'Glasses nazar theek karne, dhoop se bachne, ya style ke liye pehne ja sakte hain.',
+        concept: 'GLASSES · LENS · USE',
+        apparelTypes: [
+          { name: 'Prescription glasses', detail: 'Nazar ki prescription ke mutabiq lenses wale glasses.', example: 'naye prescription glasses banwate waqt optician ko latest prescription dikhayo.' },
+          { name: 'Sunglasses', detail: 'Dhoop mein aankhon ki roshni kam karne wale tinted lenses.', example: 'bahar tez dhoop mein UV protection wali sunglasses pehno.' },
+          { name: 'Reading glasses', detail: 'Qareeb ka text parhne mein madad dene wale glasses.', example: 'kitab parhte waqt reading glasses use karo agar prescription is ka kehti ho.' },
+          { name: 'Aviator frames', detail: 'Aksar teardrop shape ke frame; prescription ya sunglasses lenses ke saath milte hain.', example: 'aviator frames face par fit hain ya nahi, khareedne se pehle try karo.' },
+          { name: 'Wayfarer frames', detail: 'Aksar trapezoid shape ka classic frame style.', example: 'wayfarer frames ko prescription lens ya sunglasses ke taur par choose kiya ja sakta hai.' },
+        ],
       },
     ],
+  },
+  tools: {
+    name: 'Tools & Formats',
+    chapters: [
+      {
+        title: 'VS Code Extensions',
+        heading: 'VS Code extensions aur developer tools',
+        definition: 'Extensions editor mein extra features add karti hain. Aapke note ke naam preserve kiye hain; har tool ka aik seedha use aur example bhi diya hai.',
+        concept: 'VS CODE · EXTENSIONS · EXAMPLES',
+        glossarySections: [{ title: 'Code editor tools', items: [
+          { term: 'Prettier', detail: 'Code formatter jo supported files ko consistent style mein format karta hai.', example: 'save par `app.js` ko Prettier se format karwao.' },
+          { term: 'VS Code Icons / Material Icon Theme', detail: 'Explorer mein file aur folder ke liye recognizable icons dikhate hain.', example: '`package.json` ko alag icon se pehchano.' },
+          { term: 'Bracket Pair Colorizer 2 / Bracket Pair Colorization', detail: 'Aapka note Bracket Pair Colorizer 2 kehta hai. VS Code mein bracket pair colorization ab built-in setting hai, is liye pehle built-in feature use kar sakte ho.', example: 'nested `if` blocks ke matching `{}` ko rang se trace karo.' },
+          { term: 'Indent Rainbow', detail: 'Indentation levels ko colors se dikhata hai, jis se nested code ka structure nazar aata hai.', example: 'Python ke nested loops mein har indentation depth ko alag rang dekho.' },
+          { term: 'Live Server', detail: 'Local web page serve karta hai aur supported setup mein changes par browser refresh karta hai.', example: '`index.html` edit karke browser mein local preview dekho.' },
+          { term: 'Error Lens', detail: 'Diagnostics ko code line ke qareeb highlight karta hai taa-ke errors jaldi nazar aayein.', example: 'undefined variable par editor usi line par error message dikhaye.' },
+          { term: 'Path Intellisense / filename autocomplete', detail: 'Import ya file path likhte waqt maujood files aur folders ke suggestions deta hai.', example: '`import Header from "./` likho to `Header.js` ka suggestion aaye.' },
+          { term: 'Emmet / React Emmet', detail: 'HTML aur CSS shorthand ko expanded markup/style mein badalta hai; VS Code mein Emmet support aam tor par built in hoti hai.', example: '`ul>li*3` expand karke teen list items ka HTML banao.' },
+          { term: 'ESLint', detail: 'JavaScript/TypeScript source ko lint karke code-quality aur possible bug rules report karta hai; yeh Node.js ko VS Code ki ijazat dene wala extension nahi.', example: 'Unused variable ho to ESLint editor mein warning dikha sakta hai.' },
+          { term: 'Auto Rename Tag / Auto Close Tag', detail: 'HTML/XML tag editing mein matching closing ya opening tag ko update ya add karta hai.', example: '`<div>` ko `<main>` karne par closing tag bhi `</main>` ho jaye.' },
+          { term: 'Autoprefixer / CSS auto-prefix', detail: 'Build ke waqt target browser configuration ke mutabiq zaroori CSS vendor prefixes generate karta hai.', example: '`display: flex` ke liye purane targeted browsers ke prefixes output mein add hon.' },
+          { term: 'ES7 React/Redux/GraphQL/React-Native snippets', detail: 'React aur JavaScript patterns ke code snippets deta hai; snippet names aur shortcuts extension version par depend karte hain.', example: 'component snippet expand karke React component ka boilerplate banao.' },
+          { term: 'JavaScript (ES6) snippets / Babel JavaScript', detail: 'JavaScript syntax highlighting ya reusable code snippets provide karte hain.', example: 'arrow function snippet se `(value) => value` ka template insert karo.' },
+          { term: 'Code Runner', detail: 'Supported languages ke code ko editor se run karne ki sahulat deta hai; runtime alag se installed/configured hona chahiye.', example: 'chhota JavaScript snippet Node.js ke zariye chalao.' },
+          { term: 'REST Client / Thunder Client', detail: 'VS Code ke andar HTTP/API requests bhejne aur responses inspect karne ke tools.', example: '`GET http://localhost:3000/api/items` bhej kar JSON response dekho.' },
+          { term: 'React Native Tools', detail: 'React Native apps ki debugging aur development workflow ke liye VS Code support.', example: 'emulator par React Native app ke JavaScript debugger se breakpoint lagao.' },
+          { term: 'GitLens', detail: 'Git history, blame aur repository context ko editor mein dikhata hai.', example: 'line par dekh lo ke aakhri edit kis commit mein hui.' },
+          { term: 'Quokka.js', detail: 'JavaScript/TypeScript scratch code ko editor mein foran evaluate karke inline result dikhata hai.', example: '`2 + 2` likh kar result editor ke paas dekho.' },
+          { term: 'Live Share', detail: 'VS Code session mein doosre collaborator ke saath live editing aur debugging share karne ka feature/extension.', example: 'teammate ko session mein invite karke aik file par mil kar kaam karo.' },
+          { term: 'Peacock', detail: 'Workspace ke mutabiq VS Code window ka accent color badalta hai.', example: 'frontend workspace ko green aur API workspace ko blue rakho.' },
+          { term: 'Bookmarks / Task Tree', detail: 'Bookmarks code locations ko mark karte hain; Task Tree project tasks dikhane ke liye use ho sakta hai. “Task Tree” ka exact extension aapke note mein specify nahi.', example: 'function par bookmark laga kar baad mein us jagah wapas jao.' },
+          { term: 'Intellicode / Gemini Code Assist', detail: 'AI-assisted code suggestions ya coding help dene wale tools; account, extension aur configuration ke mutabiq features farq ho sakte hain.', example: 'function ke comment se initial code suggestion lo aur phir result review karo.' },
+          { term: 'Power Mode / VS Code Pets / Cobalt2', detail: 'Power Mode cursor animations deta hai, VS Code Pets editor mein animated companion dikhata hai, aur Cobalt2 color theme hai.', example: 'Cobalt2 theme select karke editor colors badlo; Power Mode ko optional visual effect ke liye on karo.' },
+          { term: 'Vim mode (original note: “Vin mood”)', detail: 'Vim-style modal editing mode; aapke original note ki likely correction “Vim mode” hai.', example: 'Normal mode mein `dd` current line delete karta hai; insert mode mein text type hota hai.' },
+          { term: '100 Days of Code', detail: 'Learning/challenge label jo rozana coding practice track karne ke liye use hota hai; extension ka exact publisher/feature aapke note mein specify nahi.', example: 'apni 100-day practice streak ke liye aaj ka completed lesson note karo.' },
+          { term: 'Restore Terminals / Remove SSH', detail: 'Aapke note ke labels preserve kiye hain. Exact extension ya setting clear nahi; terminal restore aur SSH removal ke liye VS Code built-in commands/settings bhi ho sakti hain.', example: 'window reload ke baad terminal panel dobara khol kar running task check karo.' },
+          { term: 'CSS-web-kits', detail: 'Aapka original label “CSS-web-kits”; shayad CSS vendor prefixes murad hain. Un prefixes ko Autoprefixer target browser rules ke mutabiq add karta hai.', example: '`user-select` ki compatible prefixed declaration build output mein aa sakti hai.' },
+          { term: 'WordPress / Elementor custom code', detail: 'Aapka note code ko child theme, code-snippet plugin, Elementor custom-code option ya HTML widget mein add karne ke options batata hai. Sahi jagah code ki type aur site setup par depend karti hai.', example: 'Chhota page-only HTML snippet HTML widget mein, jabke reusable theme customization child theme mein rakh sakte ho.' },
+        ] }],
+      },
+      {
+        title: 'Browser Extensions', heading: 'Browser extensions aur web tools',
+        definition: 'Browser extensions browser ke andar extra kaam karti hain. Aapke diye hue names ke saath practical misaal bhi di gayi hai.', concept: 'BROWSER · EXTENSIONS · EXAMPLES',
+        glossarySections: [{ title: 'Browser tools', items: [
+          { term: 'Wappalyzer', detail: 'Public web page se nazar aane wali technologies ka andaza lagane wala profiler.', example: 'kisi site par check karo ke visible stack React ya analytics tool use karta hai ya nahi.' },
+          { term: 'Web Developer', detail: 'Browser toolbar se web page ke HTML, CSS aur layout ko inspect ya temporarily alter karne ke developer tools.', example: 'Page ke CSS styles temporarily disable karke layout ka farq dekho.' },
+          { term: 'Imageye / Image downloader', detail: 'Web page par milne wali images ko browse ya download karne ke tools.', example: 'apni permitted reference page se product image save karo.' },
+          { term: 'ColorZilla', detail: 'Browser page par rang pick karne aur color values dekhne ka tool.', example: 'button ka hex color `#2f6b4f` copy karo.' },
+          { term: 'Mobile Simulator', detail: 'Responsive layouts ko mukhtalif screen dimensions par preview karne ka browser tool.', example: 'page ko 390px mobile viewport par inspect karo.' },
+          { term: 'CSS Peeper', detail: 'Web page ke visible styling details inspect karne ka design tool.', example: 'kisi element ka font size aur color reference ke taur par dekho.' },
+          { term: 'Picture-in-Picture', detail: 'Supported video ko chhoti floating window mein chalata hai.', example: 'tutorial video ko notes par kaam karte hue corner mein rakho.' },
+          { term: 'GoFullPage', detail: 'Browser page ka full-page screenshot capture karta hai.', example: 'poori long article ko aik image capture mein save karo.' },
+          { term: 'IDM Integration Module', detail: 'Internet Download Manager ke saath browser download integration.', example: 'supported download link browser se IDM ko hand off ho.' },
+          { term: 'Clearbit Connect', detail: 'Aapke note mein business email discovery tool ka naam; availability ya current service status verify kiye baghair isay sirf copied reference samjho.', example: 'business contact dhoondte waqt pehle apni organization ki privacy rules check karo.' },
+          { term: 'Unhook', detail: 'YouTube par recommendations aur suggested-video sections ko kam ya hide karne ke liye extension.', example: 'home page par suggested videos hide karke sirf search se video kholo.' },
+          { term: 'aText / Auto Dark Mode', detail: 'Aapke note ke browser labels preserve kiye hain; aText text-expansion tool ka naam ho sakta hai aur Auto Dark Mode pages ka appearance badal sakta hai. Exact browser/version context specify nahi.', example: 'text shortcut se repeated phrase insert karo, ya dark appearance toggle karke page dekho.' },
+          { term: 'Chrome Web Store', detail: 'Chrome-compatible browser extensions ka marketplace; extension install karne se pehle permissions aur publisher dekhna useful hai.', example: 'store listing mein requested permissions parh kar extension choose karo.' },
+          { term: '“Safeguard your PC in a quiet and reliable way”', detail: 'Yeh aapke note mein promotional jumla hai, extension ka clear naam nahi.', example: 'is phrase ko product description samjho, browser extension listing ka title nahi.' },
+        ] }],
+      },
+      {
+        title: 'Image Formats', heading: 'Image file extensions',
+        definition: 'Image extension se file ka format samajhne mein madad milti hai; kuch formats animation ya transparency bhi support karte hain.', concept: 'IMAGES · EXTENSIONS · EXAMPLES',
+        glossarySections: [{ title: 'Image formats', items: [
+          { term: '.apng', detail: 'Animated PNG image; PNG-based format animation frames rakh sakta hai.', example: 'chhota animated loading indicator `loader.apng` ho sakta hai.' },
+          { term: '.gif', detail: 'GIF image format; limited palette aur simple frame animation support karta hai.', example: 'short reaction animation `reaction.gif` ho sakti hai.' },
+          { term: '.ico / .cur', detail: '.ico aam tor par Windows icon ya favicon ke liye, aur .cur cursor images ke liye use hota hai.', example: 'site ka favicon `favicon.ico` ho sakta hai.' },
+          { term: '.jpg / .jpeg / .pjpeg / .jfif / .pjp', detail: 'JPEG family ki raster image extensions; JPEG aam tor par lossy compression use karta hai. `.pjpeg` progressive JPEG ko indicate kar sakta hai.', example: 'camera photo `holiday.jpg` ke taur par share karo.' },
+          { term: '.png', detail: 'PNG lossless raster image format hai aur transparency support karta hai.', example: 'transparent-background logo `logo.png` mein save karo.' },
+          { term: '.svg', detail: 'SVG scalable vector graphics format hai; icons aur diagrams ke liye useful.', example: '`mark.svg` ko bara ya chhota karne par edges sharp rehte hain.' },
+        ] }],
+      },
+      {
+        title: 'Video Formats', heading: 'Video aur multimedia file extensions',
+        definition: 'Container format file mein video, audio aur kabhi subtitles jama karta hai; codec video/audio ko encode karta hai.', concept: 'VIDEO · CONTAINERS · EXAMPLES',
+        glossarySections: [{ title: 'Video formats', items: [
+          { term: '.webm', detail: 'Web-focused open multimedia container format.', example: 'website par short clip `demo.webm` ke taur par serve ho sakti hai.' },
+          { term: '.ogg / .ogv', detail: 'Ogg container ki extensions; `.ogv` aam tor par Ogg video ke liye use hota hai.', example: 'open-format video `clip.ogv` ke naam se mil sakti hai.' },
+          { term: '.rm / .ram', detail: 'RealMedia se related purane media file/reference extensions.', example: 'archived stream ki `.rm` file legacy player maang sakti hai.' },
+          { term: '.flv / .swf', detail: 'Adobe Flash ke legacy video/interactive content formats; modern browsers mein Flash support band ho chuka hai.', example: 'purani site ki `.swf` animation modern browser mein seedha na chale.' },
+          { term: '.mp4 / .m4v', detail: 'MP4 family multimedia container extensions; exact supported codecs file/player par depend karte hain.', example: 'phone video `family.mp4` ke taur par export karo.' },
+          { term: '.mpg / .mpeg', detail: 'MPEG video standards se mutaliq common file extensions.', example: 'purani video archive mein `recording.mpeg` ho sakti hai.' },
+          { term: '.wmv', detail: 'Windows Media Video se mutaliq video extension.', example: 'legacy Windows video `training.wmv` ho sakti hai.' },
+          { term: '.avi', detail: 'Audio Video Interleave multimedia container extension.', example: 'older camera footage `clip.avi` mein save ho sakti hai.' },
+          { term: '.mov', detail: 'QuickTime movie container extension.', example: 'video editor se `scene.mov` export karo.' },
+          { term: '.mkv', detail: 'Matroska Video container extension; multiple tracks aur subtitles rakh sakti hai.', example: 'film `movie.mkv` mein alag subtitle track ho.' },
+          { term: '.3gp', detail: '3GPP se associated mobile multimedia container.', example: 'older handset ki recording `video.3gp` ho.' },
+        ] }],
+      },
+      {
+        title: 'Audio Formats', heading: 'Audio file extensions',
+        definition: 'Audio files compressed ya uncompressed ho sakti hain; extension se format ka hint milta hai, lekin codec aur quality settings bhi matter karti hain.', concept: 'AUDIO · CODECS · EXAMPLES',
+        glossarySections: [{ title: 'Audio formats', items: [
+          { term: '.mid / .midi', detail: 'MIDI event data hota hai, recorded waveform audio nahi; compatible instrument/software usay sound banata hai.', example: '`theme.mid` ko music software mein mukhtalif instruments se play karo.' },
+          { term: '.rm / .ram', detail: 'RealMedia legacy audio/video ecosystem ki extensions.', example: 'archive ki `.ra`/`.ram` media file legacy player mein chal sakti hai.' },
+          { term: '.wma', detail: 'Windows Media Audio se mutaliq audio extension/codec family.', example: '`voice.wma` ko compatible media player mein kholo.' },
+          { term: '.aac', detail: 'Advanced Audio Coding se related compressed audio extension/codec.', example: '`podcast.aac` ko AAC support wale player mein play karo.' },
+          { term: '.wav', detail: 'Waveform Audio File Format; aam tor par uncompressed PCM audio ke liye use hota hai.', example: 'editing ke liye microphone recording `take.wav` rakho.' },
+          { term: '.ogg', detail: 'Ogg container extension; audio mein Vorbis ya Opus jaisa codec ho sakta hai.', example: '`music.ogg` ko compatible browser ya player mein play karo.' },
+          { term: '.mp3', detail: 'MPEG-1 Audio Layer III compressed audio file extension.', example: 'song ko `track.mp3` ke taur par share karo.' },
+          { term: '.mp4 / .m4a', detail: 'MP4 container family; `.m4a` aksar audio-only MP4 files ke liye use hota hai.', example: 'phone voice memo `memo.m4a` ho sakta hai.' },
+        ] }],
+      },
+      {
+        title: 'Other File Formats', heading: 'Documents, code aur archive extensions',
+        definition: 'File extensions document, code, configuration aur archive formats ko pehchanne mein madad deti hain.', concept: 'FILES · DOCUMENTS · CODE',
+        glossarySections: [{ title: 'Common file extensions', items: [
+          { term: '.exe', detail: 'Windows executable program ya installer file extension.', example: '`installer.exe` Windows app setup chala sakta hai.' },
+          { term: '.pdf', detail: 'Portable Document Format; page layout ko devices par consistent rakhne ke liye use hota hai.', example: 'final CV ko `cv.pdf` mein export karke bhejo.' },
+          { term: '.txt', detail: 'Plain text file extension.', example: '`todo.txt` mein simple notes likho.' },
+          { term: '.doc / .docx', detail: 'Microsoft Word document extensions; `.doc` legacy format aur `.docx` Office Open XML format hai.', example: 'editable letter `letter.docx` mein save karo.' },
+          { term: '.xlsx', detail: 'Office Open XML spreadsheet workbook extension.', example: 'inventory ko `stock.xlsx` spreadsheet mein track karo.' },
+          { term: '.html', detail: 'HyperText Markup Language document extension; web content ki structure likhta hai.', example: '`index.html` browser mein web page render karta hai.' },
+          { term: '.js', detail: 'JavaScript source file extension.', example: '`script.js` page par button click handle kare.' },
+          { term: '.css', detail: 'Cascading Style Sheets file extension; web page ki presentation/style define karti hai.', example: '`styles.css` heading ka rang aur spacing set kare.' },
+          { term: '.md', detail: 'Markdown text document extension. Aapka note “make directory” bhi kehta tha; directory banane ke liye `mkdir` command hota hai, `.md` nahi.', example: '`README.md` mein headings aur code blocks likho.' },
+          { term: '.json', detail: 'JavaScript Object Notation data format extension; JSON file valid data text hoti hai, executable JavaScript nahi.', example: '`package.json` project scripts aur package metadata rakhta hai.' },
+          { term: '.zip / .rar', detail: 'Compressed archive extensions. Aapke “Zone Improvement Plan” note ka expansion postal ZIP Code ke liye hai, `.zip` archive ke liye nahi.', example: '`project.zip` ya `photos.rar` mein multiple files archive karo.' },
+          { term: '.bat / .ini', detail: 'Windows batch commands ki `.bat` file aur configuration/initialization settings rakhne wali `.ini` file.', example: '`run.bat` server start kare aur `app.ini` uska port store kare.' },
+          { term: '.3gp / .mkv / .avi', detail: 'Mobile multimedia, Matroska aur Audio Video Interleave se mutaliq video container extensions.', example: '`.avi` file edit karne se pehle format ko player mein verify karo.' },
+        ] }],
+      },
+      {
+        title: 'Web & Domain Names', heading: 'Web naming aur domain suffixes',
+        definition: 'Domain ke aakhri hissa ko top-level domain (TLD) kehte hain. Extensions ya file suffixes se ise alag samjho.', concept: 'DOMAINS · TLD · EXAMPLES',
+        glossarySections: [{ title: 'Domain suffixes', items: [
+          { term: '.com', detail: 'Generic top-level domain (gTLD), jo commercial naam se shuru hua aur ab bohat se aam websites ke liye use hota hai.', example: '`example.com` mein `.com` domain suffix hai.' },
+          { term: '.ai', detail: 'Anguilla ka country-code top-level domain (ccTLD), jo AI-related sites mein bhi popular hai.', example: '`studio.ai` ka `.ai` domain suffix hai.' },
+          { term: '.dev', detail: 'Developers aur development projects ke liye use hone wala generic top-level domain.', example: '`docs.dev` mein `.dev` top-level domain hai.' },
+        ] }],
+      },
+    ],
+  },
+  journey: {
+    name: 'Journey',
+    chapters: [
+      {
+        title: 'Bathing', heading: 'Bathing kit',
+        definition: 'Nahaane ke waqt saath rakhne wali cheezon ki checklist.', concept: 'JOURNEY · BATHING',
+        checklistSections: [{ title: 'Bathing items', items: ['Clothes', 'Banyan', 'Slippers', 'Soap', 'Shampoo / Conditioner', 'Oil', 'Brush', 'Feet-cleaner brush'] }],
+      },
+      {
+        title: 'For Bike', heading: 'Bike ke liye checklist',
+        definition: 'Bike ride ke liye Normal essentials ke saath yeh extra items check karo.', concept: 'JOURNEY · BIKE', includesNormal: true,
+        checklistSections: [{ title: 'Bike extras', items: ['Glasses 🕶️', 'Mask 🎭', 'Cap 🧢', 'Bike-cleaning cloth'] }],
+      },
+      {
+        title: 'For Tape Ball Cricket', heading: 'Tape-ball cricket kit',
+        definition: 'Cricket le jaate waqt Normal essentials ke saath equipment aur paani bhi checklist se dekh lo.', concept: 'JOURNEY · CRICKET', includesNormal: true,
+        checklistSections: [{ title: 'Cricket extras', items: ['2 bats', 'At least 1 ball', 'Wicket', 'Cap', 'Rough cloth to clean the ball', 'Glasses if possible 🕶️', 'At least 2 tape rolls', 'Water', 'Bag for ball, water and tape'] }],
+      },
+      {
+        title: 'LHR Food', heading: 'Lahore ke food options',
+        definition: 'Aapke note mein likhe breakfast, evening aur night food options.', concept: 'LAHORE · FOOD',
+        checklistSections: [
+          { title: 'Morning', items: ['Dahi + fruit', 'Egg (custom boiling)', 'Naan / chanay', '4-piece bread'] },
+          { title: 'Evening', items: ['Aalu-naan', 'Naan + tikki / pakora / samosa / Tala-nan (original wording)', 'Naan / roti + chanay', 'Biryani', 'Daal chawal', 'Masar, chana-dal, mash-dal, haleem'] },
+          { title: 'Night', items: ['Fruit', 'Snacks', 'Roti + salan', 'Fast food'] },
+        ],
+      },
+      {
+        title: 'Normal', heading: 'Roz saath rakhne wali cheezein',
+        definition: 'Aapki basic outing checklist; Bike, cricket aur LHR trips mein bhi isay include kar sakte ho.', concept: 'JOURNEY · EVERYDAY ESSENTIALS',
+        checklistSections: [{ title: 'Normal essentials', items: ['Handkerchief or tissue', 'Wallet', '500+ Rs./-', 'Card', 'ID', 'Metro', 'ATM', 'Mobile 📱', 'Pad 🗒️ and pencil ✏️', 'Watch ⌚'] }],
+      },
+      {
+        title: 'To LHR / Week', heading: 'Lahore / weekly packing checklist',
+        definition: 'Aapki Lahore ya haftay bhar ke safar ki list. Laptop original note mein do martaba tha; yahan usay duplicate note ke saath aik check item rakha hai.', concept: 'JOURNEY · WEEKLY PACKING', includesNormal: true,
+        checklistSections: [
+          { title: 'Bag, devices aur travel', items: ['Bag (laptop + ingredients)', 'Luggage', 'Laptop (original list mein 2 martaba)', 'Charger', 'Cleaning cloth', 'Shopper if it rains (original: “Shoper”)', 'Mobile', 'Adapter (original: “Adopter”)', 'Cable', 'Internet / data access', 'Handsfree', 'Water bottle'] },
+          { title: 'Food', items: ['Khaana', 'Date', 'Roasted chickpeas', 'Curry', 'Loaf / bread', 'Fruit'] },
+          { title: 'Stationery', items: ['Stationery', 'Note-pad', '2 pencils'] },
+          { title: 'Physical tools', items: ['Hand-stretcher (as written)', 'Perfume', 'Comb', 'Oils', 'Lip-oil', 'Vaseline (original: “vase-line”)', 'Cream', 'Glasses', 'Scissors', 'Rs. 2000+'] },
+          { title: 'Wearing', items: ['Trousers', 'T-shirt', '2 suits', 'Cap', 'Mask', 'Handkerchief'] },
+        ],
+      },
+      {
+        title: 'Weekly Ingredients', heading: 'Haftay ki ingredients aur zarooriyat',
+        definition: 'Aapki weekly shopping/packing ingredients list, checkbox ke saath.', concept: 'JOURNEY · WEEKLY INGREDIENTS',
+        checklistSections: [{ title: 'Ingredients checklist', items: ['Bag (laptop + ingredients)', 'Clothes (3 dresses and 1 trousers-shirt)', 'Cap', 'Keys', 'Handkerchief + rough handkerchief', 'Knife + spoon + plate', 'Laptop + charger', 'Mobile + charger', 'Maswak (original note ended with “+”; item incomplete)', 'Money (4K/week + metro / ID card)', 'Pencil + copy', 'Shoes + sandal + polish + brush', 'Soap + face-wash + comb + perfume + cream + Vaseline', 'Water bottle', 'Watch'] }],
+      },
+    ],
+  },
+  names: {
+    name: 'Names',
+    chapters: window.zbookNames || [],
   },
 };
 
 const tabs = [...document.querySelectorAll('.department-tab')];
+const departmentTabs = document.querySelector('.department-tabs');
+const departmentTabsShell = document.querySelector('.department-tabs-shell');
 const chapterList = document.querySelector('#chapter-list');
+const chapterRail = document.querySelector('.chapter-rail');
 const lessonCard = document.querySelector('#lesson-card');
 const panel = document.querySelector('#department-content');
 const chapterCount = document.querySelector('#chapter-count');
+const projectSearchInput = document.querySelector('#project-search-input');
+const projectSearchResults = document.querySelector('#project-search-results');
 
-let activeDepartment = 'biology';
-let activeChapter = 0;
+const viewStorageKey = 'z-book:last-view';
+const journeyChecklistStorageKey = 'z-book:journey-checklist';
+function readJourneyChecklist() {
+  try { return JSON.parse(localStorage.getItem(journeyChecklistStorageKey) || '{}') || {}; }
+  catch { return {}; }
+}
+function writeJourneyChecklist(value) {
+  try { localStorage.setItem(journeyChecklistStorageKey, JSON.stringify(value)); }
+  catch { /* Checklist still works until the page is refreshed if storage is unavailable. */ }
+}
+function getSavedView() {
+  try {
+    const savedView = JSON.parse(localStorage.getItem(viewStorageKey) || 'null');
+    if (!savedView || !Object.hasOwn(departments, savedView.department)) return null;
+    return savedView;
+  } catch {
+    return null;
+  }
+}
+
+const savedView = getSavedView();
+let activeDepartment = savedView?.department || 'biology';
+let activeChapter = savedView?.chapterTitle
+  ? Math.max(0, departments[activeDepartment].chapters.findIndex((chapter) => chapter.title === savedView.chapterTitle))
+  : 0;
+let activeResourceCategory = Number.isInteger(savedView?.resourceCategoryIndex) && savedView.resourceCategoryIndex >= 0
+  ? savedView.resourceCategoryIndex
+  : 0;
+let ignoreTabHoverUntilPointerMoves = false;
+let ignoreChapterHoverUntilPointerMoves = false;
+let ignoreDepartmentHoverUntilPointerMoves = false;
+let chapterHoverTimer = null;
+let departmentHoverTimer = null;
+let revealRestoredChapter = true;
 const chapterTitleCollator = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
+
+function scheduleHover(timerName, callback) {
+  clearTimeout(timerName === 'chapter' ? chapterHoverTimer : departmentHoverTimer);
+  const timer = setTimeout(() => {
+    if (timerName === 'chapter') chapterHoverTimer = null;
+    else departmentHoverTimer = null;
+    callback();
+  }, 220);
+  if (timerName === 'chapter') chapterHoverTimer = timer;
+  else departmentHoverTimer = timer;
+}
+
+function cancelHover(timerName) {
+  const timer = timerName === 'chapter' ? chapterHoverTimer : departmentHoverTimer;
+  clearTimeout(timer);
+  if (timerName === 'chapter') chapterHoverTimer = null;
+  else departmentHoverTimer = null;
+}
+
+const glossaryExamples = {
+  Duotrigesimal: 'Common 0–9, A–V notation mein decimal 31 ko V₃₂ aur decimal 32 ko 10₃₂ likha ja sakta hai.',
+  'Acronym aur initialism': 'NASA aik acronym ki tarah bola jata hai; DOM ke letters alag alag bole jate hain.',
+  API: 'Weather app API se aaj ka temperature mangwa sakti hai.',
+  CDN: 'Website ki image user ke qareeb CDN server se milne par load time kam ho sakta hai.',
+  PNG: 'Transparent logo ko PNG image ke taur par export karke page par dikhaya ja sakta hai.',
+  DOM: 'JavaScript DOM ke zariye page ki heading ka text badal sakta hai.',
+  HTTP: 'Browser HTTP request bhej kar server se page mangta hai.',
+  'Original contact-number note': 'Misal ke taur par +92 Pakistan ka code hai, lekin +1 shared NANP code hai aur har zone ka apna geographic pattern hai.',
+  'Country calling code aur dialling prefix': 'Pakistan ka number international format mein +92 se shuru hota hai; doosre mulk se call karne ka access prefix caller ke mulk par depend karta hai.',
+  'Nine world numbering zones': '+33 France zone 3 mein, +81 Japan zone 8 mein, aur +92 Pakistan zone 9 mein aata hai.',
+  'Zone 1 — NANP': 'NANP number ka international format +1 se shuru hota hai; us ke baad 3-digit area code aur 7-digit local number hota hai.',
+  'Zone 2 — Africa': 'Misal: Egypt ka country code +20 aur South Africa ka +27 hai.',
+  'Zones 3 aur 4 — Europe': 'Misal: France +33 zone 3, Germany +49 zone 4, aur Andorra +376 teen-digit country code hai.',
+  'Zone 5 — Central aur South America': 'Misal: Mexico +52 aur Brazil +55 dono zone 5 ke country codes hain.',
+  'Zone 6 — Southeast Asia aur Oceania': 'Misal: Australia +61 aur Singapore +65 zone 6 codes hain.',
+  'Zone 7 — Russia aur Kazakhstan': '+7 Russia aur Kazakhstan ka shared country code hai; Uzbekistan ka +998 hai, +7 nahi.',
+  'Zone 8 — East Asia aur kuch special codes': 'Misal: Japan +81, China +86 aur Bangladesh +880 hain; Bangladesh zone 8 ka geographic exception hai.',
+  'Zone 9 — South Asia aur Middle East': 'Misal: India +91, Pakistan +92 aur Turkey +90 zone 9 ke codes hain.',
+  'E.164': 'International format mein Pakistan ka country calling code +92 hota hai, phir us ke baad national number aata hai.',
+  ITU: 'ITU-T E.164 ke mutabiq country calling code one, two ya three digits ka ho sakta hai.',
+  'ITU-T': 'Mobile operator international numbering recommendation dekhne ke liye ITU-T ki E.164 standard refer kar sakta hai.',
+  NANP: 'U.S. aur Canada +1 share karte hain; number mein us ke baad 3-digit area code aur 7-digit local number hota hai.',
+  NANPA: 'NANPA ki official site par +1 plan ke area codes aur numbering updates dekhe ja sakte hain.',
+  'IP address': 'Router 192.0.2.25 jaise IP address par packet bhejta hai.',
+  IP: 'Laptop ko network par `192.0.2.25` jaisa IP address mil sakta hai.',
+  ISP: 'Ghar ka broadband connection aam tor par kisi ISP se milta hai.',
+  JSON: 'API `{"city":"Lahore"}` jaisa JSON response bhej sakti hai.',
+  'Pull request (PR)': 'Feature branch ke changes review ke liye pull request mein bheje jate hain.',
+  'Same-origin policy': 'https://site.example aur http://site.example alag origins hain kyun ke scheme alag hai.',
+  'Open source': 'Linux ka source code log dekh aur license ke mutabiq modify kar sakte hain.',
+  Virus: 'Infected file kholne par virus doosri files tak phail sakta hai.',
+  LAN: 'Office ke computers aur printer aik LAN par ho sakte hain.',
+  MAN: 'Shehar ke mukhtalif campuses ke LANs ko MAN jor sakta hai.',
+  WAN: 'Mukhtalif shehron ke branch offices WAN ke zariye jud sakte hain.',
+  PAN: 'Phone aur Bluetooth earbuds mil kar PAN banate hain.',
+  GPRS: 'Purana 2G phone GPRS se halka internet data bhej sakta hai.',
+  BIOS: 'PC start hote waqt BIOS hardware initialize karke boot shuru karta hai.',
+  CMD: 'Windows mein `dir` command CMD window mein files dikhati hai.',
+  LCD: 'Laptop ki LCD screen pixels se text aur tasveer dikhati hai.',
+  LED: 'Router par jalti LED batati hai ke network connection active hai.',
+  POST: 'Computer boot se pehle POST ke zariye memory aur hardware check karta hai.',
+  SMPS: 'Desktop ki SMPS wall power ko computer ke components ke liye regulate karti hai.',
+  USB: 'USB cable se phone charge bhi hota hai aur files transfer bhi hoti hain.',
+  VDU: 'Monitor aik VDU hai jo computer ka visual output dikhata hai.',
+  'Function definition': '`function greet(name) { return name; }` aik function definition hai.',
+  'HTML button type': '`<button type="button">Menu</button>` form ke andar menu kholta hai magar form submit nahi karta.',
+  'Parameter aur argument': '`name` parameter hai; `greet("Ali")` mein `"Ali"` argument hai.',
+  'return statement': '`return total;` function ka result caller ko wapas deta hai.',
+  'Conditional rendering': 'React mein `isLoggedIn` true ho to dashboard, warna login button dikhaya ja sakta hai.',
+  'React Fragment': '`<> <Header /> <Main /> </>` dono components ko extra div ke baghair group karta hai.',
+  'HTML boilerplate': 'Naya HTML page `<!doctype html>`, `<head>` aur `<body>` se shuru hota hai.',
+  'Framework aur library': 'React library components deti hai; Next.js framework routing aur build rules bhi deta hai.',
+  'High-level language (HLL)': 'Python mein `print("Hi")` likhna machine instructions se zyada insani qareeb hai.',
+  'Low-level language (LLL)': 'Assembly instruction `MOV` processor ke qareeb low-level code ki misaal hai.',
+  MSINFO32: '`Win + R` dabakar `msinfo32` likhein; Windows System Information hardware aur software details dikhata hai.',
+  'Iterable object': '`for (const [key, value] of Object.entries({name: "Ali"}))` key-value pair par iterate karta hai.',
+  camelCase: '`firstName` camelCase mein likha gaya hai.',
+  'kebab-case': '`user-profile` URL slug ya CSS class ka kebab-case naam ho sakta hai.',
+  PascalCase: '`UserProfile` React component ka PascalCase naam ho sakta hai.',
+  SCREAMING_SNAKE_CASE: '`MAX_RETRIES` constant ka SCREAMING_SNAKE_CASE naam hai.',
+  snake_case: '`user_name` Python variable ka snake_case naam hai.',
+  Android: 'Android phone par app Play Store ya doosre trusted source se install hoti hai.',
+  Apple: 'Apple iPhone aur Mac banati hai; company name acronym nahi.',
+  AVI: 'Purani video file `.avi` extension ke saath save ho sakti hai.',
+  ICO: 'Browser tab ka chhota site icon aksar `.ico` file hota hai.',
+  IPO: 'Company IPO ke zariye pehli martaba public ko shares offer kar sakti hai.',
+  MP3: 'Music player `.mp3` audio file play kar sakta hai.',
+  OMR: 'Exam sheet par bhare hue bubbles OMR machine read kar sakti hai.',
+  SaaS: 'Team browser se hosted project-management SaaS use kar sakti hai.',
+  CV: 'Software developer CV mein relevant JavaScript projects aur experience likhta hai; cover letter mein woh samjhata hai ke yeh skills us role se kaise match karti hain.',
+  'Cover letter': 'Frontend role ke cover letter mein applicant apna relevant React project aur job ki requirements ke saath uska link batata hai.',
+  'Service-based aur product-based company': 'Agency client ke liye website banati hai; product company apna app bechti hai.',
+  'TIME Magazine': 'TIME magazine ka cover aik haftay ki news story ko feature kar sakta hai.',
+  Psst: 'Kisi ki tawajjoh lene ke liye dheemi awaaz mein “psst” kaha ja sakta hai.',
+  Grunting: 'Wazan uthate waqt koi shakhs chhoti grunting awaaz nikal sakta hai.',
+  Chuckling: 'Dost ki halki si mazaahiya baat par chuckling ho sakti hai.',
+  Atheist: 'Aik atheist kehta hai ke woh kisi god par yaqeen nahi rakhta.',
+  Agnostic: 'Aik agnostic kehta hai ke God ke wajood ka yaqini ilm usay nahi.',
+  Sporadically: 'Internet connection sporadically disconnect ho to woh kabhi kabhar, ghair-muqarrar waqt par toot raha hai.',
+  Dictate: 'Teacher ne kaha, “Main sentence bolunga aur tum apni notebook mein dictate ki hui baat likhna.”',
+  Disposal: 'Old files ko safe disposal ke liye recycle bin se bhi permanently delete karna par sakta hai.',
+  Sparingly: 'Recipe mein chili flakes sparingly daalein, misal ke taur par sirf aik chutki.',
+  Pseudo: '`pseudo-code` program ka jhoota code nahi, balkeh logic samjhane wali informal notation hai.',
+  Sophisticated: 'Sophisticated search tool filters aur ranking use karke relevant results dhoondta hai.',
+  Catalyst: 'Naya payment option online sales mein izafa karne ka catalyst bana.',
+  Hindrance: 'Slow internet video meeting ke liye hindrance ban sakta hai.',
+  'Freaked out': 'Unexpected error dekh kar woh pehle freaked out hua, phir logs check karke masla hal kiya.',
+  Sacrifice: 'Aapke phrase “it’s dead from my side” ko personal yaad-dihani ke taur par rakhein. Aam example: exam ki tayari ke liye us ne aik shaam gaming ka waqt sacrifice kiya.',
+  'Browser extension / plug-in': 'Password manager ki browser extension login form mein saved credentials bhar sakti hai; Foodpanda phone app hai, browser extension nahi.',
+  Cache: 'Browser cached logo dobara use karke page ko tez khol sakta hai; visited pages ki history alag list hoti hai.',
+  'Default import': '`import client from "./client.js"` mein module ka default export `client` naam se milta hai.',
+  Configure: 'Developer app ko port 3000 par chalane ke liye uski setting configure karta hai.',
+  Alias: '`import { formatDate as format } from "./dates.js"` mein `format` imported function ka alias hai.',
+  'Vite aur React': 'React components banata hai; Vite `npm run dev` se dev server aur production build chala sakta hai.',
+
+  'BIOS aur UEFI': 'Naya PC aam tor par UEFI firmware se boot hota hai.',
+  TPM: 'Windows device TPM mein BitLocker recovery se mutaliq key material protect kar sakta hai.',
+  'System firewall': 'Laptop firewall public Wi-Fi par anjaan inbound connection block kar sakta hai.',
+  'Hosts file': 'Test ke liye hosts file `example.test` ko `127.0.0.1` par point kar sakti hai.',
+  'Router / network gateway': 'Ghar ka router phone ke packets ko local Wi-Fi se internet ki taraf forward karta hai.',
+  'Enterprise firewall aur DPI': 'Company firewall malware wali traffic ko policy ke mutabiq block kar sakta hai.',
+  VPN: 'Full-tunnel VPN mein laptop ka web traffic pehle VPN server ke encrypted tunnel se guzarta hai.',
+  Proxy: 'Browser forward proxy se request bhej sakta hai; server ko proxy ka IP nazar aata hai.',
+  'DNS aur DNS resolver': 'Resolver `facebook.com` ke A/AAAA records pooch kar us ka IP address dhoondta hai.',
+  HTTPS: 'Login form ka data browser se website tak HTTPS/TLS connection par jata hai.',
+  'HTTPS, TLS aur SSL': 'Browser `https://example.com` kholte waqt TLS certificate verify karta hai.',
+  'Universal override chain nahi': 'VPN tunnel active ho tab bhi device firewall kisi app ki connection block kar sakta hai.',
+  'VPN “sab par haavi” nahi hota': 'Split-tunnel VPN sirf company network ke routes tunnel karta hai; baqi traffic seedha ja sakta hai.',
+  'Yaad rakhne ka seedha tareeqa': 'Naam DNS dhoondta hai, router packet bhejta hai, firewall rule lagata hai aur TLS connection encrypt karta hai.',
+
+  CPU: 'App kholte waqt CPU us ke instructions process karta hai.',
+  GPU: 'Game chalate waqt GPU screen par frames render karta hai.',
+  HDD: 'HDD ke magnetic platter par photo files store ho sakti hain.',
+  OS: 'Windows operating system apps ko memory aur files access karne deta hai.',
+  PC: 'Ghar ka desktop PC documents aur browser chalata hai.',
+  PSU: 'PSU computer ke components ko required power deti hai.',
+  RAM: 'Browser mein tabs kholne par unka active data RAM mein rehta hai.',
+  ROM: 'Device ka boot firmware non-volatile ROM-type memory mein reh sakta hai.',
+  SSD: 'SSD se laptop mein project files tezi se load hoti hain.',
+  UPS: 'Bijli band ho to UPS desktop ko kuch dair backup power deti hai.',
+  AI: 'Photo app AI se tasveer mein chehray pehchan sakti hai.',
+  CLI: 'Terminal mein `npm run build` CLI command ki misaal hai.',
+  CMS: 'Editor CMS mein blog post likh kar publish kar sakta hai.',
+  DBMS: 'DBMS database mein customer records save aur query karta hai.',
+  GA4: 'GA4 website par page_view event record kar sakta hai.',
+  GUI: 'Settings app ke buttons aur menus GUI ki misaal hain.',
+  HLL: 'Python mein `total = price * quantity` high-level code hai.',
+  IDE: 'Developer IDE mein code likh kar debugger se errors dhoondta hai.',
+  LLL: 'Assembly mein register instruction likhna low-level programming ki misaal hai.',
+  ML: 'Email filter ML se spam ke patterns seekh sakta hai.',
+  PR: 'Developer feature branch ko main mein merge karne ke liye PR kholta hai.',
+  RDBMS: 'PostgreSQL RDBMS mein orders aur customers related tables ho sakte hain.',
+  RLS: 'RLS policy har user ko sirf us ke apne orders dikhati hai.',
+  SDK: 'Mobile SDK app ko push notifications bhejne ke tools de sakta hai.',
+  SQL: '`SELECT name FROM users;` SQL query ki misaal hai.',
+  UI: 'Login screen ke fields aur buttons app ki UI hain.',
+  UX: 'Form ko kam steps mein mukammal karna behtar UX ki misaal hai.',
+  CSS: 'CSS se page heading ka rang green kiya ja sakta hai.',
+  DNS: 'DNS `example.com` ko us ke server address se resolve karta hai.',
+  HTML: '`<h1>Welcome</h1>` HTML heading ki misaal hai.',
+  MAC: 'Wi-Fi router local network par device ke MAC address ko dekh sakta hai.',
+  TCP: 'File download TCP par ordered bytes ke taur par aa sakta hai.',
+  UDP: 'Live voice call UDP use kar sakti hai taa ke delay kam rahe.',
+  URI: '`mailto:help@example.com` URI ki aik misaal hai.',
+  URL: '`https://example.com/about` kisi page ka URL hai.',
+  VPN: 'Remote worker VPN se company ke private network tak secure connection banata hai.',
+  WWW: 'Browser mein linked web pages kholna World Wide Web use karna hai.',
+  '2FA': 'Bank login password ke baad authenticator code bhi mang sakta hai.',
+  ABAC: 'Policy sirf HR department ke manager ko salary record dekhne deti hai.',
+  AJAX: 'Search box bina page reload kiye server se suggestions mangwata hai.',
+  ASI: 'JavaScript parser `const count = 3` ke baad semicolon khud samajh sakta hai.',
+  CJS: 'Node.js file `const fs = require("node:fs")` se CJS module load karti hai.',
+  CORS: 'Browser cross-origin API response tabhi deta hai jab server CORS allow kare.',
+  CRLF: 'Windows text file mein har line CRLF se end ho sakti hai.',
+  CRUD: 'Contacts app contact create, read, update aur delete karne deti hai.',
+  DRY: 'Date validation aik helper mein rakhna DRY approach hai.',
+  'ES Modules': '`import { readFile } from "node:fs"` ES module syntax hai.',
+  FIFO: 'Queue mein pehle aaya print job pehle print hota hai.',
+  IIFE: '`(() => startApp())()` foran chalne wali IIFE ki misaal hai.',
+  ISR: 'News page ko har kuch minutes baad dobara generate karna ISR ki misaal hai.',
+  JWT: 'Login ke baad server signed JWT ko API request mein verify kar sakta hai.',
+  LIFO: 'Stack mein aakhri rakha plate pehle uthaya jata hai.',
+  OAuth: 'Calendar app OAuth consent ke baad user ke calendar ka limited access leti hai.',
+  PAT: 'Git CLI private repository tak PAT se authenticate kar sakta hai.',
+  PHP: 'PHP server request par HTML response tayyar kar sakta hai.',
+  PWA: 'Offline checklist app ko home screen par PWA ki tarah install kiya ja sakta hai.',
+  REST: 'REST API mein `GET /users/42` user record mang sakta hai.',
+  SSG: 'Company ka stable About page build time par SSG se ban sakta hai.',
+  SSR: 'Personalized dashboard request par SSR se render ho sakta hai.',
+  VCS: 'Git VCS har commit ke saath code history record karta hai.',
+  XSS: 'User input ko escape karna stored XSS se bachane mein madad karta hai.',
+  XAMPP: 'Developer XAMPP par local PHP site test kar sakta hai.',
+  XHTML: 'XHTML document mein tags ko properly close karna hota hai.',
+  XML: '`<user><name>Ana</name></user>` XML data ki misaal hai.',
+  Yarn: '`yarn add react` project mein package install karta hai.',
+  AAC: 'Phone recording ko AAC mein compress karke share kiya ja sakta hai.',
+  AMR: 'Purani mobile voice recording AMR codec mein save ho sakti hai.',
+  APNG: 'Animated loading indicator APNG image ke taur par dikh sakta hai.',
+  'AT&T': 'AT&T United States mein mobile aur broadband services deti hai.',
+  ATM: 'Customer bank card se ATM par cash nikalta hai.',
+  AVIF: 'Website product photo ko chhoti AVIF image mein serve kar sakti hai.',
+  CD: 'Purani music album audio CD par record hoti thi.',
+  CDMA: 'CDMA mobile network users ko mukhtalif codes se separate karta tha.',
+  DRAM: 'Computer ki main memory aam tor par DRAM chips se banti hai.',
+  DVD: 'Film DVD par video aur audio ke saath store ho sakti hai.',
+  EEPROM: 'Router EEPROM mein settings ko power band honay ke baad bhi rakh sakta hai.',
+  EPROM: 'Purane circuit board mein EPROM ko UV light se erase karke dobara program kiya jata tha.',
+  FDD: 'Floppy disk ko FDD mein daal kar purani files read ki jati thin.',
+  FTP: 'Admin FTP client se server par website files transfer kar sakta hai.',
+  GIF: 'Chat mein chhoti looping animation GIF ke taur par share hoti hai.',
+  GPS: 'Phone GPS satellites se location ka andaza lagata hai.',
+  GSM: 'GSM phone SIM ke zariye 2G cellular network par register hota hai.',
+  HDMI: 'Laptop HDMI cable se monitor par video aur audio bhejta hai.',
+  IC: 'Charger ke andar IC current ko control kar sakta hai.',
+  JAR: 'Java app ki classes aur resources aik `.jar` archive mein pack ho sakte hain.',
+  JPEG: 'Camera photo aksar `.jpg` ya `.jpeg` file mein save karta hai.',
+  Kbps: 'Voice connection 64 Kbps ki data rate par chal sakta hai.',
+  Mbps: 'Internet plan 100 Mbps download speed advertise kar sakta hai.',
+  NVMe: 'NVMe SSD PCIe interface se computer mein bohat tezi se data read karta hai.',
+  PDF: 'Invoice ko layout barqarar rakhne ke liye PDF mein bheja jata hai.',
+  PIN: 'Phone unlock karne ke liye user 6-digit PIN enter karta hai.',
+  PROM: 'Factory device ka fixed startup code PROM mein program ho sakta hai.',
+  SIM: 'SIM mobile network ko subscriber account pehchanne mein madad deta hai.',
+  SMS: 'Bank one-time alert SMS se bhej sakta hai.',
+  UMTS: 'UMTS 3G phone ko mobile data connection deta tha.',
+  VGA: 'Purana projector VGA cable se laptop ka display leta hai.',
+  VRAM: 'High-resolution game ke textures GPU ki VRAM mein load hote hain.',
+  VRM: 'Motherboard VRM CPU ko stable voltage supply karta hai.',
+  '3G': '3G phone par maps aur basic web pages mobile data se khul sakte hain.',
+  '3GPP': '3GPP working groups mobile network standards par kaam karte hain.',
+  '3GP': 'Purana phone video clip ko `.3gp` container mein save kar sakta hai.',
+  AKA: '“Ayesha, aka Ash” likhne se us ka doosra naam pata chalta hai.',
+  BBC: 'BBC apni website par news aur radio programs publish karta hai.',
+  BMW: 'BMW aik car model ko sedan ya SUV ke taur par sell karti hai.',
+  BRB: 'Chat mein “BRB, chai le kar aata hoon” likha ja sakta hai.',
+  BTW: '“BTW, meeting 3 baje hai” mein BTW extra baat introduce karta hai.',
+  DIY: 'Shelf khud assemble karna DIY project ki misaal hai.',
+  FAQ: 'Password reset page par common sawalon ka FAQ diya ja sakta hai.',
+  FYI: '“FYI, report upload ho gayi hai” sirf information share karta hai.',
+  GMT: 'News schedule 12:00 GMT ka waqt de sakta hai.',
+  IBM: 'IBM enterprise customers ko cloud aur computing products deti hai.',
+  IDC: '“IDC which color, tum choose kar lo” chat mein IDC ka istemaal hai.',
+  IDK: '“IDK, kal ka weather check karna hoga” mein IDK uncertainty dikhata hai.',
+  IG: '“IG we can leave now” mein IG ka matlab “I guess” hai.',
+  IQ: 'IQ test ke result ko score ki surat mein report kiya ja sakta hai.',
+  IRL: 'Online group ke dost conference mein IRL mil sakte hain.',
+  JK: '“Main tumhara cake kha gaya—JK!” mazaq ko clear karta hai.',
+  LASER: 'Barcode scanner product code par laser beam daalta hai.',
+  LMK: '“Time confirm ho to LMK” ka matlab mujhe bata dena hai.',
+  LOL: 'Mazaahiya message par reply mein “LOL” likha ja sakta hai.',
+  LTS: 'Server team stable LTS release ko production mein use kar sakti hai.',
+  MIPS: 'Processor benchmark purane comparison mein MIPS score dikha sakta hai.',
+  NFT: 'Artist digital artwork se linked NFT mint kar sakta hai; copyright alag ho sakta hai.',
+  NSA: 'NSA United States ka signals-intelligence aur cybersecurity agency hai.',
+  OCD: 'OCD ke diagnosis ke liye qualified clinician symptoms aur daily impact assess karta hai.',
+  POV: '“POV: tum exam se pehle notes dhoond rahe ho” video ka perspective set karta hai.',
+  RIP: 'Memorial post mein “RIP” wafat par afsos ka izhar karta hai.',
+  RTS: 'RTS game mein player real time par units aur resources control karta hai.',
+  SMH: '“Phir se bus miss ho gayi, SMH” mayoosi dikhata hai.',
+  SOS: 'Ship radio par Morse signal `... --- ...` emergency call ho sakta hai.',
+  TBD: 'Event ka venue baad mein confirm ho to schedule mein “TBD” likhte hain.',
+  TBH: '“TBH, mujhe pehla design zyada pasand aya” apni rai batata hai.',
+  UNICEF: 'UNICEF bachon ki sehat aur taleem ke programs support karta hai.',
+  UTC: 'Server logs `2026-10-28 12:00 UTC` mein timestamp rakh sakte hain.',
+  VIP: 'Concert venue VIP guest ke liye alag seating rakh sakta hai.',
+  W3C: 'W3C web standards aur accessibility guidelines publish karta hai.',
+  WRT: '“WRT your question, report mein jawab hai” WRT ka istemaal hai.',
+  'ZIP code': 'US delivery form mein customer apna 5-digit ZIP code enter karta hai.',
+  Bun: 'Developer `bun install` se project ki dependencies install karta hai.',
+  CRON: 'CRON job roz raat 2 baje database backup chala sakti hai.',
+  HEAD: 'Git branch par `HEAD` aam tor par current commit ko point karta hai.',
+  ISO: 'Camera ISO 100 par kam roshni mein ISO 800 se zyada slow exposure le sakta hai.',
+  'Wi-Fi': 'Phone Wi-Fi se ghar ke wireless router ko connect hota hai.',
+  'SQL keywords': '`SELECT name FROM users` mein SELECT aur FROM SQL keywords hain.',
+  'YAHOO!': 'Yahoo! search engine aik brand name hai; us ka backronym asal expansion nahi.',
+  'LAST-ACT-B': 'Code review mein LAST-ACT-B mnemonic se operators ki categories yaad ki ja sakti hain.',
+  'Bit aur byte': '1 byte mein 8 bits hote hain; text file ka size bytes mein dikh sakta hai.',
+  'KB aur KiB': '1 KB 1,000 bytes hai, jab ke 1 KiB 1,024 bytes hai.',
+  'Binary size conversions': '1 MiB mein 1,024 KiB hote hain; isi liye binary storage count alag hota hai.',
+  'AOSP': 'Android developer AOSP source code se platform ka open-source hissa dekh sakta hai.',
+  CTA: '“Create account” button user ko action lene ki CTA deta hai.',
+  DAC: 'File owner DAC permission se aik colleague ko read access de sakta hai.',
+  GIN: 'PostgreSQL GIN index JSONB document ke andar key ko jaldi dhoond sakta hai.',
+  ID: 'Database row ka `user_id` us record ko pehchanne wala ID hai.',
+  JS: 'Browser JavaScript (JS) chala kar button click ka response de sakta hai.',
+  JSONB: 'PostgreSQL JSONB column mein `{"status":"paid"}` store ho sakta hai.',
+  JSX: 'React component `return <h1>Hello</h1>` ke zariye JSX render karta hai.',
+  LLM: 'LLM user ke sawal ka jawab draft kar sakta hai.',
+  NASA: 'NASA spacecraft launch aur scientific research missions chalata hai.',
+  NLU: 'Voice assistant “kal ka mausam” se weather intent pehchan sakta hai.',
+  ROAS: 'Agar ad par 100 rupay lage aur attributed sale 500 rupay ho, ROAS 5x hai.',
+  DOS: 'DOS command line par `dir` se disk ki files list ki ja sakti hain.',
+  DPI: 'Enterprise DPI policy malware signature wali traffic ko rok sakti hai.',
+  HOF: 'Project document mein “HOF Pack” company ke liye project-specific label hai.',
+  HR: 'HR team new employee ki onboarding arrange karti hai.',
+  IVR: 'Phone par “sales ke liye 1 dabayen” IVR prompt hai.',
+  'MS-DOS': 'Purana PC MS-DOS prompt par `dir` command chala sakta tha.',
+  NAT: 'Home router private device address ko internet par public address se map karta hai.',
+  NT: 'Windows XP, Windows NT family ke baad ka consumer release tha.',
+  QUIC: 'HTTP/3 connection QUIC transport ke upar chal sakta hai.',
+  SOCKS: 'Developer SOCKS proxy configure karke app ki network connection relay kar sakta hai.',
+  SSL: 'Modern browser purane SSL ke bajaye TLS connection use karta hai.',
+  TLS: 'Browser aur website TLS handshake ke baad encrypted HTTPS data exchange karte hain.',
+  TPM: 'Windows BitLocker startup par TPM ke zariye platform state check kar sakta hai.',
+  UEFI: 'Naya laptop UEFI Boot Manager se OS loader shuru karta hai.',
+  'Windows Me': 'Windows Me ko Windows Millennium Edition bhi kaha jata tha.',
+  'Windows XP': 'Windows XP ke naam mein XP “eXPerience” ko represent karta tha.',
+  ':has() selector': '`label.card:has(input[type="radio"]:checked)` checked radio wali label card ko select karta hai.',
+  'Hover ke baghair siblings': '`.container:hover > :not(:hover) { opacity: .5; }` baqi direct cards ko halka karta hai.',
+  'CSS Grid centering': '`.box { display: grid; place-items: center; }` box ke content ko beech mein rakhta hai.',
+  'Flexbox centering': '`.row { display: flex; justify-content: center; align-items: center; }` item ko center karta hai.',
+  'Position centering': 'Modal ko parent ke beech lane ke liye `top/left: 50%` aur `translate(-50%, -50%)` use karein.',
+  'Media query': '`@media (max-width: 520px) { .panel { width: 100%; } }` narrow screen par style badalti hai.',
+  'Media types': '`@media print { nav { display: none; } }` print copy mein navigation chhupa sakta hai.',
+  'Media features': '`@media (prefers-reduced-motion: reduce)` animation kam karne ki user preference check karta hai.',
+  Breakpoint: 'Agar 700px par cards tang hon to us width par 2-column se 1-column layout kar dein.',
+  Orientation: '`@media (orientation: landscape)` mein wide screen ke liye side-by-side layout diya ja sakta hai.',
+  'Iteration aur list traversal': '`for (const name of names) { console.log(name); }` array ki har value par chalta hai.',
+  Recursion: '`factorial(4)` khud ko 3, 2, 1 tak call karke `24` return karta hai.',
+  'Object reference aur equality': '`const b = a; a === b` true hota hai; naya `{}` banane par reference alag hota hai.',
+  'UTF-16': 'JavaScript mein `"A".length` 1 hai, jab ke `"😀".length` 2 UTF-16 code units hai.',
+  CSMA: 'Wi-Fi device channel busy sunay to CSMA/CA ke tehat transmit karne se pehle wait karta hai.',
+  LPDDR: 'Smartphone ki RAM LPDDR memory se kam battery power use kar sakti hai.',
+  CAPTCHA: 'Sign-up form CAPTCHA challenge se automated bot submissions rokne ki koshish karta hai.',
+  MVC: 'Shopping app mein Controller request leta, Model product data laata aur View page dikhata hai.',
+  SERP: '“weather Lahore” search karne par results wala page SERP hai.',
+  VLM: 'VLM ko plant ki photo de kar poocha ja sakta hai ke yeh kaunsa poda hai.',
+  IDL: 'IDL file `getUser(id)` service operation aur uske input/output types describe kar sakti hai.',
+  SCI: 'Release checklist mein `server.mjs` ko SCI ke taur par version aur track kiya ja sakta hai.',
+  WASM: 'Photo editor ka image-processing module browser-compatible runtime mein Wasm ke taur par chal sakta hai.',
+};
+
+function getGlossaryExample(item) {
+  if (item.example) return item.example;
+  if (item.term === 'LPA') {
+    return item.detail.startsWith('Lakh Per Annum')
+      ? 'Misal: 12 LPA salary ka matlab aam tor par saal ke 12 lakh rupay hota hai.'
+      : 'Misal: LPA document kisi trusted shakhs ko mustaqbil ke legal ya financial faislon ki authority de sakta hai.';
+  }
+  return glossaryExamples[item.term] || '';
+}
+
+function escapeGlossaryExample(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getSafeExternalHref(value) {
+  if (!value) return '';
+  try {
+    const parsed = new URL(value);
+    return ['http:', 'https:'].includes(parsed.protocol) && !parsed.username && !parsed.password
+      ? escapeGlossaryExample(parsed.href)
+      : '';
+  } catch {
+    return '';
+  }
+}
+
+function saveCurrentView() {
+  try {
+    localStorage.setItem(viewStorageKey, JSON.stringify({
+      department: activeDepartment,
+      chapterTitle: departments[activeDepartment].chapters[activeChapter]?.title,
+      resourceCategoryIndex: activeResourceCategory,
+    }));
+  } catch {
+    // The app still works if browser storage is unavailable.
+  }
+}
+
+function updateChapterScrollHint() {
+  const canScrollHorizontally = chapterList.scrollWidth > chapterList.clientWidth + 2;
+  const isAtEnd = chapterList.scrollLeft + chapterList.clientWidth >= chapterList.scrollWidth - 2;
+  chapterRail.classList.toggle('has-horizontal-scroll', canScrollHorizontally);
+  chapterRail.classList.toggle('horizontal-scroll-end', isAtEnd);
+}
+
+chapterList.addEventListener('scroll', updateChapterScrollHint, { passive: true });
+window.addEventListener('resize', updateChapterScrollHint);
+
+function updateDepartmentScrollHint() {
+  if (!departmentTabs || !departmentTabsShell) return;
+  const needsScroll = departmentTabs.scrollWidth > departmentTabs.clientWidth + 2;
+  const atEnd = departmentTabs.scrollLeft + departmentTabs.clientWidth >= departmentTabs.scrollWidth - 2;
+  departmentTabsShell.classList.toggle('can-scroll', needsScroll && !atEnd);
+}
+
+departmentTabs?.addEventListener('scroll', updateDepartmentScrollHint, { passive: true });
+window.addEventListener('resize', updateDepartmentScrollHint);
 
 tabs.forEach((tab) => {
   const count = departments[tab.dataset.department].chapters.length;
@@ -811,19 +2238,24 @@ tabs.forEach((tab) => {
 });
 
 function visibleChapters() {
-  return departments[activeDepartment].chapters
+  const chapters = departments[activeDepartment].chapters
     .map((chapter, index) => ({ chapter, index }))
-    .sort((a, b) => chapterTitleCollator.compare(a.chapter.title, b.chapter.title));
+  return activeDepartment === 'types'
+    ? chapters
+    : chapters.sort((a, b) => chapterTitleCollator.compare(a.chapter.title, b.chapter.title));
 }
 
-function selectChapter(index, shouldScroll = false) {
-  activeChapter = index;
-  [...chapterList.children].forEach((button) => {
-    const selected = Number(button.dataset.chapterIndex) === index;
-    button.classList.toggle('active', selected);
-    button.setAttribute('aria-current', selected ? 'true' : 'false');
-  });
-  renderLesson(departments[activeDepartment].chapters[index]);
+function activeChapterPosition() {
+  return visibleChapters().findIndex(({ index }) => index === activeChapter) + 1;
+}
+
+function selectChapter(index, shouldScroll = false, hoverTriggered = false) {
+  if (activeChapter !== index) {
+    if (hoverTriggered) ignoreChapterHoverUntilPointerMoves = true;
+    activeChapter = index;
+    saveCurrentView();
+    renderChapters();
+  }
   if (shouldScroll && window.matchMedia('(max-width: 520px)').matches) {
     lessonCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -831,6 +2263,7 @@ function selectChapter(index, shouldScroll = false) {
 
 function renderChapters() {
   const chapters = visibleChapters();
+  const previousMenuScrollTop = chapterList.scrollTop;
   chapterCount.textContent = `${String(chapters.length).padStart(2, '0')} ${chapters.length === 1 ? 'CHAPTER' : 'CHAPTERS'}`;
   chapterList.replaceChildren();
 
@@ -852,16 +2285,37 @@ function renderChapters() {
     button.dataset.chapterIndex = index;
     button.setAttribute('aria-current', index === activeChapter ? 'true' : 'false');
     button.innerHTML = `<span class="chapter-number">${String(menuIndex + 1).padStart(2, '0')}</span><span>${chapter.title}</span><span class="chapter-arrow" aria-hidden="true">›</span>`;
-    button.addEventListener('mouseenter', () => selectChapter(index));
+    button.addEventListener('mouseenter', () => {
+      if (!ignoreChapterHoverUntilPointerMoves) {
+        scheduleHover('chapter', () => {
+          if (!ignoreChapterHoverUntilPointerMoves) selectChapter(index, false, true);
+        });
+      }
+    });
     button.addEventListener('focus', () => selectChapter(index));
-    button.addEventListener('click', () => selectChapter(index, true));
+    button.addEventListener('click', () => {
+      cancelHover('chapter');
+      selectChapter(index, true);
+    });
     chapterList.append(button);
   });
 
+  chapterList.onmouseleave = () => cancelHover('chapter');
+  if (revealRestoredChapter) {
+    chapterList.querySelector(`[data-chapter-index="${activeChapter}"]`)?.scrollIntoView({ block: 'start' });
+    revealRestoredChapter = false;
+  } else {
+    chapterList.scrollTop = previousMenuScrollTop;
+  }
   renderLesson(departments[activeDepartment].chapters[activeChapter]);
+  saveCurrentView();
+  requestAnimationFrame(updateChapterScrollHint);
 }
 
 function renderLesson(chapter) {
+  lessonCard.classList.remove('lesson-enter');
+  void lessonCard.offsetWidth;
+  lessonCard.classList.add('lesson-enter');
   if (!chapter) {
     lessonCard.innerHTML = '<div class="empty-state"><strong>Nothing matched that search.</strong>Try another word or clear your search to see every chapter.</div>';
     return;
@@ -869,6 +2323,110 @@ function renderLesson(chapter) {
 
   const chapters = departments[activeDepartment].chapters;
   const nextIndex = (activeChapter + 1) % chapters.length;
+  if (chapter.checklistSections) {
+    const savedChecks = readJourneyChecklist();
+    const checklistTotal = chapter.checklistSections.reduce((total, section) => total + section.items.length, 0);
+    const checklistMarkup = chapter.checklistSections.map((section, sectionIndex) => `
+      <section class="journey-checklist-section">
+        <div class="glossary-section-heading"><span>${String(sectionIndex + 1).padStart(2, '0')}</span><h4>${escapeGlossaryExample(section.title)}</h4><small>${section.items.length} ITEMS</small></div>
+        <div class="journey-checklist-grid">${section.items.map((name) => {
+          const key = encodeURIComponent(`${chapter.title}|${section.title}|${name}`);
+          const checked = savedChecks[key] === true;
+          return `<label class="journey-check-item${checked ? ' checked' : ''}"><input type="checkbox" data-journey-key="${key}"${checked ? ' checked' : ''}><span>${escapeGlossaryExample(name)}</span></label>`;
+        }).join('')}</div>
+      </section>`).join('');
+    lessonCard.innerHTML = `
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
+      <h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      ${chapter.includesNormal ? '<button class="journey-normal-link" type="button" data-journey-normal>Normal essentials ki checklist bhi dekhein →</button>' : ''}
+      <div class="journey-checklist">${checklistMarkup}</div>
+      <div class="lesson-bottom"><span class="lesson-bottom-label">${checklistTotal} CHECKLIST ITEMS · SAVED ON THIS DEVICE</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
+    lessonCard.querySelectorAll('[data-journey-key]').forEach((input) => {
+      input.addEventListener('change', () => {
+        const checks = readJourneyChecklist();
+        if (input.checked) checks[input.dataset.journeyKey] = true;
+        else delete checks[input.dataset.journeyKey];
+        writeJourneyChecklist(checks);
+        input.closest('.journey-check-item')?.classList.toggle('checked', input.checked);
+      });
+    });
+    lessonCard.querySelector('[data-journey-normal]')?.addEventListener('click', () => {
+      const normalIndex = chapters.findIndex((item) => item.title === 'Normal');
+      if (normalIndex >= 0) { activeChapter = normalIndex; renderChapters(); }
+    });
+    lessonCard.querySelector('.next-button').addEventListener('click', () => { activeChapter = nextIndex; renderChapters(); });
+    return;
+  }
+  if (chapter.windowsTimeline) {
+    const timelineItems = chapter.windowsTimeline.map((item) => `
+      <li class="windows-timeline-item">
+        <span class="windows-timeline-year">${item.year}</span>
+        <article class="windows-timeline-card"><h4>${item.version}</h4><p>${item.detail}</p></article>
+      </li>`).join('');
+    lessonCard.innerHTML = `
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
+      <h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <ol class="windows-timeline" aria-label="Windows release timeline">${timelineItems}</ol>
+      <div class="lesson-bottom"><span class="lesson-bottom-label">${chapter.timelineFooter}</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
+    lessonCard.querySelector('.next-button').addEventListener('click', () => { activeChapter = nextIndex; renderChapters(); });
+    return;
+  }
+  if (chapter.nameLists) {
+    const nameCount = chapter.nameLists.reduce((total, section) => total + section.items.length, 0);
+    const nameListsMarkup = chapter.nameLists.map((section, sectionIndex) => `
+      <section class="names-list-section">
+        <div class="glossary-section-heading"><span>${String(sectionIndex + 1).padStart(2, '0')}</span><h4>${escapeGlossaryExample(section.title)}</h4><small>${String(section.items.length).padStart(2, '0')} NAMES</small></div>
+        ${section.note ? `<p class="names-list-note">${escapeGlossaryExample(section.note)}</p>` : ''}
+        <ul class="names-list-grid">${section.items.map((item) => `<li>${escapeGlossaryExample(item)}</li>`).join('')}</ul>
+      </section>`).join('');
+    lessonCard.innerHTML = `
+      <div class="lesson-topline"><span class="lesson-tag">${escapeGlossaryExample(chapter.concept)}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
+      <h3>${escapeGlossaryExample(chapter.heading)}</h3><p class="definition">${escapeGlossaryExample(chapter.definition)}</p>
+      <div class="names-lists">${nameListsMarkup}</div>
+      <div class="lesson-bottom"><span class="lesson-bottom-label">${nameCount} LIST ITEMS · NAMES & REFERENCES</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
+    lessonCard.querySelector('.next-button').addEventListener('click', () => { activeChapter = nextIndex; renderChapters(); });
+    return;
+  }
+  if (chapter.glossarySections) {
+    activeResourceCategory = Math.min(activeResourceCategory, chapter.glossarySections.length - 1);
+    const selectedSection = chapter.glossarySections[activeResourceCategory];
+    const glossaryCount = chapter.glossarySections.reduce((total, section) => total + section.items.length, 0);
+    const glossaryFooter = chapter.glossaryFooter || `${glossaryCount} TERMS · GROUPED BY TOPIC`;
+    const categoryButtons = chapter.glossarySections.map((section, sectionIndex) => `
+      <button class="glossary-category-button${sectionIndex === activeResourceCategory ? ' active' : ''}" type="button" data-resource-category="${sectionIndex}" aria-pressed="${sectionIndex === activeResourceCategory}">
+        <span>${String(sectionIndex + 1).padStart(2, '0')}</span>${escapeGlossaryExample(section.title)}
+      </button>`).join('');
+    const glossaryMarkup = [selectedSection].map((section) => `
+      <section class="glossary-section" id="resource-category-${activeResourceCategory}">
+        <div class="glossary-section-heading"><span>${String(activeResourceCategory + 1).padStart(2, '0')}</span><h4>${section.title}</h4><small>${String(section.items.length).padStart(2, '0')} TERMS</small></div>
+        <div class="glossary-grid">${section.items.map((item) => {
+          const example = getGlossaryExample(item);
+          const safeHref = getSafeExternalHref(item.url);
+          const resourceLink = safeHref ? `<a class="glossary-resource-link" href="${safeHref}" target="_blank" rel="noopener noreferrer"><span>Link kholo ↗</span><code>${safeHref}</code></a>` : '';
+          return `<article class="glossary-item"><h5>${item.term}</h5><p>${item.detail}</p>${resourceLink}${example ? `<p class="glossary-example"><strong>Misal:</strong> ${escapeGlossaryExample(example)}</p>` : ''}</article>`;
+        }).join('')}</div>
+      </section>`).join('');
+    lessonCard.innerHTML = `
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
+      <h3>${chapter.heading}</h3>
+      <p class="definition">${chapter.definition}</p>
+      ${chapter.glossarySections.length > 1 ? `<div class="glossary-category-nav" aria-label="Content categories">${categoryButtons}</div>` : ''}
+      <div class="glossary-content">${glossaryMarkup}</div>
+      <div class="lesson-bottom"><span class="lesson-bottom-label">${glossaryFooter}</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
+    lessonCard.querySelectorAll('.glossary-category-button').forEach((button) => {
+      button.addEventListener('click', () => {
+        activeResourceCategory = Number(button.dataset.resourceCategory);
+        saveCurrentView();
+        renderLesson(chapter);
+      });
+    });
+    lessonCard.querySelector('.next-button').addEventListener('click', () => {
+      activeChapter = nextIndex;
+      renderChapters();
+    });
+    return;
+  }
+
   if (chapter.architectureDevopsGuide) {
     const projectFiles = chapter.projectFiles.map((file) => `<article class="devops-file ${file.kind === 'GENERATED' ? 'generated' : ''}"><code>${file.path}</code><span>${file.kind}</span><p>${file.detail}</p></article>`).join('');
     const orgCards = chapter.organizationCards.map((card) => `<article class="devops-org-card ${card.color}"><div><span>${card.icon}</span><h5>${card.title}</h5></div><p>${card.definition}</p><small>Misalein</small><ul>${card.examples.map((example) => `<li>${example}</li>`).join('')}</ul></article>`).join('');
@@ -878,7 +2436,7 @@ function renderLesson(chapter) {
     const problems = chapter.troubleshooting.map((item) => `<article class="railway-problem ${item.color}"><div><span>${item.icon}</span><h5>${item.title}</h5></div><ul>${item.checks.map((check) => `<li>${check}</li>`).join('')}</ul>${item.note ? `<small>${item.note}</small>` : ''}</article>`).join('');
     const notes = chapter.devopsNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <section class="devops-organization"><div class="devops-section-heading"><span>01</span><div><h4>Project organization</h4><p>Source files alag rakhein; generated output ko source se alag samjhein.</p></div></div><div class="devops-project-root"><div class="devops-root-title"><span>▣</span><b>z-bank/ · project root</b><small>app source</small></div><div class="devops-file-tree">${projectFiles}</div></div><div class="devops-org-grid">${orgCards}</div><div class="devops-env-grid">${envCards}</div><div class="devops-env-note"><span>🔐</span><p><strong>Asli credentials ko push na karein.</strong> .env.local Git se ignore hai; .env.example mein sirf fake placeholders rakhein.</p></div></section>
       <section class="devops-railway"><div class="devops-section-heading"><span>02</span><div><h4>Deployment · Railway</h4><p>Repository connect se public domain tak ka seedha flow.</p></div><b class="railway-mark">R</b></div><div class="railway-flow">${deploySteps}</div><div class="railway-commands-panel"><div class="railway-commands-heading"><span>›_</span><div><h4>Is project ke commands</h4><p>Build pehle; server compiled dist/ ko serve karega.</p></div></div><div class="railway-commands-grid">${commands}</div><div class="railway-domain"><span>◎</span><code>https://your-service.up.railway.app</code><b>Deploy ke baad domain generate karein ↗</b></div></div><div class="railway-troubleshoot"><div class="railway-troubleshoot-title"><span>!</span><h4>Troubleshooting</h4><small>Error ke mutabiq sahi logs dekhein.</small></div><div class="railway-problem-grid">${problems}</div></div></section>
       <section class="devops-notes"><div class="devops-section-heading"><span>✓</span><div><h4>Build aur deploy ke zaroori notes</h4><p>Platform settings aur app configuration dono check karein.</p></div></div><ol>${notes}</ol></section>
@@ -893,7 +2451,7 @@ function renderLesson(chapter) {
     const accessSteps = chapter.storageAccessSteps.map((step, index) => `<article class="storage-access-step"><div><span>${String(index + 1).padStart(2, '0')}</span><b>${step.icon}</b></div><h5>${step.title}</h5><p>${step.detail}</p></article>`).join('');
     const notes = chapter.storageNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <section class="storage-intro-panel"><div class="storage-section-heading"><span>01</span><div><h4>Bucket kya hota hai?</h4><p>Bucket files ka named container aur unka access model hota hai.</p></div></div><div class="storage-base64-compare"><article class="storage-base64-card"><div><span>⌁</span><h4>File ko Base64 text banana</h4></div><p>Image ya PDF ko bohat lambi encoded text value bana kar database mein rakhna aam tor par acha pattern nahi.</p><small>DB bloat · transfer heavy · file handling mushkil</small></article><div class="storage-transform" aria-hidden="true"><span>→</span><b>behtar pattern</b></div><article class="storage-object-card"><div><span>▤</span><h4>File ko Storage bucket mein</h4></div><div class="storage-object-flow"><b>File / object storage</b><i aria-hidden="true">→</i><b>Path + metadata in Postgres</b></div><p>Actual binary file alag storage mein; database bucket/object metadata aur path ko track karta hai.</p></article></div><div class="storage-flow-panel"><div class="storage-flow-heading"><span>↳</span><div><h4>Upload se URL tak</h4><p>Files aur metadata alag jagah rehte hain, magar app unhein aik Storage API se manage karti hai.</p></div></div><div class="storage-flow-grid">${storageSteps}</div></div></section>
       <section class="storage-buckets-panel"><div class="storage-section-heading"><span>02</span><div><h4>Public vs Private buckets</h4><p>Privacy bucket setting aur object par lagne wali policy se tay hoti hai.</p></div></div><div class="storage-buckets-grid">${bucketCards}</div></section>
       <section class="storage-signed-panel"><div class="storage-section-heading"><span>03</span><div><h4>Signed URL · private file ka temporary link</h4><p>Pehle user ki permission check; phir limited waqt ke liye link dein.</p></div></div><div class="storage-access-flow">${accessSteps}</div><div class="storage-code-layout"><div><div class="storage-code-heading"><span>JS</span><div><h4>60-second signed URL</h4><p>Expiry seconds mein hoti hai. Apne app ke user-session client aur Storage RLS use karein.</p></div></div><pre><code>${chapter.signedUrlCode}</code></pre></div><aside><span>◷</span><h4>Temporary gate pass</h4><p>Link khud permission ko replace nahi karta: link banane se pehle policy se verify karein ke user is file ka haqdar hai.</p><small>URL mila → expiry se pehle access</small></aside></div></section>
@@ -912,7 +2470,7 @@ function renderLesson(chapter) {
     const packageCards = chapter.packageTools.map((tool) => `<article class="fb-package-card ${tool.color}"><div class="fb-package-heading"><b>${tool.name}</b><span>${tool.role}</span></div><p>${tool.detail}</p><code>${tool.command}</code></article>`).join('');
     const notes = chapter.frontendNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <section class="fb-section fb-responsive"><div class="fb-section-heading"><span>01</span><div><h4>Frontend · responsive Tailwind</h4><p>Mobile se shuru karein, phir screen bari hone par layout upgrade karein.</p></div><b class="fb-section-icon">▱</b></div><div class="fb-breakpoint-flow">${breakpoints}</div><div class="fb-responsive-example"><div><strong>Class example</strong><p>Text mobile par chhota, medium par bara, large par aur bara.</p></div><pre><code>&lt;p class="text-sm md:text-base lg:text-lg"&gt;\n  Hello World\n&lt;/p&gt;</code></pre></div><div class="fb-grid-demo"><div class="fb-grid-title"><span>12-column grid</span><small>Har row ke total spans = 12</small></div><div class="fb-grid-track"><span style="grid-column:span 12">col-span-12 · full row</span><span style="grid-column:span 6">col-span-6</span><span style="grid-column:span 6">col-span-6</span><span style="grid-column:span 4">col-span-4</span><span style="grid-column:span 4">col-span-4</span><span style="grid-column:span 4">col-span-4</span></div></div></section>
       <section class="fb-section fb-env-section"><div class="fb-section-heading"><span>02</span><div><h4>.env files · secrets · Git</h4><p>Asli values private rakhein; team ko variable names safe template se dikhayein.</p></div><b class="fb-section-icon">⌑</b></div><div class="fb-env-grid">${envCards}</div><div class="fb-env-rule"><span>🔒</span><div><strong>Secret key browser mein nahi.</strong><p>Next.js mein <code>NEXT_PUBLIC_</code> prefix wali values browser bundle mein aa sakti hain. Supabase secret key ko kabhi is prefix ke saath na rakhein.</p></div></div></section>
       <section class="fb-section fb-cms-section"><div class="fb-section-heading"><span>03</span><div><h4>CMS · Collection vs Global</h4><p>Repeated records aur poori site par shared aik version ka farq.</p></div><b class="fb-section-icon">▦</b></div><div class="fb-cms-grid">${cmsCards}</div></section>
@@ -939,7 +2497,7 @@ function renderLesson(chapter) {
       </article>`).join('');
     const notes = chapter.joinNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <section class="join-source-panel"><div class="join-section-heading"><span>01</span><div><h4>Sample tables</h4><p>JOIN in dono tables ke student_id ko match karega.</p></div></div><div class="join-source-grid">${sourceTables}</div><div class="join-key-line"><span>Students.student_id</span><i aria-hidden="true"></i><b>same key</b><i aria-hidden="true"></i><span>Enrollments.student_id</span></div></section>
       <section class="sql-join-section"><div class="join-section-heading"><span>02</span><div><h4>Chhe JOIN types</h4><p>Query padhein, phir result mein dekhein kaun se rows bache.</p></div></div><div class="sql-join-grid">${joinCards}</div></section>
       <section class="join-notes-panel"><div class="join-section-heading"><span>03</span><div><h4>Yaad rakhne wali baatein</h4><p>NULL aur database syntax ka farq bhi check karein.</p></div></div><ol>${notes}</ol></section>
@@ -953,7 +2511,7 @@ function renderLesson(chapter) {
     const roles = chapter.threadRoles.map((role) => `<article class="event-thread-card ${role.color}"><span>${role.icon}</span><div><h5>${role.name}</h5><p>${role.detail}</p></div></article>`).join('');
     const notes = chapter.eventLoopNotes.map((note) => `<li>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <section class="event-loop-flow-panel"><div class="event-flow-heading"><span>⟳</span><div><h4>Request se callback tak ka flow</h4><p>Jab I/O chal raha hota hai, main JS thread doosra ready kaam kar sakta hai.</p></div></div><div class="event-loop-flow">${stages}</div></section>
       <section class="event-thread-panel"><div class="event-flow-heading"><span>⌘</span><div><h4>Kaun sa hissa kya karta hai?</h4><p>“Single-threaded” ka matlab yeh nahi ke Node ke process mein sirf aik thread hi hota hai.</p></div></div><div class="event-thread-grid">${roles}</div></section>
       <div class="event-loop-bottom"><section class="event-code-panel"><div class="event-code-heading"><span>⌨</span><div><h4>Non-blocking file read</h4><p>Start aur End foran; file callback baad mein.</p></div></div><pre><code>${chapter.eventLoopCode}</code></pre><div class="event-output"><span>Execution order</span><b>Start</b><i>→</i><b>End</b><i>→</i><b>File callback</b></div></section><aside class="event-note-panel"><div class="event-flow-heading"><span>!</span><div><h4>Yaad rakhein</h4><p>Concurrency ka faida tab rehta hai jab callbacks chhoti hon.</p></div></div><ul>${notes}</ul></aside></div>
@@ -975,7 +2533,7 @@ function renderLesson(chapter) {
     const statuses = chapter.statusCodes.map((item) => `<div class="request-status"><code>${item.code}</code><span>${item.label}</span></div>`).join('');
     const notes = chapter.flowNotes.map((note) => `<li>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <div class="request-summary-flow"><div><span>01</span><b>Browser</b><small>request bheje</small></div><i>→</i><div><span>02</span><b>Server / App</b><small>kaam kare</small></div><i>→</i><div><span>03</span><b>Database</b><small>data de (agar zaroori)</small></div><i>→</i><div><span>04</span><b>Browser</b><small>response render kare</small></div></div>
       <div class="request-phase-list">${phases}</div>
       <div class="request-reference-grid"><section class="request-reference-card methods"><div class="request-reference-heading"><span>⇅</span><div><h4>HTTP methods</h4><p>Request ka maqsad</p></div></div><div class="request-method-list">${methods}</div></section><section class="request-reference-card statuses"><div class="request-reference-heading"><span>▤</span><div><h4>Status codes</h4><p>Server ka natija</p></div></div><div class="request-status-list">${statuses}</div></section></div>
@@ -991,7 +2549,7 @@ function renderLesson(chapter) {
     const notes = chapter.structureNotes.map((note) => `<li>${note}</li>`).join('');
     const sources = chapter.structureSources.map((source) => `<a href="${source.url}" target="_blank" rel="noreferrer">${source.label}<span aria-hidden="true">↗</span></a>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <div class="next-structure-split"><section class="next-tree-panel"><div class="next-panel-heading"><span>⌘</span><div><h4>Project tree</h4><p>Folders ki nesting aur route files dekhein.</p></div></div><div class="next-project-tree">${treeRows}</div></section><section class="next-files-panel"><div class="next-panel-heading"><span>▤</span><div><h4>Folder / file ka kaam</h4><p>Special files aur aam folders ka farq.</p></div></div><div class="next-structure-grid">${structureCards}</div></section></div>
       <div class="next-structure-bottom"><section class="next-routes-panel"><div class="next-panel-heading"><span>↗</span><div><h4>Routing examples</h4><p>File path se URL kaise banta hai?</p></div></div><div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th>File / folder</th><th>Route</th></tr></thead><tbody>${routeRows}</tbody></table></div></section><section class="next-notes-panel"><div class="next-panel-heading"><span>✳</span><div><h4>Yaad rakhne wali baatein</h4><p>App Router ke bunyadi rules.</p></div></div><ul>${notes}</ul></section></div>
       <div class="next-structure-sources"><strong>Official Next.js docs</strong>${sources}</div>
@@ -1004,7 +2562,7 @@ function renderLesson(chapter) {
       <article class="bot-type-card ${bot.color}"><div class="bot-card-heading"><span class="bot-type-number">0${index + 1}</span><span class="bot-type-icon">${bot.icon}</span><h4>${bot.title}</h4></div><p>${bot.detail}</p><div class="bot-flow" aria-label="Chatbot ka flow">${bot.flow.map((step, stepIndex) => `<div><b>${String(stepIndex + 1).padStart(2, '0')}</b><span>${step}</span></div>${stepIndex < bot.flow.length - 1 ? '<i aria-hidden="true">→</i>' : ''}`).join('')}</div><div class="bot-details-grid"><div><strong>Khusoosiyat</strong><ul>${bot.features.map((item) => `<li>${item}</li>`).join('')}</ul></div><div><strong>Misalein</strong><ul>${bot.cases.map((item) => `<li>${item}</li>`).join('')}</ul></div></div><pre><code>${bot.example}</code></pre></article>`).join('');
     const groqFlow = chapter.groqFlow.map((step, index) => `<div class="groq-flow-step"><b>0${index + 1}</b><span>${step}</span></div>${index < chapter.groqFlow.length - 1 ? '<i aria-hidden="true">→</i>' : ''}`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <div class="bot-type-grid">${botCards}</div>
       <section class="groq-architecture"><div class="groq-heading"><span>↗</span><div><h4>Groq kahan fit hota hai?</h4><p>${chapter.groqRole}</p></div></div><div class="groq-flow">${groqFlow}</div><div class="groq-security"><b>!</b><p><strong>API key server par rakho.</strong> ${chapter.securityTip}</p></div><a class="lesson-source-link" href="https://console.groq.com/docs/api-reference" target="_blank" rel="noreferrer">Groq API reference <span aria-hidden="true">↗</span></a></section>
       <div class="lesson-bottom"><span class="lesson-bottom-label">RULES MATCH KAREIN · AI MODEL JAWAB BANAYE</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
@@ -1015,7 +2573,7 @@ function renderLesson(chapter) {
     const groups = chapter.categoryGroups.map((group, index) => `<article class="chat-category-card ${group.color}"><div class="chat-category-head"><span>${group.icon}</span><div><small>0${index + 1}</small><h4>${group.title}</h4></div></div><ol>${group.items.map((item) => `<li>${item}</li>`).join('')}</ol></article>`).join('');
     const platforms = chapter.platformGroups.map((group) => `<section class="platform-group ${group.color}"><div class="platform-group-head"><span>${group.icon}</span><div><h4>${group.title}</h4><p>Examples — category ke mutabiq shortlist karein</p></div></div><div class="platform-chip-list">${group.items.map((item, index) => `<span class="platform-chip ${item === 'Chatwoot' ? 'featured' : ''}"><b>${String(index + 1).padStart(2, '0')}</b>${item}</span>`).join('')}</div></section>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
       <div class="chat-category-grid">${groups}</div>
       <section class="platforms-section"><div class="platform-section-title"><span>⇄</span><div><h4>Chatwoot ke qareeb tools</h4><p>Yeh customer support, shared inbox ya chatbot-builder ke examples hain; har product ka focus aik jaisa nahi.</p></div></div><div class="platform-groups">${platforms}</div><div class="chatwoot-focus"><span class="chatwoot-mark">C</span><p><strong>Chatwoot ka focus:</strong> ${chapter.chatwootNote}</p><a href="https://www.chatwoot.com/community" target="_blank" rel="noreferrer">Chatwoot Community Edition <span aria-hidden="true">↗</span></a></div><div class="platform-caveat"><span>i</span>${chapter.compareNote}</div></section>
       <div class="lesson-bottom"><span class="lesson-bottom-label">CATEGORY INTKHAAB → USER KI ZAROORAT KE MUTABIQ</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
@@ -1024,7 +2582,7 @@ function renderLesson(chapter) {
   }
   if (chapter.envGuide) {
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
       <section class="env-meaning" aria-label="Environment variable ki tashreeh"><span class="env-meaning-icon">{ }</span><div><strong>Environment variable kya hai?</strong><p>App ke bahar rakhi hui setting, jaise database address ya API key. Is se aik hi code ko local, development aur production mein mukhtalif values mil sakti hain.</p></div><span class="env-meaning-tag">CONFIG → APP</span></section>
@@ -1065,7 +2623,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1120,7 +2678,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1176,7 +2734,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1224,7 +2782,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1299,7 +2857,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1359,10 +2917,19 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
       </article>`).join('');
     const comparisonCards = chapter.packageComparison.map((item) => `
       <div class="package-summary-card"><strong>${item.name}</strong><span>${item.summary}</span></div>`).join('');
+    const installGuide = chapter.packageInstallGuide ? `
+      <section class="package-install-guide" aria-label="Packages kahan install hotay hain">
+        <h4>Package install ho kar kahan jata hai?</h4>
+        <div class="package-install-grid">
+          <article><strong>Project ke liye · local</strong><p>${chapter.packageInstallGuide.local}</p><code>${chapter.packageInstallGuide.localCommand}</code></article>
+          <article><strong>Command-line tool · global</strong><p>${chapter.packageInstallGuide.global}</p><code>${chapter.packageInstallGuide.globalCommand}</code></article>
+        </div>
+        <p class="package-install-check">Location check: <code>${chapter.packageInstallGuide.checkCommand}</code></p>
+      </section>` : '';
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1370,6 +2937,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
       <section class="package-comparison" aria-label="Package managers ka aik line mein muqabla">
         <h4>Aik nazar mein muqabla</h4><div class="package-summary-grid">${comparisonCards}</div>
       </section>
+      ${installGuide}
       <div class="lesson-bottom">
         <span class="lesson-bottom-label">JAVASCRIPT KE 5 PACKAGE TOOLS</span>
         <button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button>
@@ -1398,7 +2966,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1437,7 +3005,7 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     lessonCard.innerHTML = `
       <div class="lesson-topline">
         <span class="lesson-tag">${chapter.concept}</span>
-        <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
       <p class="definition">${chapter.definition}</p>
@@ -1457,10 +3025,36 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
     return;
   }
 
+  if (chapter.apparelTypes) {
+    const typeCards = chapter.apparelTypes.map((type) => `
+      <article class="glossary-item">
+        <h5>${escapeGlossaryExample(type.name)}</h5>
+        <p>${escapeGlossaryExample(type.detail)}</p>
+        <p class="glossary-example"><strong>Misal:</strong> ${escapeGlossaryExample(type.example)}</p>
+      </article>`).join('');
+    lessonCard.innerHTML = `
+      <div class="lesson-topline">
+        <span class="lesson-tag">${chapter.concept}</span>
+        <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+      </div>
+      <h3>${chapter.heading}</h3>
+      <p class="definition">${chapter.definition}</p>
+      <div class="glossary-content"><div class="glossary-grid">${typeCards}</div></div>
+      <div class="lesson-bottom">
+        <span class="lesson-bottom-label">${chapter.apparelTypes.length} ${chapter.title.toUpperCase()} KI QISMEIN</span>
+        <button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button>
+      </div>`;
+    lessonCard.querySelector('.next-button').addEventListener('click', () => {
+      activeChapter = nextIndex;
+      renderChapters();
+    });
+    return;
+  }
+
   lessonCard.innerHTML = `
     <div class="lesson-topline">
       <span class="lesson-tag">${chapter.concept}</span>
-      <span class="lesson-index">${String(activeChapter + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
+      <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
     </div>
     <h3>${chapter.heading}</h3>
     <p class="definition">${chapter.definition}</p>
@@ -1480,8 +3074,9 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
 }
 
 function selectDepartment(department, focusTab = false) {
+  const departmentChanged = activeDepartment !== department;
   activeDepartment = department;
-  activeChapter = 0;
+  if (departmentChanged) activeChapter = 0;
   tabs.forEach((tab) => {
     const selected = tab.dataset.department === department;
     tab.classList.toggle('active', selected);
@@ -1490,12 +3085,28 @@ function selectDepartment(department, focusTab = false) {
     if (selected && focusTab) tab.focus();
   });
   const selectedTab = tabs.find((tab) => tab.dataset.department === department);
+  selectedTab?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
   panel.setAttribute('aria-labelledby', selectedTab.id);
   renderChapters();
+  updateDepartmentScrollHint();
 }
 
 tabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => selectDepartment(tab.dataset.department));
+  tab.addEventListener('mouseenter', () => {
+    if (!ignoreTabHoverUntilPointerMoves && !ignoreDepartmentHoverUntilPointerMoves) {
+      scheduleHover('department', () => {
+        if (!ignoreDepartmentHoverUntilPointerMoves) {
+          selectDepartment(tab.dataset.department);
+          ignoreDepartmentHoverUntilPointerMoves = true;
+        }
+      });
+    }
+  });
+  tab.addEventListener('click', () => {
+    cancelHover('department');
+    ignoreDepartmentHoverUntilPointerMoves = false;
+    selectDepartment(tab.dataset.department);
+  });
   tab.addEventListener('keydown', (event) => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
@@ -1508,4 +3119,201 @@ tabs.forEach((tab, index) => {
   });
 });
 
-renderChapters();
+tabs[0]?.parentElement.addEventListener('mouseleave', () => cancelHover('department'));
+
+document.addEventListener('pointermove', () => {
+  ignoreTabHoverUntilPointerMoves = false;
+  ignoreChapterHoverUntilPointerMoves = false;
+  ignoreDepartmentHoverUntilPointerMoves = false;
+});
+
+let searchResults = [];
+let highlightedSearchResult = -1;
+let activeSearchHighlight = null;
+let searchHighlightTimeout = 0;
+
+function normalizeSearchText(text) {
+  return String(text).normalize('NFKC').toLocaleLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+function getChapterSearchText(value, strings = []) {
+  if (typeof value === 'string' || typeof value === 'number') {
+    strings.push(String(value));
+  } else if (Array.isArray(value)) {
+    value.forEach((item) => getChapterSearchText(item, strings));
+  } else if (value && typeof value === 'object') {
+    Object.values(value).forEach((item) => getChapterSearchText(item, strings));
+  }
+  return strings;
+}
+
+function findMatchingGlossaryEntry(value, query) {
+  const matches = [];
+  const visit = (item) => {
+    if (Array.isArray(item)) {
+      item.forEach(visit);
+    } else if (item && typeof item === 'object') {
+      const label = item.term || item.version || item.name || item.label;
+      if (typeof label === 'string') {
+        const entryText = normalizeSearchText(`${getChapterSearchText(item).join(' ')} ${glossaryExamples[item.term] || ''}`);
+        if (entryText.includes(query)) {
+          const normalizedLabel = normalizeSearchText(label);
+          matches.push({
+            title: label,
+            excerpt: item.detail || item.example || glossaryExamples[item.term] || item.definition || label,
+            score: normalizedLabel === query ? 100 : normalizedLabel.includes(query) ? 60 : 10,
+          });
+        }
+      }
+      Object.values(item).forEach(visit);
+    }
+  };
+  visit(value);
+  return matches.sort((a, b) => b.score - a.score)[0] || null;
+}
+
+function getChapterGlossaryExamples(value, terms = new Set()) {
+  if (Array.isArray(value)) {
+    value.forEach((item) => getChapterGlossaryExamples(item, terms));
+  } else if (value && typeof value === 'object') {
+    if (typeof value.term === 'string') terms.add(value.term);
+    Object.values(value).forEach((item) => getChapterGlossaryExamples(item, terms));
+  }
+  return [...terms].map((term) => glossaryExamples[term]).filter(Boolean);
+}
+
+function escapeSearchHtml(text) {
+  return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function renderProjectSearchResults() {
+  const query = normalizeSearchText(projectSearchInput.value);
+  highlightedSearchResult = -1;
+  if (!query) {
+    projectSearchResults.hidden = true;
+    projectSearchInput.setAttribute('aria-expanded', 'false');
+    projectSearchResults.replaceChildren();
+    searchResults = [];
+    return;
+  }
+
+  searchResults = [];
+  Object.entries(departments).forEach(([department, data]) => {
+    data.chapters.forEach((chapter, chapterIndex) => {
+      const content = getChapterSearchText(chapter).concat(getChapterGlossaryExamples(chapter)).join(' ');
+      const normalizedContent = normalizeSearchText(content);
+      if (!normalizedContent.includes(query)) return;
+
+      const glossaryMatch = findMatchingGlossaryEntry(chapter, query);
+      const titleMatch = normalizeSearchText(`${chapter.title} ${chapter.heading || ''}`).includes(query);
+      const excerpt = glossaryMatch?.excerpt || chapter.definition || content;
+      const exactLabel = glossaryMatch && normalizeSearchText(glossaryMatch.title) === query;
+      const score = (exactLabel ? 100 : glossaryMatch ? 50 : 0) + (titleMatch ? 25 : 0);
+      searchResults.push({ department, chapterIndex, chapter, title: glossaryMatch?.title || chapter.heading || chapter.title, targetLabel: glossaryMatch?.title || '', excerpt, score });
+    });
+  });
+
+  searchResults.sort((a, b) => b.score - a.score || chapterTitleCollator.compare(a.title, b.title));
+  searchResults = searchResults.slice(0, 10);
+  projectSearchResults.replaceChildren();
+
+  if (searchResults.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'project-search-status';
+    empty.textContent = 'No matches found. Try another word.';
+    projectSearchResults.append(empty);
+  } else {
+    searchResults.forEach((result, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'project-search-result';
+      button.id = `project-search-result-${index}`;
+      button.setAttribute('role', 'option');
+      button.setAttribute('aria-selected', 'false');
+      button.dataset.searchResultIndex = String(index);
+      const departmentName = tabs.find((tab) => tab.dataset.department === result.department)?.querySelector('span:nth-child(2)')?.textContent || result.department;
+      button.innerHTML = `<strong>${escapeSearchHtml(result.title)}</strong><small>${escapeSearchHtml(departmentName)} · ${escapeSearchHtml(result.chapter.title)}</small><span>${escapeSearchHtml(result.excerpt)}</span>`;
+      button.addEventListener('click', () => selectProjectSearchResult(index));
+      projectSearchResults.append(button);
+    });
+  }
+
+  projectSearchResults.hidden = false;
+  projectSearchInput.setAttribute('aria-expanded', 'true');
+}
+
+function selectProjectSearchResult(index) {
+  const result = searchResults[index];
+  if (!result) return;
+  if (result.chapter.glossarySections && result.targetLabel) {
+    const matchingCategory = result.chapter.glossarySections.findIndex((section) =>
+      section.items.some((item) => normalizeSearchText(item.term) === normalizeSearchText(result.targetLabel))
+    );
+    activeResourceCategory = matchingCategory >= 0 ? matchingCategory : 0;
+  } else if (result.chapter.glossarySections) {
+    activeResourceCategory = 0;
+  }
+  ignoreTabHoverUntilPointerMoves = true;
+  projectSearchResults.hidden = true;
+  projectSearchInput.setAttribute('aria-expanded', 'false');
+  selectDepartment(result.department);
+  selectChapter(result.chapterIndex, true);
+  requestAnimationFrame(() => {
+    const targetText = normalizeSearchText(result.targetLabel || projectSearchInput.value);
+    const match = [...lessonCard.querySelectorAll('h3, h4, h5, p, li, code')]
+      .find((element) => normalizeSearchText(element.textContent).includes(targetText));
+    const destination = match?.closest('.glossary-item, .windows-timeline-item') || match || lessonCard;
+    destination.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    activeSearchHighlight?.classList.remove('search-result-highlight');
+    window.clearTimeout(searchHighlightTimeout);
+    activeSearchHighlight = destination;
+    activeSearchHighlight.classList.add('search-result-highlight');
+    searchHighlightTimeout = window.setTimeout(() => {
+      activeSearchHighlight?.classList.remove('search-result-highlight');
+      activeSearchHighlight = null;
+    }, 3600);
+  });
+}
+
+function updateHighlightedSearchResult(nextIndex) {
+  if (searchResults.length === 0) return;
+  highlightedSearchResult = (nextIndex + searchResults.length) % searchResults.length;
+  [...projectSearchResults.querySelectorAll('.project-search-result')].forEach((button, index) => {
+    const selected = index === highlightedSearchResult;
+    button.setAttribute('aria-selected', String(selected));
+    if (selected) button.scrollIntoView({ block: 'nearest' });
+  });
+}
+
+projectSearchInput.addEventListener('input', renderProjectSearchResults);
+projectSearchInput.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    updateHighlightedSearchResult(highlightedSearchResult + 1);
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    updateHighlightedSearchResult(highlightedSearchResult < 0 ? searchResults.length - 1 : highlightedSearchResult - 1);
+  } else if (event.key === 'Enter' && highlightedSearchResult >= 0) {
+    event.preventDefault();
+    selectProjectSearchResult(highlightedSearchResult);
+  } else if (event.key === 'Escape') {
+    projectSearchResults.hidden = true;
+    projectSearchInput.setAttribute('aria-expanded', 'false');
+  }
+});
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.project-search-wrap')) {
+    projectSearchResults.hidden = true;
+    projectSearchInput.setAttribute('aria-expanded', 'false');
+  }
+});
+document.addEventListener('keydown', (event) => {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+    event.preventDefault();
+    projectSearchInput.focus();
+    projectSearchInput.select();
+  }
+});
+
+selectDepartment(activeDepartment);
+updateDepartmentScrollHint();

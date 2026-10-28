@@ -4,27 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#101713" />
-    <title>Fieldnotes — Science, made clear</title>
+    <title>Z-Book</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=3" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="links.js" defer></script>
+    <script src="names.js" defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
     <div class="page-shell">
       <main id="top">
         <section class="library">
-          <div class="department-tabs" role="tablist" aria-label="Science topics">
-            <button class="department-tab active" id="tab-biology" type="button" role="tab" aria-selected="true" aria-controls="department-content" data-department="biology">
-              <span class="tab-icon biology-icon">✿</span><span>Definitions</span><span class="tab-count">03</span>
-            </button>
-            <button class="department-tab" id="tab-chemistry" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="chemistry" tabindex="-1">
-              <span class="tab-icon chemistry-icon">◉</span><span>Abbreviations</span><span class="tab-count">03</span>
-            </button>
-            <button class="department-tab" id="tab-physics" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="physics" tabindex="-1">
-              <span class="tab-icon physics-icon">⌁</span><span>Physics</span><span class="tab-count">03</span>
-            </button>
+          <div class="project-search-wrap">
+            <label class="project-search" for="project-search-input">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.7" cy="8.7" r="5.8"></circle><path d="m13 13 4.1 4.1"></path></svg>
+              <input id="project-search-input" type="search" placeholder="Search anywhere in Z-Book…" autocomplete="off" aria-label="Search all Z-Book lessons" aria-controls="project-search-results" aria-expanded="false" />
+              <kbd aria-hidden="true">Ctrl K</kbd>
+            </label>
+            <div class="project-search-results" id="project-search-results" role="listbox" aria-label="Search results" hidden></div>
+          </div>
+          <div class="department-tabs-shell">
+            <div class="department-tabs" role="tablist" aria-label="Topics">
+              <button class="department-tab active" id="tab-biology" type="button" role="tab" aria-selected="true" aria-controls="department-content" data-department="biology">
+                <span class="tab-icon biology-icon">✿</span><span>Definitions</span><span class="tab-count">03</span>
+              </button>
+              <button class="department-tab" id="tab-chemistry" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="chemistry" tabindex="-1">
+                <span class="tab-icon chemistry-icon">◉</span><span>Abbreviations</span><span class="tab-count">03</span>
+              </button>
+              <button class="department-tab" id="tab-links" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="links" tabindex="-1">
+                <span class="tab-icon links-icon">↗</span><span>Links</span><span class="tab-count">01</span>
+              </button>
+              <button class="department-tab" id="tab-types" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="types" tabindex="-1">
+                <span class="tab-icon types-icon">◇</span><span>Types</span><span class="tab-count">03</span>
+              </button>
+              <button class="department-tab" id="tab-tools" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="tools" tabindex="-1">
+                <span class="tab-icon tools-icon">⌘</span><span>Tools &amp; Formats</span><span class="tab-count">07</span>
+              </button>
+              <button class="department-tab" id="tab-journey" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="journey" tabindex="-1">
+                <span class="tab-icon journey-icon">✓</span><span>Journey</span><span class="tab-count">07</span>
+              </button>
+              <button class="department-tab" id="tab-names" type="button" role="tab" aria-selected="false" aria-controls="department-content" data-department="names" tabindex="-1">
+                <span class="tab-icon names-icon">Aa</span><span>Names</span><span class="tab-count">00</span>
+              </button>
+            </div>
+            <span class="department-scroll-hint" aria-hidden="true">→</span>
           </div>
 
           <div class="department-panel" id="department-content" role="tabpanel" aria-labelledby="tab-biology" tabindex="0">

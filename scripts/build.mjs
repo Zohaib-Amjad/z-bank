@@ -12,7 +12,7 @@ if (outputDir !== resolve(projectRoot, 'dist')) {
 await rm(outputDir, { recursive: true, force: true });
 await mkdir(outputDir, { recursive: true });
 
-for (const file of ['index.html', 'styles.css', 'script.js']) {
+for (const file of ['index.html', 'styles.css', 'script.js', 'links.js', 'names.js']) {
   await cp(join(projectRoot, file), join(outputDir, file));
 }
 
