@@ -803,6 +803,7 @@ const chapterCount = document.querySelector('#chapter-count');
 
 let activeDepartment = 'biology';
 let activeChapter = 0;
+const chapterTitleCollator = new Intl.Collator('en', { numeric: true, sensitivity: 'base' });
 
 tabs.forEach((tab) => {
   const count = departments[tab.dataset.department].chapters.length;
@@ -810,7 +811,9 @@ tabs.forEach((tab) => {
 });
 
 function visibleChapters() {
-  return departments[activeDepartment].chapters.map((chapter, index) => ({ chapter, index }));
+  return departments[activeDepartment].chapters
+    .map((chapter, index) => ({ chapter, index }))
+    .sort((a, b) => chapterTitleCollator.compare(a.chapter.title, b.chapter.title));
 }
 
 function selectChapter(index, shouldScroll = false) {
@@ -842,13 +845,13 @@ function renderChapters() {
 
   if (!chapters.some(({ index }) => index === activeChapter)) activeChapter = chapters[0].index;
 
-  chapters.forEach(({ chapter, index }) => {
+  chapters.forEach(({ chapter, index }, menuIndex) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = `chapter-button${index === activeChapter ? ' active' : ''}`;
     button.dataset.chapterIndex = index;
     button.setAttribute('aria-current', index === activeChapter ? 'true' : 'false');
-    button.innerHTML = `<span class="chapter-number">${String(index + 1).padStart(2, '0')}</span><span>${chapter.title}</span><span class="chapter-arrow" aria-hidden="true">›</span>`;
+    button.innerHTML = `<span class="chapter-number">${String(menuIndex + 1).padStart(2, '0')}</span><span>${chapter.title}</span><span class="chapter-arrow" aria-hidden="true">›</span>`;
     button.addEventListener('mouseenter', () => selectChapter(index));
     button.addEventListener('focus', () => selectChapter(index));
     button.addEventListener('click', () => selectChapter(index, true));
