@@ -78,7 +78,7 @@ kbd { min-width: 17px; padding: 2px 4px; border: 1px solid #e5e9e2; border-radiu
 .department-tab.active { color: var(--ink); }
 .department-tab.active::after { position: absolute; content: ''; height: 2px; left: 13px; right: 13px; bottom: -1px; border-radius: 2px 2px 0 0; background: #5e8c68; }
 .tab-icon { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 7px; font-family: var(--serif); font-size: 16px; }
-.biology-icon { color: #56825b; background: #eaf2e5; }.chemistry-icon { color: #b3854f; background: #f5eee2; }.links-icon { color: #537d85; background: #e7f0f0; font-size: 15px; }.types-icon { color: #986a9e; background: #f1eaf3; font-size: 19px; }.tools-icon { color: #547a62; background: #e8f0e8; font-size: 17px; }.journey-icon { color: #547a62; background: #e8f0e8; font-family: var(--sans); font-weight: 700; }.names-icon { color: #587c80; background: #e8f0ef; font: 700 10px var(--sans); letter-spacing: -.5px; }
+.biology-icon { color: #56825b; background: #eaf2e5; }.chemistry-icon { color: #b3854f; background: #f5eee2; }.links-icon { color: #537d85; background: #e7f0f0; font-size: 15px; }.types-icon { color: #986a9e; background: #f1eaf3; font-size: 19px; }.tools-icon { color: #547a62; background: #e8f0e8; font-size: 17px; }.journey-icon { color: #547a62; background: #e8f0e8; font-family: var(--sans); font-weight: 700; }.names-icon { color: #587c80; background: #e8f0ef; font: 700 10px var(--sans); letter-spacing: -.5px; }.communication-icon { color: #667d9c; background: #e9edf5; font: 700 16px var(--sans); }
 .tab-count { margin-left: auto; color: #a1aaa2; font-family: 'DM Mono', monospace; font-size: 8px; }
 .department-panel { min-height: 328px; display: grid; grid-template-columns: 225px minmax(0, 1fr); border-bottom: 1px solid var(--line); }
 .chapter-rail { position: sticky; top: 16px; align-self: start; height: calc(100vh - 32px); display: flex; flex-direction: column; padding: 25px 19px 22px 0; border-right: 1px solid var(--line); background: var(--paper); }
@@ -224,6 +224,7 @@ kbd { border-color: #344239; background: #1b2620; color: #98a99c; }
 .biology-icon { color: #a2d2a0; background: #203126; }
 .chemistry-icon { color: #e5ba83; background: #332a1e; }
 .links-icon { color: #a3d2d2; background: #1e3032; }
+.communication-icon { color: #b9c8e8; background: #252e40; }
 .tab-count, .rail-heading, .chapter-number, .lesson-index, .lesson-bottom-label { color: #829087; }
 .rail-index, .chapter-button.active .chapter-number { color: #9fc5a0; }
 .chapter-button { color: #a5b1a8; }
@@ -991,6 +992,7 @@ kbd { border-color: #344239; background: #1b2620; color: #98a99c; }
 @media (prefers-reduced-motion: reduce) { .search-result-highlight, .department-scroll-hint { animation: none; } }
 .glossary-item h5 { margin: 0 0 5px; color: #c4ddc6; font: 600 11px var(--display); }
 .glossary-item p { margin: 0; color: #aab7ad; font-size: 10px; line-height: 1.6; }
+.glossary-item .glossary-original { margin: 0 0 8px; padding: 8px 9px; border-left: 2px solid #8a9bb8; border-radius: 0 4px 4px 0; background: #1a202a; color: #c1c8d4; font-size: 10px; }
 .glossary-item .glossary-example { margin-top: 8px; padding-top: 7px; border-top: 1px dashed #34483a; color: #c0cec2; }
 .glossary-example strong { color: #9fc5a0; font-weight: 600; }
 .journey-checklist { display: grid; gap: 20px; margin-top: 22px; }
