@@ -1449,6 +1449,15 @@ const departments = {
           },
         ],
       },
+      {
+        title: 'Everyday & Conversation Abbreviations',
+        heading: 'Rozmarrah guftagu ka short form',
+        definition: 'Communication notes mein mila short form aur uska context.',
+        concept: 'CONVERSATION · SHORT FORM',
+        glossarySections: [{ title: 'Chat shorthand', items: [
+          { term: 'GF', detail: 'Girlfriend: informal English chat abbreviation. Yeh har relationship ke liye label nahi; shakhs ka apna pasandeeda term use karo.', example: 'Misal: “My GF is joining us” ka matlab “Meri girlfriend hamare saath aa rahi hai” hai.' },
+        ] }],
+      },
     ],
   },
   links: {
@@ -1788,6 +1797,10 @@ const departments = {
   names: {
     name: 'Names',
     chapters: window.zbookNames || [],
+  },
+  communication: {
+    name: 'Communication',
+    chapters: window.zbookCommunication || [],
   },
 };
 
@@ -2403,7 +2416,10 @@ function renderLesson(chapter) {
           const example = getGlossaryExample(item);
           const safeHref = getSafeExternalHref(item.url);
           const resourceLink = safeHref ? `<a class="glossary-resource-link" href="${safeHref}" target="_blank" rel="noopener noreferrer"><span>Link kholo ↗</span><code>${safeHref}</code></a>` : '';
-          return `<article class="glossary-item"><h5>${item.term}</h5><p>${item.detail}</p>${resourceLink}${example ? `<p class="glossary-example"><strong>Misal:</strong> ${escapeGlossaryExample(example)}</p>` : ''}</article>`;
+          const termMarkup = item.original ? escapeGlossaryExample(item.term) : item.term;
+          const detailMarkup = item.original ? escapeGlossaryExample(item.detail) : item.detail;
+          const originalMarkup = item.original ? `<p class="glossary-original"><strong>Aapka original note:</strong> ${escapeGlossaryExample(item.original)}</p>` : '';
+          return `<article class="glossary-item"><h5>${termMarkup}</h5>${originalMarkup}<p>${detailMarkup}</p>${resourceLink}${example ? `<p class="glossary-example"><strong>Misal:</strong> ${escapeGlossaryExample(example)}</p>` : ''}</article>`;
         }).join('')}</div>
       </section>`).join('');
     lessonCard.innerHTML = `
