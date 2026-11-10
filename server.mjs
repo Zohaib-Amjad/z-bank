@@ -1,8 +1,9 @@
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
-import { extname, resolve, sep } from 'node:path';
+import { dirname, extname, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const publicRoot = resolve(process.cwd(), 'dist');
+const publicRoot = resolve(dirname(fileURLToPath(import.meta.url)), 'dist');
 const port = Number(process.env.PORT) || 3000;
 const contentTypes = {
   '.css': 'text/css; charset=utf-8',
@@ -51,6 +52,26 @@ const server = createServer(async (request, response) => {
   }
 });
 
-server.listen(port, '0.0.0.0', () => {
-  console.log(`z-bank is listening on 0.0.0.0:${port}`);
+let currentPort = port;
+
+function startServer(p) {
+  server.listen(p, () => {
+    console.log(`z-bank is listening on http://localhost:${p} (and http://127.0.0.1:${p})`);
+  });
+}
+
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.warn(`Port ${currentPort} is already in use, trying port ${currentPort + 1}...`);
+    currentPort += 1;
+    startServer(currentPort);
+    return;
+  }
+  console.error('Server error:', error);
 });
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
+});
+
+startServer(currentPort);

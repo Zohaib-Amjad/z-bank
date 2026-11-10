@@ -2,7 +2,7 @@ window.zbookNames = [
   {
     "title": "Animals & Plants",
     "heading": "Animals, birds aur plants ki list",
-    "definition": "Original note mein yeh headings thin; specific animal, bird aur plant names abhi list mein nahi diye gaye.",
+    "definition": "Animals, birds, water animals, sabziyan aur dry fruits ki categorized list.",
     "concept": "NAME LIST · ANIMALS · PLANTS",
     "nameLists": [
       {
@@ -20,7 +20,7 @@ window.zbookNames = [
   {
     "title": "Body Parts",
     "heading": "Jism ke hisson ke naam",
-    "definition": "Aapki A–Z body-parts list, letter groups mein.",
+    "definition": "Insaani jism ke hisson ke naam (A–Z).",
     "concept": "NAMES · BODY PARTS · A–Z",
     "nameLists": [
       {
@@ -171,7 +171,7 @@ window.zbookNames = [
   {
     "title": "Browsers",
     "heading": "Web browsers",
-    "definition": "Aapke note mein diye gaye browsers aur developer builds.",
+    "definition": "Mukhtalif web browsers aur developer builds.",
     "concept": "NAMES · BROWSERS",
     "nameLists": [
       {
@@ -182,6 +182,8 @@ window.zbookNames = [
           "Edge",
           "Firefox",
           "Firefox Developer Edition",
+          "Mosaic (first browser that showed images — built by Marc Andreessen)",
+          "Netscape Navigator (pioneering web browser — built by Marc Andreessen)",
           "Opera",
           "Safari",
           "UC Browser",
@@ -221,7 +223,7 @@ window.zbookNames = [
   {
     "title": "Colors",
     "heading": "Rangon ke naam",
-    "definition": "Aapki note mein di hui color list.",
+    "definition": "Aam aur stylish colors ke naam.",
     "concept": "NAMES · COLORS",
     "nameLists": [
       {
@@ -243,7 +245,7 @@ window.zbookNames = [
   {
     "title": "Countries",
     "heading": "Countries aur historical states",
-    "definition": "Aapki pasted country list yahan preserve ki hai. Star (*) wali entries source note mein historical states ya former names ke taur par mark thin.",
+    "definition": "Dunya ke mumalik aur territories ki mukammal fehrist.",
     "concept": "NAMES · COUNTRIES · HISTORY",
     "nameLists": [
       {
@@ -483,7 +485,7 @@ window.zbookNames = [
   {
     "title": "Digital Devices",
     "heading": "Digital devices ke naam",
-    "definition": "Aapke note mein listed aam digital devices.",
+    "definition": "Rozmarrah istemaal hone wali digital devices aur gadgets.",
     "concept": "NAMES · DIGITAL DEVICES",
     "nameLists": [
       {
@@ -492,7 +494,11 @@ window.zbookNames = [
           "Mobile",
           "Laptop",
           "Watch",
-          "ATM Machine"
+          "ATM Machine",
+          "Dedicated Server (exclusive bare-metal hosting machine)",
+          "VPS (Virtual Private Server — cloud virtual machine)",
+          "Shared Hosting Server (shared web hosting machine)",
+          "DNS Nameserver (domain resolver & authoritative machine)"
         ]
       }
     ]
@@ -500,7 +506,7 @@ window.zbookNames = [
   {
     "title": "Founders & Origins",
     "heading": "Languages, companies aur inventions ke founders",
-    "definition": "Names aapke source note se preserve kiye hain. Kuch inventions ya sports ki history ka credit zyada complex ho sakta hai; note ko ek-line attribution samjho.",
+    "definition": "Tareekhi ijaadat, games aur unke mashhoor mojideen.",
     "concept": "NAMES · FOUNDERS · ORIGINS",
     "nameLists": [
       {
@@ -512,6 +518,7 @@ window.zbookNames = [
           "HTML — Tim Berners-Lee",
           "JavaScript (JS) — Brendan Eich",
           "MongoDB — Dwight Merriman, Eliot Horowitz and Kevin Ryan",
+          "Mosaic & Netscape — Marc Andreessen (Mosaic was the first browser that showed images; Andreessen later co-founded Netscape)",
           "Node.js — Ryan Dahl",
           "React.js — Jordan Walke"
         ]
@@ -520,6 +527,7 @@ window.zbookNames = [
         "title": "Companies & inventions",
         "items": [
           "Android — Andy Rubin, Rich Miner, Nick Sears and Chris White",
+          "AOL (America Online) — Steve Case and Jim Kimsey (introduced millions of people to the internet in the 1990s)",
           "Apple — Steve Jobs, Steve Wozniak and Ronald Wayne",
           "Light bulb — Thomas Edison (practical incandescent bulb development; not sole inventor)",
           "Electricity — Benjamin Franklin (electricity was not invented by one person; Franklin studied it)",
@@ -551,7 +559,7 @@ window.zbookNames = [
   {
     "title": "Girls’ Names",
     "heading": "Girls’ names",
-    "definition": "Aapke diye hue first names ki list.",
+    "definition": "Mukhtalif aam aur pasandeeda first names ki fehrist.",
     "concept": "NAMES · PEOPLE",
     "nameLists": [
       {
@@ -574,7 +582,7 @@ window.zbookNames = [
   {
     "title": "Kitchen Utensils",
     "heading": "Kitchen utensils A–Z",
-    "definition": "Aapki A–Z kitchen-tools list; kuch original spellings ko sahi spelling ke saath preserve kiya hai.",
+    "definition": "Kitchen aur cooking ke liye aam tools aur bartan (A–Z).",
     "concept": "NAMES · KITCHEN · A–Z",
     "nameLists": [
       {
@@ -625,7 +633,7 @@ window.zbookNames = [
   {
     "title": "Lahore Malls",
     "heading": "Lahore malls",
-    "definition": "Aapki note mein diye gaye mall names.",
+    "definition": "Mashhoor shopping malls aur commercial centers.",
     "concept": "NAMES · PLACES",
     "nameLists": [
       {
@@ -646,7 +654,7 @@ window.zbookNames = [
   {
     "title": "Namaz",
     "heading": "Namaz aur nawafil ke naam",
-    "definition": "Aapki prayer-name list. Spellings ko readable form mein rakha aur original terms preserve kiye hain.",
+    "definition": "Panj-waqta namazon aur ibadat ke auqaat.",
     "concept": "NAMES · PRAYER",
     "nameLists": [
       {
@@ -680,7 +688,7 @@ window.zbookNames = [
   {
     "title": "Oils",
     "heading": "Hair oils aur unke note kiye hue uses",
-    "definition": "Uses aapke pasted note se hain; unhein guaranteed medical results na samjho.",
+    "definition": "Desi jadi bootiyan aur arqiyat ke aam fawaid.",
     "concept": "NAMES · OILS · USE NOTES",
     "nameLists": [
       {
@@ -706,7 +714,7 @@ window.zbookNames = [
   {
     "title": "Social Media",
     "heading": "Social media platforms",
-    "definition": "Aapki list ke social media names.",
+    "definition": "Aam aur mashhoor social media platforms.",
     "concept": "NAMES · SOCIAL MEDIA",
     "nameLists": [
       {
@@ -728,7 +736,7 @@ window.zbookNames = [
   {
     "title": "Social Groups",
     "heading": "Messaging aur social groups",
-    "definition": "Aapke note ke communication/community services.",
+    "definition": "Messaging, voice calling aur community platforms.",
     "concept": "NAMES · COMMUNICATION",
     "nameLists": [
       {
@@ -746,7 +754,7 @@ window.zbookNames = [
   {
     "title": "Sports",
     "heading": "Sports ke naam",
-    "definition": "Aapki sports list.",
+    "definition": "Indoor aur outdoor sports aur games ke naam.",
     "concept": "NAMES · SPORTS",
     "nameLists": [
       {
@@ -764,7 +772,7 @@ window.zbookNames = [
   {
     "title": "Surahs",
     "heading": "Quran ki surah names",
-    "definition": "Aapki list ke transliterated names aur English glosses ko source note se preserve kiya hai; transliteration aur tarjume ke liye trusted Quran edition se cross-check karna.",
+    "definition": "Surah ke naam, tarjuma aur unki aam tartib.",
     "concept": "NAMES · SURAH INDEX",
     "nameLists": [
       {
@@ -892,7 +900,7 @@ window.zbookNames = [
   {
     "title": "Symbols",
     "heading": "Keyboard, math aur currency symbols",
-    "definition": "Symbol ke visual sign aur aapke note mein diye gaye common names.",
+    "definition": "Keyboard, math aur typography ke ahem symbols.",
     "concept": "NAMES · SYMBOLS · REFERENCE",
     "nameLists": [
       {
@@ -1052,7 +1060,7 @@ window.zbookNames = [
   {
     "title": "Software by Use",
     "heading": "Software names by use",
-    "definition": "Aapke note mein applications ko unke kaam ke mutabiq group kiya gaya.",
+    "definition": "Rozmarrah productivity, utility aur system applications.",
     "concept": "NAMES · SOFTWARE · USE",
     "nameLists": [
       {
@@ -1090,6 +1098,9 @@ window.zbookNames = [
         "items": [
           "Visual Studio Code — code editor",
           "Node.js — JavaScript runtime",
+          "Git & .gitignore — version control & ignore rules",
+          "npm, package.json & package-lock.json — package manifest & lockfile",
+          "OpenSSL — SSL/TLS certificate & cryptography tool",
           "CodePen — online code practice/editor",
           "XAMPP for Windows — local web stack (as noted)",
           "AnyDesk — remote PC controller",
@@ -1113,7 +1124,7 @@ window.zbookNames = [
   {
     "title": "Food & Drinks",
     "heading": "Foods, breads, drinks aur salad",
-    "definition": "Aapki food list ko original groups ke andar rakha hai; spellings ko jahan zaroori tha sahi form ke saath preserve kiya.",
+    "definition": "Traditional aur international khano aur dishes ke naam.",
     "concept": "NAMES · FOOD · DRINKS",
     "nameLists": [
       {

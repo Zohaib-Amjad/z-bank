@@ -9,7 +9,11 @@ if (outputDir !== resolve(projectRoot, 'dist')) {
   throw new Error('Build output must stay in the project dist/ folder.');
 }
 
-await rm(outputDir, { recursive: true, force: true });
+try {
+  await rm(outputDir, { recursive: true, force: true });
+} catch (error) {
+  if (error.code !== 'EBUSY' && error.code !== 'EPERM') throw error;
+}
 await mkdir(outputDir, { recursive: true });
 
 for (const file of ['index.html', 'styles.css', 'script.js', 'links.js', 'names.js', 'communication.js']) {
