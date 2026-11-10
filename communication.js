@@ -3,7 +3,7 @@ const communicationNote = (term, original, detail, example) => ({ term, original
 window.zbookCommunication = [
   {
     title: 'Presence & Body Language', heading: 'Presence aur body language',
-    definition: 'Aapke original body-language notes ko readable guidance mein rakha hai. Eye contact aur posture natural rakhein; intimidation wali advice ko respectful alternative ke saath dikhaya gaya hai.',
+    definition: 'Guftagu aur meetings ke dauran natural posture, eye contact aur confident body language.',
     concept: 'COMMUNICATION · BODY LANGUAGE',
     glossarySections: [{ title: 'Nonverbal communication', items: [
       communicationNote('Face, smile & appearance', 'Looks; Face; Smile (with eyes more than mouth); Neat dress', 'Chehre ke expression, munasib muskurahat aur saaf-suthra libaas se friendly impression dein. Har waqt muskurana zaroori nahi.', 'Misal: salam karte waqt relaxed expression ke saath halki muskurahat rakho.'),
@@ -68,7 +68,7 @@ window.zbookCommunication = [
   },
   {
     title: 'Boundaries & Relationships', heading: 'Boundaries aur relationships',
-    definition: 'Source note ke personal relationship rules ko preserve kiya hai, lekin unhein universal hukum nahi banaya. Consent, respect, safety aur mutual choice ko markaz rakho.',
+    definition: 'Dosti aur talluqaat mein izzat, mutual trust aur healthy boundaries.',
     concept: 'COMMUNICATION · RELATIONSHIPS',
     glossarySections: [{ title: 'Personal boundaries', items: [
       communicationNote('Connection & attachment', 'Attachment is the root of all suffering. So, don’t get attached instead get just connected even the opposite side is of your family...!', 'Yeh personal philosophy ka absolute version hai. Qareebi rishton mein attachment fitri hai; healthy boundaries rakhna aur apni zindagi ka balance maintain karna zyada realistic hai.', 'Misal: family ko waqt do, saath hi apni padhai, sehat aur doston ke liye bhi waqt rakho.'),
@@ -86,7 +86,7 @@ window.zbookCommunication = [
   },
   {
     title: 'Confidence, Work & Values', heading: 'Confidence, kaam aur values',
-    definition: 'Aapke self-development aur social-network notes ko practical, balanced reminders mein arrange kiya hai.',
+    definition: 'Shakhsiat ki behtari, self-confidence aur positive networking ke usool.',
     concept: 'COMMUNICATION · PERSONAL GROWTH',
     glossarySections: [{ title: 'Personal reminders', items: [
       communicationNote('Be natural', 'Be your natural; don’t copy others’ tone, laugh etc… instead keep your own', 'Apni personality ko jagah do; saath hi audience aur situation ke mutabiq respectful adjustment karna bhi natural communication ka hissa hai.', 'Misal: apni normal awaaz mein baat karo, formal interview mein bas zyada clear aur measured raho.'),

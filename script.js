@@ -714,6 +714,9 @@ const departments = {
         concept: 'PROJECT ROOT → BUILD → RAILWAY',
         architectureDevopsGuide: true,
         projectFiles: [
+          { path: 'package.json', kind: 'CONFIG', detail: 'Project identity, runnable scripts aur direct dependencies ka record.' },
+          { path: 'package-lock.json', kind: 'LOCKFILE', detail: 'Installed packages ka exact tree aur sha512 integrity hashes; reproducible builds ke liye.' },
+          { path: '.gitignore', kind: 'GIT RULES', detail: 'Secrets (.env.local), node_modules/ aur generated build outputs (dist/) ko Git se ignore karta hai.' },
           { path: 'index.html', kind: 'PAGE', detail: 'App ka entry page aur tab layout.' },
           { path: 'styles.css', kind: 'STYLE', detail: 'Dark theme, responsive layout aur lesson diagrams.' },
           { path: 'script.js', kind: 'CONTENT + UI', detail: 'Chapters, hover navigation aur lesson rendering.' },
@@ -766,16 +769,45 @@ const departments = {
             title: 'Web, software aur internet',
             items: [
               { term: 'Acronym aur initialism', detail: 'Acronym ke initials mil kar aik lafz ki tarah bole jate hain, jaise NASA. Initialism mein har letter alag bola jata hai, jaise DOM.' },
+              { term: 'AOL', detail: 'America Online: 1990s ki tareekhi company jis ne dial-up connections ke zariye millions logon ko pehli dafa internet se jora, phir aahista aahista irrelevant ho gayi.' },
               { term: 'API', detail: 'Application Programming Interface: rules aur functions ka woh interface jiske zariye software ke hisson ko aik doosre se baat karne ka tareeqa milta hai.' },
+              { term: 'CDN', detail: 'Content Delivery Network: dunya bhar mein phaile servers ka network jo static files (images, JS, CSS) ko user ke qareebi geographic location se super-fast deliver karta hai.' },
+              { term: 'CI/CD (CICD)', detail: 'Continuous Integration & Continuous Delivery / Deployment: code changes ko automatically build, test aur production server par deploy karne ka automated pipeline.' },
+              { term: 'Cookie types', detail: 'Browser cookies ki char bunyadi qismein: (1) Session cookie: browser band hone par khatam ho jati hai. (2) Persistent cookie: muqarrar expiry date tak browser mein store rehti hai. (3) First-party cookie: wahi site set karti hai jise user visit kar raha ho. (4) Third-party cookie: doosri external services (ads, trackers) set karti hain.' },
+              { term: 'Cryptography (Symmetric & Asymmetric)', detail: 'Data ko unauthorized access se bachane aur secret codes mein convert karne ki science. (1) Symmetric Cryptography: Data encrypt aur decrypt karne ke liye aik hi shared secret key use hoti hai (jaise AES; super-fast magar key share karna secure tareeqa mangta hai). (2) Asymmetric Cryptography (Public-Key): Do linked keys ka pair hota hai — Public Key (sab ke sath share hoti hai, encryption ke liye) aur Private Key (sirf owner ke paas secret rehti hai, decryption ke liye, jaise RSA, ECC). SSL/TLS connection aur SSH isi handshake se shuru hote hain.' },
+              { term: 'CSR (CRS)', detail: 'Client-Side Rendering (kabhi typo se CRS likha jata hai): web app jahan browser khali HTML download karke client-side JavaScript se page aur UI dynamically render karta hai.' },
+              { term: 'CSRF', detail: 'Cross-Site Request Forgery: web security flaw jahan attacker authenticated user ke browser session ka faida utha kar unki marzi ke baghair unauthorized actions execute karwa leta hai.' },
+              { term: 'DNS', detail: 'Domain Name System: domain names (jaise google.com) ko computer ke samajhne wale IP addresses (jaise 142.250.190.46) mein translate karta hai.' },
+              { term: 'DNS Cache', detail: 'Local memory store (browser, OS, router aur resolver levels par) jo haliya dhoonde gaye IP addresses aur DNS records ko TTL (Time to Live) tak save rakhta hai taake har request par internet par query na bhejni pare.' },
+              { term: 'DNS Resolver', detail: 'Recursive resolver server (jaise ISP ka default DNS, Google 8.8.8.8, Cloudflare 1.1.1.1) jo client computer ki request le kar internet ke Root, TLD aur Authoritative nameservers se query karke asal IP address dhoond kar lata hai.' },
               { term: 'DOM', detail: 'Document Object Model: HTML ya XML document ki tree-shaped representation aur usay read ya update karne wali programming interface. DOM aam tor par letters ke naam se bola jata hai.' },
+              { term: 'Hashing', detail: 'One-way cryptographic mathematical function jo kisi bhi size ke input ko fixed-length unique string (hash digest) mein convert karta hai (jaise SHA-256, bcrypt). Hashing irreversible hoti hai (hash se original data wapas nahi banta); yeh user passwords ko safe rakhne aur file integrity verify karne ke liye use hoti hai.' },
               { term: 'HTTP', detail: 'Hypertext Transfer Protocol: web par browser aur server ke darmiyan requests aur responses ke liye istemaal hone wala protocol.' },
+              { term: 'IaC', detail: 'Infrastructure as Code: servers, databases aur cloud infrastructure ko manual dashboards ke bajaye code aur configuration files (jaise Terraform ya Ansible) se automate karke banana aur manage karna.' },
               { term: 'IP address', detail: 'Internet Protocol address network par kisi interface ko pehchanne aur data route karne mein madad deta hai. Yeh private ya public ho sakta hai aur badal bhi sakta hai.' },
+              { term: 'ISR', detail: 'Incremental Static Regeneration: Next.js ka feature jisme static page build hone ke baad bhi background mein revalidate aur regenerate ho sakta hai, baghair poori site rebuild kiye.' },
               { term: 'ISP', detail: 'Internet Service Provider: company ya idara jo internet connection deta hai; kuch ISPs email, hosting ya doosri services bhi dete hain.' },
               { term: 'JSON', detail: 'JavaScript Object Notation: applications ke darmiyan structured data bhejne aur receive karne ka text format. JSON khud API nahi hota; API JSON use kar sakti hai.' },
-              { term: 'Pull request (PR)', detail: 'Repository mein proposed code changes ko review karne aur baad mein merge karne ka tareeqa.' },
-              { term: 'Same-origin policy', detail: 'Browser security rule jo aik origin ke page ko doosre origin ka data freely read karne se rokta hai. Origin mein scheme, host aur port shamil hote hain.' },
+              { term: 'JWT', detail: 'JSON Web Token: compact aur URL-safe digitally signed token format jo user identity aur claims ko secure tareeqay se transfer karta hai.' },
+              { term: 'Netscape & Mosaic', detail: 'Netscape Navigator browser Marc Andreessen ne banaya tha — wahi shakhs jis ne pehle Mosaic banaya tha, jo inline images display karne wala dunya ka pehla web browser tha.' },
               { term: 'Open source', detail: 'Software jiska source code available ho aur license use, change ya share karne ki ijazat de. Har open-source software lazmi free of cost nahi hota.' },
+              { term: 'Pull request (PR)', detail: 'Repository mein proposed code changes ko review karne aur baad mein merge karne ka tareeqa.' },
+              { term: 'REST', detail: 'Representational State Transfer: stateless web API architecture jo standard HTTP methods (GET, POST, PUT, DELETE) par mabni hoti hai.' },
+              { term: 'Same-origin policy', detail: 'Browser security rule jo aik origin ke page ko doosre origin ka data freely read karne se rokta hai. Origin mein scheme, host aur port shamil hote hain.' },
+              { term: 'Server types (Shared, VPS, Dedicated)', detail: 'Web hosting aur compute architecture ki teen bunyadi qismein: (1) Shared Hosting: aik single physical machine par senkaron websites hoti hain aur CPU, RAM share karti hain (sasti tareen magar resources limited). (2) VPS (Virtual Private Server): hypervisor se physical machine ko isolated virtual servers mein baanta jata hai; har VPS ko apna dedicated CPU, RAM aur root OS access milta hai. (3) Dedicated Server: poora physical server sirf aik client ke liye makhsoos hota hai (highest performance aur hardware control).' },
+              { term: 'Sass', detail: 'Syntactically Awesome Style Sheets: CSS ka powerful preprocessor jo variables, nesting, mixins aur functions provide karta hai.' },
+              { term: 'SDK', detail: 'Software Development Kit: kisi platform ya service (jaise Stripe ya Supabase) ke saath connect karne ke liye pre-built tools, libraries aur documentation ka bundle.' },
+              { term: 'SQL', detail: 'Structured Query Language: relational databases (Postgres, MySQL waghera) mein data store, query aur manage karne ki standard language.' },
+              { term: 'SSH', detail: 'Secure Shell: remote server par terminal command-line access aur secure file transfer karne ka encrypted protocol.' },
+              { term: 'SSG', detail: 'Static Site Generation: build time par website ke tamaam pages ko pehle se complete HTML files mein render karna, taake super-fast speed se serve hon.' },
+              { term: 'SSL & TLS', detail: 'Secure Sockets Layer aur Transport Layer Security: web traffic ko encrypt karne wali technology jo browser mein https:// aur padlock icon ke peeche hoti hai; TLS SSL ka modern aur secure version hai.' },
+              { term: 'SSR', detail: 'Server-Side Rendering: har incoming request par server par HTML page fresh render karke browser ko bhejna, taake dynamic data aur SEO dono behtareen hon.' },
+              { term: 'TCP & UDP', detail: 'Transport layer protocols: TCP reliable, ordered aur connection-oriented data delivery deta hai; UDP fast aur connectionless delivery deta hai (audio/video streaming aur gaming ke liye mashhoor).' },
+              { term: 'TLD (Top-Level Domain)', detail: 'Domain name ka aakhri hissa jo dot ke baad aata hai (jaise .com, .org, .edu, .pk). Yeh generic (gTLD) ya country-code (ccTLD) ho sakta hai aur specific registry nameservers ke zariye govern hota hai.' },
+              { term: 'UTC', detail: 'Coordinated Universal Time: dunya ka standard global time clock jis ke hisaab se tamam time zones, server logs aur databases synchronize kiye jate hain.' },
               { term: 'Virus', detail: 'Malware ki aik qisam jo doosri files ya programs ke saath attach ho kar phail sakti hai. Har malware virus nahi hota.' },
+              { term: 'VPN', detail: 'Virtual Private Network: public internet par encrypted tunnel bana kar private network access aur privacy protection deta hai.' },
+              { term: 'XSS', detail: 'Cross-Site Scripting: security flaw jahan attacker web page mein malicious JavaScript code inject karta hai, jo doosre innocent users ke browser mein chal kar data chori kar sakta hai.' },
             ],
           },
           {
@@ -805,6 +837,10 @@ const departments = {
           {
             title: 'Programming ke bunyadi concepts',
             items: [
+              { term: '.gitignore', detail: 'Git version control text file jo repository ko batati hai ke kin files, folders aur build outputs (jaise node_modules/, .env.local, dist/) ko Git mein track ya commit nahi karna.' },
+              { term: 'package.json', detail: 'Node.js aur JavaScript projects ka central configuration manifest. Is mein project metadata, runnable terminal scripts (npm run dev, build), aur zaroori direct dependencies ka record hota hai.' },
+              { term: 'package-lock.json', detail: 'npm ki automatically create hone wali lockfile jo har installed dependency ka exact version, nested dependency tree aur cryptographic sha512 integrity hashes lock karti hai taake har machine aur server par identical reproducible build ban sake.' },
+              { term: 'OOP (Object-Oriented Programming)', detail: 'Programming paradigm jisme code ko real-world entities ki tarah classes aur objects mein organize kiya jata hai (char bunyadi pillars: Encapsulation, Inheritance, Polymorphism, Abstraction).' },
               { term: 'Function definition', detail: 'Function define karna uska naam, parameters aur body likhna hai; body batati hai function call hone par kya kaam karega.' },
               { term: 'Parameter aur argument', detail: 'Parameter function definition mein naam diya gaya input hota hai. Argument function call karte waqt di gayi asal value hoti hai.' },
               { term: 'return statement', detail: 'Function mein return execution ko khatam karke optional value caller ko deta hai. React component ka returned JSX React render karta hai; woh khud HTML ID mein direct nahi jata.' },
@@ -934,8 +970,10 @@ const departments = {
             title: 'Naam dhoondhna aur web connection',
             items: [
               { term: 'DNS aur DNS resolver', detail: 'Aapka original note DNS ko “internet’s phonebook” aur “number to number translator” kehta hai. Phonebook tashbeeh theek hai; number-to-number kehna ghalat hai. DNS hostname (facebook.com) ke records dhoondta hai; A/AAAA record IP address deta hai. Resolver query ka jawab dhoondta hai.' },
+              { term: 'DNS Cache & Resolver hierarchy', detail: 'Domain lookup sab se pehle browser cache, OS cache aur local router se check hota hai. Agar cache mein IP na ho to ISP ya public recursive resolver request ko internet ke Root servers, TLD servers (.com, .org) aur Authoritative nameservers tak bhej kar IP record dhoondta hai aur TTL (Time to Live) tak local memory mein cache karta hai.' },
               { term: 'HTTP', detail: 'HyperText Transfer Protocol browser/app aur server ke darmiyan requests aur responses ka web protocol hai. Akela HTTP traffic encrypt nahi karta.' },
               { term: 'HTTPS, TLS aur SSL', detail: 'HTTPS, HTTP ko TLS ke zariye protect karta hai. TLS connection ko encrypt karta aur server identity certificate ke zariye verify karne mein madad deta hai. SSL purana, obsolete protocol hai; modern HTTPS TLS use karta hai. Yeh protection transit ke liye hai, device par saved data ke liye nahi, aur na hi har website ko trustworthy sabit karti hai.' },
+              { term: 'SSL/TLS, Cryptography & Hashing', detail: 'HTTPS connection Asymmetric encryption (RSA/ECC key pair) se shuru hota hai taake server identity authenticate ho aur secure symmetric session key exchange ho. Iske baad actual data transfer fast Symmetric encryption (AES) se hota hai. Data packets ki tamper-proof verification aur certificates Hashing (SHA-256) ke zariye hoti hain.' },
             ],
           },
           {
@@ -951,7 +989,7 @@ const departments = {
       {
         title: 'International Contact Numbering',
         heading: 'International phone codes aur numbering zones',
-        definition: 'Aapka original contact-numbering note aur uski correction yahan saath hain. Aaj ka ITU-T E.164 standard country codes ko one, two ya three digits deta hai. Pehla digit purane world numbering zones se region ka andaza deta hai, lekin yeh sakht continent boundaries nahi aur assignments waqt ke saath badal sakti hain.',
+        definition: 'ITU-T E.164 standard ke mutabiq international country calling codes one, two ya three digits ke hote hain. Pehla digit world numbering zone ko represent karta hai.',
         concept: 'COUNTRY CODE · WORLD ZONES · E.164',
         glossaryFooter: 'ORIGINAL NOTE · CORRECTION · EXAMPLES',
         glossarySections: [
@@ -1129,28 +1167,41 @@ const departments = {
         glossarySections: [{
           title: 'Web, internet aur networking',
           items: [
+            { term: 'AOL', detail: 'America Online: 1990s ki tareekhi company jis ne millions logon ko pehli dafa dial-up se internet se jora, phir aahista aahista irrelevant ho gayi.', example: '1990s mein internet access ka mashhoor zariya AOL dial-up service thi.' },
             { term: 'API', detail: 'Application Programming Interface: software ke hisson ko aik doosre se interact karne ka agreed interface.' },
             { term: 'CDN', detail: 'Content Delivery Network: distributed servers ka network jo images, scripts aur doosre web assets ko users ke qareeb se serve kar sakta hai.' },
             { term: 'CSS', detail: 'Cascading Style Sheets: web page ke rang, layout aur visual style define karne ki language.' },
+            { term: 'Dedicated Server', detail: 'Dedicated Server: aik mukammal physical computer jo kisi doosre customer ke sath share nahi hota; exclusive hardware resources aur full control deta hai.', example: 'Heavy enterprise workload ke liye dedicated bare-metal server chalaaya jata hai.' },
             { term: 'DNS', detail: 'Domain Name System: domain name, jaise example.com, ko IP address se map karta hai.' },
+            { term: 'DNS Cache', detail: 'DNS Cache: browser, operating system, router ya resolver mein recent domain lookups ka temporary storage taake bar bar lookup na karna pare.', example: 'DNS cache ki wajah se browser website ko foran open kar leta hai.' },
+            { term: 'DNS Resolver', detail: 'Recursive DNS Resolver: server jo client ke domain request ko internet ke Root, TLD aur Authoritative nameservers se query karke asal IP address dhoondta hai.', example: 'Google ka 8.8.8.8 aur Cloudflare ka 1.1.1.1 mashhoor public DNS resolvers hain.' },
             { term: 'DOM', detail: 'Document Object Model: HTML document ki tree representation aur usay read ya update karne wali interface.' },
             { term: 'GPRS', detail: 'General Packet Radio Service: GSM mobile networks par packet-based data service, aam tor par 2G se mansub.' },
             { term: 'HTML', detail: 'HyperText Markup Language: web page ke content aur structure ko mark up karne ki language.' },
             { term: 'HTTP', detail: 'Hypertext Transfer Protocol: browser aur server ke darmiyan web requests aur responses ka protocol.' },
             { term: 'HTTPS', detail: 'HTTP Secure: TLS encryption ke zariye HTTP connection ko protect karta hai.' },
+            { term: 'IaC', detail: 'Infrastructure as Code: servers, networks aur cloud resources ko manual settings ke bajaye code aur configuration files (jaise Terraform ya Ansible) se manage karna.', example: 'Cloud architecture ko IaC scripts ke zariye automate kiya jata hai.' },
             { term: 'IP', detail: 'Internet Protocol: network par packets address aur route karne ke rules ka set.' },
             { term: 'ISP', detail: 'Internet Service Provider: company ya idara jo internet connection deta hai.' },
             { term: 'JSON', detail: 'JavaScript Object Notation: structured data exchange ka text format; JSON khud API nahi hota.' },
             { term: 'LAN', detail: 'Local Area Network: ghar, school ya office jaisi chhoti jagah ka network.' },
             { term: 'MAC', detail: 'Media Access Control: network interface ka link-layer address; local network par device interface ko identify karta hai.' },
             { term: 'MAN', detail: 'Metropolitan Area Network: aik shehar ya metropolitan area mein networks ko jorne wala network.' },
+            { term: 'Netscape', detail: 'Netscape Navigator: 1990s ka tareekhi web browser jise Marc Andreessen ne banaya tha — wahi shakhs jis ne pehle Mosaic banaya tha, jo inline images dikhane wala pehla web browser tha.', example: 'Marc Andreessen ne pehle Mosaic aur baad mein Netscape browser banaya.' },
             { term: 'PAN', detail: 'Personal Area Network: aik shakhs ke qareeb personal devices ka network, jaise Bluetooth connection.' },
+            { term: 'Sass', detail: 'Syntactically Awesome Style Sheets: CSS ka powerful preprocessor jo nesting, variables, mixins aur functions deta hai.', example: '`$primary: #8fbd96; .card { color: $primary; }`.' },
+            { term: 'Shared Hosting', detail: 'Shared Web Hosting: aik hi physical server par senkaron websites chalna jahan CPU, RAM aur bandwidth shared hote hain.', example: 'Starter blogs aur basic websites ke liye shared hosting sab se sasta option hota hai.' },
+            { term: 'SSH', detail: 'Secure Shell: remote server ya computer par secure encrypted terminal connection aur commands chalane ka protocol.', example: '`ssh user@server.com` se remote VPS terminal access hota hai.' },
+            { term: 'SSL', detail: 'Secure Sockets Layer: web connections ko encrypt karne wali technology jo browser mein https:// aur padlock icon ke peeche hoti hai; ab iski modern shakal TLS hai.', example: 'Browser mein https:// aur padlock icon SSL/TLS security ko zahir karta hai.' },
             { term: 'TCP', detail: 'Transmission Control Protocol: reliable, ordered data delivery ke liye transport protocol.' },
             { term: 'TLD', detail: 'Top-Level Domain: domain name ka aakhri hissa, jaise `.com` ya `.dev`.', example: '`example.dev` mein `.dev` TLD hai.' },
+            { term: 'TLS', detail: 'Transport Layer Security: SSL ka modern successor protocol jo browser aur server ke darmiyan data ki encryption aur privacy ensure karta hai.', example: 'Modern HTTPS connections TLS 1.3 encryption use karte hain.' },
             { term: 'UDP', detail: 'User Datagram Protocol: connectionless transport protocol; delivery ya order ki guarantee nahi deta.' },
             { term: 'URI', detail: 'Uniform Resource Identifier: resource ko identify karne wali string; URL URI ki aik qisam hai.' },
             { term: 'URL', detail: 'Uniform Resource Locator: web ya network resource ka address aur us tak pohanchne ka tareeqa.' },
+            { term: 'UTC', detail: 'Coordinated Universal Time: dunya ka standard global clock jis ke hisaab se tamam time zones, databases aur server logs synchronize kiye jate hain.', example: 'Server timestamps standard UTC time mein record hote hain.' },
             { term: 'VPN', detail: 'Virtual Private Network: public network par encrypted tunnel ke zariye private network access ya traffic protection deta hai.' },
+            { term: 'VPS', detail: 'Virtual Private Server: physical machine par hypervisor virtualization ke zariye banaya gaya virtual server jisme dedicated CPU, RAM aur full root OS access hoti hai.', example: 'DigitalOcean droplet ya AWS EC2 instance aik VPS ki mashhoor misaal hai.' },
             { term: 'WAN', detail: 'Wide Area Network: bari geographic distance par networks ko jorne wala network.' },
             { term: 'WWW', detail: 'World Wide Web: internet par linked pages aur resources ka system, jo web protocols se access hota hai.' },
           ],
@@ -1165,30 +1216,40 @@ const departments = {
         glossarySections: [{
           title: 'Code, web development aur security',
           items: [
+            { term: '.gitignore', detail: 'Git Ignore: Git repository mein un files aur folders ki list jise version control track na kare (jaise node_modules, .env.local, build outputs).', example: '.env.local aur dist/ ko .gitignore mein rakh kar sensitive credentials aur temporary files leak hone se bachate hain.' },
             { term: '2FA', detail: 'Two-Factor Authentication: login ke liye password ke saath aik doosra saboot, jaise authenticator code.' },
             { term: 'ABAC', detail: 'Attribute-Based Access Control: user, resource aur request ke attributes dekh kar access ka faisla karne ka model.' },
             { term: 'AJAX', detail: 'Asynchronous JavaScript and XML: page reload kiye baghair server se data lena ya bhejna; aaj kal JSON bhi aam hai.' },
             { term: 'ASI', detail: 'Automatic Semicolon Insertion: JavaScript parser kuch jagahon par semicolon khud insert karta hai.' },
+            { term: 'CI/CD (CICD)', detail: 'Continuous Integration & Continuous Delivery: code changes ko automatically test, build aur production par deploy karne ka automated pipeline.', example: 'GitHub Actions repo par push hote hi CI/CD pipeline chala kar app deploy kar deta hai.' },
             { term: 'CJS', detail: 'CommonJS: JavaScript modules ka format jo aksar Node.js mein `require()` aur `module.exports` use karta hai.' },
+            { term: 'Cookie types', detail: 'Web cookies ki char aham qismein: (1) Session cookie: browser band hone par expire hoti hai. (2) Persistent cookie: expiry date tak save rehti hai. (3) First-party cookie: current website set karti hai. (4) Third-party cookie: external domains (ads, trackers) set karte hain.', example: 'Login session cookies aam tor par HttpOnly aur Secure flags ke saath banti hain.' },
             { term: 'CORS', detail: 'Cross-Origin Resource Sharing: browser aur server ke darmiyan mukhtalif origins se request ki ijazat dene wala mechanism.' },
+            { term: 'Cryptography', detail: 'Data ko secure aur cipher text mein convert karne ki science: Symmetric (1 shared secret key jaise AES) aur Asymmetric (Public + Private key pair jaise RSA/ECC).', example: 'HTTPS Asymmetric key exchange ke baad Symmetric session key se data transfer karta hai.' },
             { term: 'CRLF', detail: 'Carriage Return + Line Feed: Windows text files mein line khatam karne ke liye aam tor par istemaal hone wale do characters.' },
             { term: 'CRUD', detail: 'Create, Read, Update, Delete: data ko banane, parhne, badalne aur mitane ke bunyadi operations.' },
+            { term: 'CSR (CRS)', detail: 'Client-Side Rendering (kabhi kabhar CRS likha jata hai): web app jahan browser basic HTML le kar JavaScript ke zariye user ke device par page aur UI render karta hai.', example: 'Standard React/Vite SPA client-side rendering (CSR) use karti hai.' },
+            { term: 'CSRF', detail: 'Cross-Site Request Forgery: web security vulnerability jahan attacker kisi doosri site se user ke authenticated session ka faida utha kar unauthorized request bhej deta hai.', example: 'Anti-CSRF tokens aur SameSite cookies CSRF hamlay ko rokte hain.' },
             { term: 'DRY', detail: 'Don’t Repeat Yourself: aik hi knowledge ya logic ko bila-zaroorat kai jagah duplicate na karna.' },
             { term: 'ES Modules', detail: 'ECMAScript Modules: JavaScript ka standard module system, jo `import` aur `export` use karta hai.' },
             { term: 'FIFO', detail: 'First In, First Out: queue ka rule jahan sab se pehle aane wala item sab se pehle nikalta hai.' },
+            { term: 'Hashing', detail: 'One-way cryptographic function (jaise SHA-256, bcrypt) jo variable input data ko fixed-length irreversible hash digest mein convert karta hai.', example: 'Passwords plain text ke bajaye hashed format mein database mein store hote hain.' },
             { term: 'IIFE', detail: 'Immediately Invoked Function Expression: function expression jo define hote hi foran chal jata hai.' },
-            { term: 'ISR', detail: 'Incremental Static Regeneration: Next.js Pages Router ka feature jo static page ko deploy ke baad dobara generate kar sakta hai.' },
-            { term: 'JWT', detail: 'JSON Web Token: claims ko JSON format mein represent karne wala token format, jo aksar digitally signed hota hai.' },
+            { term: 'ISR', detail: 'Incremental Static Regeneration: Next.js Pages Router ka feature jo static page ko deploy ke baad dobara generate kar sakta hai.', example: 'Deploy ke baad background mein static page refresh karne ke liye ISR use hota hai.' },
+            { term: 'JWT', detail: 'JSON Web Token: claims ko JSON format mein represent karne wala token format, jo aksar digitally signed hota hai.', example: 'User login par server JWT issue karta hai jo API requests verify karta hai.' },
             { term: 'LIFO', detail: 'Last In, First Out: stack ka rule jahan sab se aakhir mein rakha gaya item sab se pehle nikalta hai.' },
             { term: 'OAuth', detail: 'OAuth 2.0 aik authorization framework hai jo app ko user ki ijazat se limited access deta hai; yeh khud login protocol nahi.' },
+            { term: 'OOP', detail: 'Object-Oriented Programming: programming paradigm jisme code ko real-world entities ki tarah classes aur objects mein organize kiya jata hai (Encapsulation, Inheritance, Polymorphism, Abstraction).', example: 'Classes aur objects ke zariye reusable aur modular architecture banti hai.' },
+            { term: 'package.json', detail: 'Node.js manifest file jo project name, version, runnable scripts aur required dependencies define karta hai.', example: '`npm run build` command package.json ke scripts object se chalti hai.' },
+            { term: 'package-lock.json', detail: 'npm dependency lockfile jo installed packages ka exact version aur integrity sha512 hashes lock karti hai taake reproducible builds ban sakein.', example: 'Har developer ke machine par bilkul identical packages install karne ke liye lockfile commit ki jati hai.' },
             { term: 'PAT', detail: 'Personal Access Token: account ya service ke liye banaya gaya token jo scripts aur tools ko limited access de sakta hai.' },
             { term: 'PHP', detail: 'PHP: Hypertext Preprocessor: server-side web development mein istemaal hone wali programming language; yeh recursive acronym hai.' },
             { term: 'PWA', detail: 'Progressive Web App: web app jo browser APIs se app jaisa installable aur offline-capable tajurba de sakti hai.' },
-            { term: 'REST', detail: 'Representational State Transfer: web services design karne ke architectural constraints ka set.' },
-            { term: 'SSG', detail: 'Static Site Generation: pages ko build ke waqt HTML mein render karna, phir tayyar files serve karna.' },
-            { term: 'SSR', detail: 'Server-Side Rendering: request ke waqt server par page ka HTML render karna.' },
+            { term: 'REST', detail: 'Representational State Transfer: web services design karne ke architectural constraints ka set.', example: 'HTTP methods (GET, POST, PUT, DELETE) par banaye gaye stateless endpoints.' },
+            { term: 'SSG', detail: 'Static Site Generation: pages ko build ke waqt HTML mein render karna, phir tayyar files serve karna.', example: 'Build time par pre-rendered super fast static pages tayyar hote hain.' },
+            { term: 'SSR', detail: 'Server-Side Rendering: request ke waqt server par page ka HTML render karna.', example: 'Server par har request par fresh dynamic HTML render hota hai.' },
             { term: 'VCS', detail: 'Version Control System: files ki tabdeeliyan record aur versions ko manage karne wala system, jaise Git.' },
-            { term: 'XSS', detail: 'Cross-Site Scripting: web security flaw jahan attacker ka script doosre users ke browser mein chal sakta hai.' },
+            { term: 'XSS', detail: 'Cross-Site Scripting: web security flaw jahan attacker ka script doosre users ke browser mein chal sakta hai.', example: 'User input ko sanitize na karne se malicious JavaScript browser mein execute ho sakti hai.' },
             { term: 'XAMPP', detail: 'Cross-platform development stack ka naam. Is mein Apache aur PHP shamil hain; database component version ke mutabiq MySQL ya MariaDB ho sakta hai.' },
             { term: 'XHTML', detail: 'Extensible HyperText Markup Language: HTML ko XML ke zyada sakht syntax rules ke saath likhne wala markup format.' },
             { term: 'XML', detail: 'Extensible Markup Language: structured data ko tags ke zariye represent karne ka markup format.' },
@@ -1403,7 +1464,7 @@ const departments = {
       {
         title: 'Architecture, AI & Networking Abbreviations',
         heading: 'Web architecture, AI aur networking ke short forms',
-        definition: 'Pasted notes se chunay gaye useful technical abbreviations—correct full forms aur practical examples ke saath.',
+        definition: 'Web architecture, AI aur networking ke useful short forms aur practical examples.',
         concept: 'ARCHITECTURE · AI · NETWORKS',
         glossaryFooter: 'SHORT FORM → FULL FORM → EXAMPLE',
         glossarySections: [
@@ -1452,7 +1513,7 @@ const departments = {
       {
         title: 'Everyday & Conversation Abbreviations',
         heading: 'Rozmarrah guftagu ka short form',
-        definition: 'Communication notes mein mila short form aur uska context.',
+        definition: 'Rozmarrah guftagu aur chats mein aane wale common abbreviations.',
         concept: 'CONVERSATION · SHORT FORM',
         glossarySections: [{ title: 'Chat shorthand', items: [
           { term: 'GF', detail: 'Girlfriend: informal English chat abbreviation. Yeh har relationship ke liye label nahi; shakhs ka apna pasandeeda term use karo.', example: 'Misal: “My GF is joining us” ka matlab “Meri girlfriend hamare saath aa rahi hai” hai.' },
@@ -1465,7 +1526,6 @@ const departments = {
     chapters: linkGroups.map((section) => ({
       title: section.title,
       heading: section.title,
-      definition: 'Project chats aur pasted notes se share hue links. Har link ke saath uska use aur aik misaal di gayi hai.',
       concept: 'LINKS · PURPOSE · EXAMPLE',
       glossaryFooter: `${section.items.length} LINKS · USER-SHARED RESOURCE REGISTER`,
       glossarySections: [section],
@@ -1496,7 +1556,7 @@ const departments = {
       {
         title: 'T-Shirts',
         heading: 'T-shirts ke aapke listed designs',
-        definition: 'T-shirt casual knit shirt hoti hai. Neeche aapke diye hue labels rakhe hain; horse ka lafz color hai ya graphic design, yeh note se clear nahi.',
+        definition: 'T-shirt casual knit shirt hoti hai, jo rozmarrah comfort aur casual wear ke liye pehni jati hai.',
         concept: 'T-SHIRTS · DESIGN · EXAMPLE',
         apparelTypes: [
           { name: 'White horse', detail: 'Aapka original T-shirt label. White color, horse graphic, ya dono ka exact matlab confirm nahi.', example: 'order se pehle listing ki photo dekh kar confirm karo ke “White horse” white T-shirt hai ya horse-print design.' },
@@ -1520,7 +1580,7 @@ const departments = {
       {
         title: 'Pants (Pents)',
         heading: 'Pants ki aam qismein',
-        definition: 'Aapka original menu label “Pents”; standard English spelling “Pants” hai. Cut, fabric aur pockets ke mutabiq pants casual ya formal ho sakti hain.',
+        definition: 'Cut, fabric aur pockets ke mutabiq pants casual ya formal ho sakti hain.',
         concept: 'PANTS · FIT · FABRIC',
         apparelTypes: [
           { name: 'Jeans', detail: 'Denim fabric ki mazboot casual pants.', example: 'Blue jeans T-shirt aur sneakers ke saath rozmarra pehni ja sakti hain.' },
@@ -1534,7 +1594,7 @@ const departments = {
       {
         title: 'Caps',
         heading: 'Caps ke aapke listed designs',
-        definition: 'Cap headwear hota hai; aapka diya hua label “Black Markhor” yahan preserve kiya hai. Exact logo ya fabric details note mein nahi thin.',
+        definition: 'Cap dhoop se bachao aur casual style ke liye pehni jati hai.',
         concept: 'CAPS · DESIGN · EXAMPLE',
         apparelTypes: [
           { name: 'Black Markhor', detail: 'Aapki list ka black Markhor cap label; mumkin hai Markhor ka logo/design ho.', example: 'cap khareedne se pehle front par Markhor ka logo aur black shade ki photo dekh lo.' },
@@ -1543,7 +1603,7 @@ const departments = {
       {
         title: 'Belts',
         heading: 'Belts ke aapke listed options',
-        definition: 'Belt ka color, strap aur buckle uski style batate hain. Aapke original labels aur mumkin spelling corrections saath diye hain.',
+        definition: 'Belt ka color, strap aur buckle uski style aur fit batate hain.',
         concept: 'BELTS · COLOR · BUCKLE',
         apparelTypes: [
           { name: 'Orange', detail: 'Aapki list ka orange belt option.', example: 'orange belt ko neutral rang ke kapron ke saath accent ke taur par pehno.' },
@@ -1554,7 +1614,7 @@ const departments = {
       {
         title: 'Salwar Kameez',
         heading: 'Salwar kameez ke aapke listed options',
-        definition: 'Aapke diye hue rang aur fabric/embroidery labels yahan jyon ke tyon rakhe hain.',
+        definition: 'Salwar kameez mein fabric aur rang outfit ka overall style tay karte hain.',
         concept: 'SALWAR KAMEEZ · FABRIC · COLOR',
         apparelTypes: [
           { name: 'White shiny thread', detail: 'Safed kapray ya design par chamakdar dhaage ka aapka label.', example: 'close-up photo dekh kar white shiny-thread embroidery ki chamak aur placement check karo.' },
@@ -1580,7 +1640,7 @@ const departments = {
       {
         title: 'Pent-Coat',
         heading: 'Pant-coat ke aam styles',
-        definition: 'Aapka original label “Pent-Coat”; standard spelling “pant coat” ya “pant-coat suit” hoti hai.',
+        definition: 'Formal occasions aur business meetings ke liye do ya teen hisson wala suit.',
         concept: 'PANT-COAT · SUIT · EXAMPLE',
         apparelTypes: [
           { name: 'Two-piece pant coat', detail: 'Matching coat/blazer aur trousers ka set.', example: 'charcoal two-piece pant coat ko white shirt aur formal shoes ke saath pehno.' },
@@ -1591,7 +1651,7 @@ const departments = {
       {
         title: 'Vase-coat (Waistcoat)',
         heading: 'Waistcoat ke aapke listed option',
-        definition: 'Aapka original label “Vase-coat”; sahi English spelling “Waistcoat” hai. Waistcoat sleeveless vest hoti hai jo shirt ya suit ke upar pehni jati hai.',
+        definition: 'Waistcoat sleeveless vest hoti hai jo shirt ya suit ke upar formal ya traditional look ke liye pehni jati hai.',
         concept: 'WAISTCOAT · COLOR · DETAIL',
         apparelTypes: [
           { name: 'Black with red tissue', detail: 'Aapka original waistcoat design label. “Red tissue” kis fabric ya decoration ko kehta hai, yeh note mein clear nahi.', example: 'kapra order karne se pehle seller se red tissue detail ki close-up photo mangwao.' },
@@ -1618,7 +1678,7 @@ const departments = {
       {
         title: 'VS Code Extensions',
         heading: 'VS Code extensions aur developer tools',
-        definition: 'Extensions editor mein extra features add karti hain. Aapke note ke naam preserve kiye hain; har tool ka aik seedha use aur example bhi diya hai.',
+        definition: 'Extensions code editor mein extra features, shortcuts aur formatting tools add karti hain.',
         concept: 'VS CODE · EXTENSIONS · EXAMPLES',
         glossarySections: [{ title: 'Code editor tools', items: [
           { term: 'Prettier', detail: 'Code formatter jo supported files ko consistent style mein format karta hai.', example: 'save par `app.js` ko Prettier se format karwao.' },
@@ -1764,7 +1824,7 @@ const departments = {
       },
       {
         title: 'LHR Food', heading: 'Lahore ke food options',
-        definition: 'Aapke note mein likhe breakfast, evening aur night food options.', concept: 'LAHORE · FOOD',
+        definition: 'Breakfast, evening aur night ke liye food options.', concept: 'LAHORE · FOOD',
         checklistSections: [
           { title: 'Morning', items: ['Dahi + fruit', 'Egg (custom boiling)', 'Naan / chanay', '4-piece bread'] },
           { title: 'Evening', items: ['Aalu-naan', 'Naan + tikki / pakora / samosa / Tala-nan (original wording)', 'Naan / roti + chanay', 'Biryani', 'Daal chawal', 'Masar, chana-dal, mash-dal, haleem'] },
@@ -1773,12 +1833,12 @@ const departments = {
       },
       {
         title: 'Normal', heading: 'Roz saath rakhne wali cheezein',
-        definition: 'Aapki basic outing checklist; Bike, cricket aur LHR trips mein bhi isay include kar sakte ho.', concept: 'JOURNEY · EVERYDAY ESSENTIALS',
+        definition: 'Rozmarrah safar aur outing ke liye basic zaroori cheezein.', concept: 'JOURNEY · EVERYDAY ESSENTIALS',
         checklistSections: [{ title: 'Normal essentials', items: ['Handkerchief or tissue', 'Wallet', '500+ Rs./-', 'Card', 'ID', 'Metro', 'ATM', 'Mobile 📱', 'Pad 🗒️ and pencil ✏️', 'Watch ⌚'] }],
       },
       {
         title: 'To LHR / Week', heading: 'Lahore / weekly packing checklist',
-        definition: 'Aapki Lahore ya haftay bhar ke safar ki list. Laptop original note mein do martaba tha; yahan usay duplicate note ke saath aik check item rakha hai.', concept: 'JOURNEY · WEEKLY PACKING', includesNormal: true,
+        definition: 'Safar aur stay ke liye zaroori saman ki packing list.', concept: 'JOURNEY · WEEKLY PACKING', includesNormal: true,
         checklistSections: [
           { title: 'Bag, devices aur travel', items: ['Bag (laptop + ingredients)', 'Luggage', 'Laptop (original list mein 2 martaba)', 'Charger', 'Cleaning cloth', 'Shopper if it rains (original: “Shoper”)', 'Mobile', 'Adapter (original: “Adopter”)', 'Cable', 'Internet / data access', 'Handsfree', 'Water bottle'] },
           { title: 'Food', items: ['Khaana', 'Date', 'Roasted chickpeas', 'Curry', 'Loaf / bread', 'Fruit'] },
@@ -1789,7 +1849,7 @@ const departments = {
       },
       {
         title: 'Weekly Ingredients', heading: 'Haftay ki ingredients aur zarooriyat',
-        definition: 'Aapki weekly shopping/packing ingredients list, checkbox ke saath.', concept: 'JOURNEY · WEEKLY INGREDIENTS',
+        definition: 'Weekly zaroori saman aur ingredients ki checklist.', concept: 'JOURNEY · WEEKLY INGREDIENTS',
         checklistSections: [{ title: 'Ingredients checklist', items: ['Bag (laptop + ingredients)', 'Clothes (3 dresses and 1 trousers-shirt)', 'Cap', 'Keys', 'Handkerchief + rough handkerchief', 'Knife + spoon + plate', 'Laptop + charger', 'Mobile + charger', 'Maswak (original note ended with “+”; item incomplete)', 'Money (4K/week + metro / ID card)', 'Pencil + copy', 'Shoes + sandal + polish + brush', 'Soap + face-wash + comb + perfume + cream + Vaseline', 'Water bottle', 'Watch'] }],
       },
     ],
@@ -2043,6 +2103,19 @@ const glossaryExamples = {
   XSS: 'User input ko escape karna stored XSS se bachane mein madad karta hai.',
   XAMPP: 'Developer XAMPP par local PHP site test kar sakta hai.',
   XHTML: 'XHTML document mein tags ko properly close karna hota hai.',
+  'Cryptography (Symmetric & Asymmetric)': 'HTTPS handshake mein Asymmetric encryption se keys share hoti hain aur phir Symmetric AES se fast data transfer hota hai.',
+  Cryptography: 'HTTPS handshake mein Asymmetric encryption se keys share hoti hain aur phir Symmetric AES se fast data transfer hota hai.',
+  Hashing: 'User password ko SHA-256 ya bcrypt se hash karke database mein store kiya jata hai.',
+  '.gitignore': 'node_modules/ aur .env.local ko .gitignore mein likh kar GitHub par push hone se roka jata hai.',
+  'package.json': '`npm run build` command package.json ke "scripts" object se chalti hai.',
+  'package-lock.json': 'Team ke sabhi developers ke paas identical dependency tree install karne ke liye package-lock.json commit hoti hai.',
+  'Server types (Shared, VPS, Dedicated)': 'Chhote blog ke liye shared hosting, web app ke liye VPS, aur high-traffic enterprise ke liye dedicated server use hota hai.',
+  'Dedicated Server': 'Bari e-commerce ya financial app ke liye dedicated bare-metal machine reserve ki jati hai.',
+  'Shared Hosting': 'Basic WordPress portfolio shuru mein shared hosting par host kiya ja sakta hai.',
+  VPS: 'Ubuntu VPS par SSH se login karke Node.js aur PostgreSQL configure kiya jata hai.',
+  'DNS Resolver': 'Resolver 8.8.8.8 domain ke authoritative nameservers se query karke asal IP address dhoondta hai.',
+  'DNS Cache': 'Browser aur OS mein DNS cache hone ki wajah se rozmarra ki sites 0ms lookup mein open ho jati hain.',
+  TLD: '`example.com` mein `.com` gTLD hai aur `gov.pk` mein `.pk` ccTLD hai.',
   XML: '`<user><name>Ana</name></user>` XML data ki misaal hai.',
   Yarn: '`yarn add react` project mein package install karta hai.',
   AAC: 'Phone recording ko AAC mein compress karke share kiya ja sakta hai.',
@@ -2269,7 +2342,7 @@ function selectChapter(index, shouldScroll = false, hoverTriggered = false) {
     saveCurrentView();
     renderChapters();
   }
-  if (shouldScroll && window.matchMedia('(max-width: 520px)').matches) {
+  if (shouldScroll && window.matchMedia('(max-width: 768px)').matches) {
     lessonCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
@@ -2317,8 +2390,12 @@ function renderChapters() {
   if (revealRestoredChapter) {
     chapterList.querySelector(`[data-chapter-index="${activeChapter}"]`)?.scrollIntoView({ block: 'start' });
     revealRestoredChapter = false;
-  } else {
+  } else if (!window.matchMedia('(max-width: 768px)').matches) {
     chapterList.scrollTop = previousMenuScrollTop;
+  }
+  const activeBtn = chapterList.querySelector('.chapter-button.active');
+  if (activeBtn && window.matchMedia('(max-width: 768px)').matches) {
+    activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
   renderLesson(departments[activeDepartment].chapters[activeChapter]);
   saveCurrentView();
@@ -2350,7 +2427,7 @@ function renderLesson(chapter) {
       </section>`).join('');
     lessonCard.innerHTML = `
       <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
-      <h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <h3>${chapter.heading}</h3>
       ${chapter.includesNormal ? '<button class="journey-normal-link" type="button" data-journey-normal>Normal essentials ki checklist bhi dekhein →</button>' : ''}
       <div class="journey-checklist">${checklistMarkup}</div>
       <div class="lesson-bottom"><span class="lesson-bottom-label">${checklistTotal} CHECKLIST ITEMS · SAVED ON THIS DEVICE</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
@@ -2378,7 +2455,7 @@ function renderLesson(chapter) {
       </li>`).join('');
     lessonCard.innerHTML = `
       <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
-      <h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <h3>${chapter.heading}</h3>
       <ol class="windows-timeline" aria-label="Windows release timeline">${timelineItems}</ol>
       <div class="lesson-bottom"><span class="lesson-bottom-label">${chapter.timelineFooter}</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
     lessonCard.querySelector('.next-button').addEventListener('click', () => { activeChapter = nextIndex; renderChapters(); });
@@ -2394,7 +2471,7 @@ function renderLesson(chapter) {
       </section>`).join('');
     lessonCard.innerHTML = `
       <div class="lesson-topline"><span class="lesson-tag">${escapeGlossaryExample(chapter.concept)}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
-      <h3>${escapeGlossaryExample(chapter.heading)}</h3><p class="definition">${escapeGlossaryExample(chapter.definition)}</p>
+      <h3>${escapeGlossaryExample(chapter.heading)}</h3>
       <div class="names-lists">${nameListsMarkup}</div>
       <div class="lesson-bottom"><span class="lesson-bottom-label">${nameCount} LIST ITEMS · NAMES & REFERENCES</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
     lessonCard.querySelector('.next-button').addEventListener('click', () => { activeChapter = nextIndex; renderChapters(); });
@@ -2425,7 +2502,6 @@ function renderLesson(chapter) {
     lessonCard.innerHTML = `
       <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       ${chapter.glossarySections.length > 1 ? `<div class="glossary-category-nav" aria-label="Content categories">${categoryButtons}</div>` : ''}
       <div class="glossary-content">${glossaryMarkup}</div>
       <div class="lesson-bottom"><span class="lesson-bottom-label">${glossaryFooter}</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
@@ -2452,7 +2528,7 @@ function renderLesson(chapter) {
     const problems = chapter.troubleshooting.map((item) => `<article class="railway-problem ${item.color}"><div><span>${item.icon}</span><h5>${item.title}</h5></div><ul>${item.checks.map((check) => `<li>${check}</li>`).join('')}</ul>${item.note ? `<small>${item.note}</small>` : ''}</article>`).join('');
     const notes = chapter.devopsNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <section class="devops-organization"><div class="devops-section-heading"><span>01</span><div><h4>Project organization</h4><p>Source files alag rakhein; generated output ko source se alag samjhein.</p></div></div><div class="devops-project-root"><div class="devops-root-title"><span>▣</span><b>z-bank/ · project root</b><small>app source</small></div><div class="devops-file-tree">${projectFiles}</div></div><div class="devops-org-grid">${orgCards}</div><div class="devops-env-grid">${envCards}</div><div class="devops-env-note"><span>🔐</span><p><strong>Asli credentials ko push na karein.</strong> .env.local Git se ignore hai; .env.example mein sirf fake placeholders rakhein.</p></div></section>
       <section class="devops-railway"><div class="devops-section-heading"><span>02</span><div><h4>Deployment · Railway</h4><p>Repository connect se public domain tak ka seedha flow.</p></div><b class="railway-mark">R</b></div><div class="railway-flow">${deploySteps}</div><div class="railway-commands-panel"><div class="railway-commands-heading"><span>›_</span><div><h4>Is project ke commands</h4><p>Build pehle; server compiled dist/ ko serve karega.</p></div></div><div class="railway-commands-grid">${commands}</div><div class="railway-domain"><span>◎</span><code>https://your-service.up.railway.app</code><b>Deploy ke baad domain generate karein ↗</b></div></div><div class="railway-troubleshoot"><div class="railway-troubleshoot-title"><span>!</span><h4>Troubleshooting</h4><small>Error ke mutabiq sahi logs dekhein.</small></div><div class="railway-problem-grid">${problems}</div></div></section>
       <section class="devops-notes"><div class="devops-section-heading"><span>✓</span><div><h4>Build aur deploy ke zaroori notes</h4><p>Platform settings aur app configuration dono check karein.</p></div></div><ol>${notes}</ol></section>
@@ -2467,7 +2543,7 @@ function renderLesson(chapter) {
     const accessSteps = chapter.storageAccessSteps.map((step, index) => `<article class="storage-access-step"><div><span>${String(index + 1).padStart(2, '0')}</span><b>${step.icon}</b></div><h5>${step.title}</h5><p>${step.detail}</p></article>`).join('');
     const notes = chapter.storageNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <section class="storage-intro-panel"><div class="storage-section-heading"><span>01</span><div><h4>Bucket kya hota hai?</h4><p>Bucket files ka named container aur unka access model hota hai.</p></div></div><div class="storage-base64-compare"><article class="storage-base64-card"><div><span>⌁</span><h4>File ko Base64 text banana</h4></div><p>Image ya PDF ko bohat lambi encoded text value bana kar database mein rakhna aam tor par acha pattern nahi.</p><small>DB bloat · transfer heavy · file handling mushkil</small></article><div class="storage-transform" aria-hidden="true"><span>→</span><b>behtar pattern</b></div><article class="storage-object-card"><div><span>▤</span><h4>File ko Storage bucket mein</h4></div><div class="storage-object-flow"><b>File / object storage</b><i aria-hidden="true">→</i><b>Path + metadata in Postgres</b></div><p>Actual binary file alag storage mein; database bucket/object metadata aur path ko track karta hai.</p></article></div><div class="storage-flow-panel"><div class="storage-flow-heading"><span>↳</span><div><h4>Upload se URL tak</h4><p>Files aur metadata alag jagah rehte hain, magar app unhein aik Storage API se manage karti hai.</p></div></div><div class="storage-flow-grid">${storageSteps}</div></div></section>
       <section class="storage-buckets-panel"><div class="storage-section-heading"><span>02</span><div><h4>Public vs Private buckets</h4><p>Privacy bucket setting aur object par lagne wali policy se tay hoti hai.</p></div></div><div class="storage-buckets-grid">${bucketCards}</div></section>
       <section class="storage-signed-panel"><div class="storage-section-heading"><span>03</span><div><h4>Signed URL · private file ka temporary link</h4><p>Pehle user ki permission check; phir limited waqt ke liye link dein.</p></div></div><div class="storage-access-flow">${accessSteps}</div><div class="storage-code-layout"><div><div class="storage-code-heading"><span>JS</span><div><h4>60-second signed URL</h4><p>Expiry seconds mein hoti hai. Apne app ke user-session client aur Storage RLS use karein.</p></div></div><pre><code>${chapter.signedUrlCode}</code></pre></div><aside><span>◷</span><h4>Temporary gate pass</h4><p>Link khud permission ko replace nahi karta: link banane se pehle policy se verify karein ke user is file ka haqdar hai.</p><small>URL mila → expiry se pehle access</small></aside></div></section>
@@ -2486,7 +2562,7 @@ function renderLesson(chapter) {
     const packageCards = chapter.packageTools.map((tool) => `<article class="fb-package-card ${tool.color}"><div class="fb-package-heading"><b>${tool.name}</b><span>${tool.role}</span></div><p>${tool.detail}</p><code>${tool.command}</code></article>`).join('');
     const notes = chapter.frontendNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <section class="fb-section fb-responsive"><div class="fb-section-heading"><span>01</span><div><h4>Frontend · responsive Tailwind</h4><p>Mobile se shuru karein, phir screen bari hone par layout upgrade karein.</p></div><b class="fb-section-icon">▱</b></div><div class="fb-breakpoint-flow">${breakpoints}</div><div class="fb-responsive-example"><div><strong>Class example</strong><p>Text mobile par chhota, medium par bara, large par aur bara.</p></div><pre><code>&lt;p class="text-sm md:text-base lg:text-lg"&gt;\n  Hello World\n&lt;/p&gt;</code></pre></div><div class="fb-grid-demo"><div class="fb-grid-title"><span>12-column grid</span><small>Har row ke total spans = 12</small></div><div class="fb-grid-track"><span style="grid-column:span 12">col-span-12 · full row</span><span style="grid-column:span 6">col-span-6</span><span style="grid-column:span 6">col-span-6</span><span style="grid-column:span 4">col-span-4</span><span style="grid-column:span 4">col-span-4</span><span style="grid-column:span 4">col-span-4</span></div></div></section>
       <section class="fb-section fb-env-section"><div class="fb-section-heading"><span>02</span><div><h4>.env files · secrets · Git</h4><p>Asli values private rakhein; team ko variable names safe template se dikhayein.</p></div><b class="fb-section-icon">⌑</b></div><div class="fb-env-grid">${envCards}</div><div class="fb-env-rule"><span>🔒</span><div><strong>Secret key browser mein nahi.</strong><p>Next.js mein <code>NEXT_PUBLIC_</code> prefix wali values browser bundle mein aa sakti hain. Supabase secret key ko kabhi is prefix ke saath na rakhein.</p></div></div></section>
       <section class="fb-section fb-cms-section"><div class="fb-section-heading"><span>03</span><div><h4>CMS · Collection vs Global</h4><p>Repeated records aur poori site par shared aik version ka farq.</p></div><b class="fb-section-icon">▦</b></div><div class="fb-cms-grid">${cmsCards}</div></section>
@@ -2513,7 +2589,7 @@ function renderLesson(chapter) {
       </article>`).join('');
     const notes = chapter.joinNotes.map((note, index) => `<li><span>${String(index + 1).padStart(2, '0')}</span>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <section class="join-source-panel"><div class="join-section-heading"><span>01</span><div><h4>Sample tables</h4><p>JOIN in dono tables ke student_id ko match karega.</p></div></div><div class="join-source-grid">${sourceTables}</div><div class="join-key-line"><span>Students.student_id</span><i aria-hidden="true"></i><b>same key</b><i aria-hidden="true"></i><span>Enrollments.student_id</span></div></section>
       <section class="sql-join-section"><div class="join-section-heading"><span>02</span><div><h4>Chhe JOIN types</h4><p>Query padhein, phir result mein dekhein kaun se rows bache.</p></div></div><div class="sql-join-grid">${joinCards}</div></section>
       <section class="join-notes-panel"><div class="join-section-heading"><span>03</span><div><h4>Yaad rakhne wali baatein</h4><p>NULL aur database syntax ka farq bhi check karein.</p></div></div><ol>${notes}</ol></section>
@@ -2527,7 +2603,7 @@ function renderLesson(chapter) {
     const roles = chapter.threadRoles.map((role) => `<article class="event-thread-card ${role.color}"><span>${role.icon}</span><div><h5>${role.name}</h5><p>${role.detail}</p></div></article>`).join('');
     const notes = chapter.eventLoopNotes.map((note) => `<li>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <section class="event-loop-flow-panel"><div class="event-flow-heading"><span>⟳</span><div><h4>Request se callback tak ka flow</h4><p>Jab I/O chal raha hota hai, main JS thread doosra ready kaam kar sakta hai.</p></div></div><div class="event-loop-flow">${stages}</div></section>
       <section class="event-thread-panel"><div class="event-flow-heading"><span>⌘</span><div><h4>Kaun sa hissa kya karta hai?</h4><p>“Single-threaded” ka matlab yeh nahi ke Node ke process mein sirf aik thread hi hota hai.</p></div></div><div class="event-thread-grid">${roles}</div></section>
       <div class="event-loop-bottom"><section class="event-code-panel"><div class="event-code-heading"><span>⌨</span><div><h4>Non-blocking file read</h4><p>Start aur End foran; file callback baad mein.</p></div></div><pre><code>${chapter.eventLoopCode}</code></pre><div class="event-output"><span>Execution order</span><b>Start</b><i>→</i><b>End</b><i>→</i><b>File callback</b></div></section><aside class="event-note-panel"><div class="event-flow-heading"><span>!</span><div><h4>Yaad rakhein</h4><p>Concurrency ka faida tab rehta hai jab callbacks chhoti hon.</p></div></div><ul>${notes}</ul></aside></div>
@@ -2549,7 +2625,7 @@ function renderLesson(chapter) {
     const statuses = chapter.statusCodes.map((item) => `<div class="request-status"><code>${item.code}</code><span>${item.label}</span></div>`).join('');
     const notes = chapter.flowNotes.map((note) => `<li>${note}</li>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <div class="request-summary-flow"><div><span>01</span><b>Browser</b><small>request bheje</small></div><i>→</i><div><span>02</span><b>Server / App</b><small>kaam kare</small></div><i>→</i><div><span>03</span><b>Database</b><small>data de (agar zaroori)</small></div><i>→</i><div><span>04</span><b>Browser</b><small>response render kare</small></div></div>
       <div class="request-phase-list">${phases}</div>
       <div class="request-reference-grid"><section class="request-reference-card methods"><div class="request-reference-heading"><span>⇅</span><div><h4>HTTP methods</h4><p>Request ka maqsad</p></div></div><div class="request-method-list">${methods}</div></section><section class="request-reference-card statuses"><div class="request-reference-heading"><span>▤</span><div><h4>Status codes</h4><p>Server ka natija</p></div></div><div class="request-status-list">${statuses}</div></section></div>
@@ -2565,7 +2641,7 @@ function renderLesson(chapter) {
     const notes = chapter.structureNotes.map((note) => `<li>${note}</li>`).join('');
     const sources = chapter.structureSources.map((source) => `<a href="${source.url}" target="_blank" rel="noreferrer">${source.label}<span aria-hidden="true">↗</span></a>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <div class="next-structure-split"><section class="next-tree-panel"><div class="next-panel-heading"><span>⌘</span><div><h4>Project tree</h4><p>Folders ki nesting aur route files dekhein.</p></div></div><div class="next-project-tree">${treeRows}</div></section><section class="next-files-panel"><div class="next-panel-heading"><span>▤</span><div><h4>Folder / file ka kaam</h4><p>Special files aur aam folders ka farq.</p></div></div><div class="next-structure-grid">${structureCards}</div></section></div>
       <div class="next-structure-bottom"><section class="next-routes-panel"><div class="next-panel-heading"><span>↗</span><div><h4>Routing examples</h4><p>File path se URL kaise banta hai?</p></div></div><div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th>File / folder</th><th>Route</th></tr></thead><tbody>${routeRows}</tbody></table></div></section><section class="next-notes-panel"><div class="next-panel-heading"><span>✳</span><div><h4>Yaad rakhne wali baatein</h4><p>App Router ke bunyadi rules.</p></div></div><ul>${notes}</ul></section></div>
       <div class="next-structure-sources"><strong>Official Next.js docs</strong>${sources}</div>
@@ -2578,7 +2654,7 @@ function renderLesson(chapter) {
       <article class="bot-type-card ${bot.color}"><div class="bot-card-heading"><span class="bot-type-number">0${index + 1}</span><span class="bot-type-icon">${bot.icon}</span><h4>${bot.title}</h4></div><p>${bot.detail}</p><div class="bot-flow" aria-label="Chatbot ka flow">${bot.flow.map((step, stepIndex) => `<div><b>${String(stepIndex + 1).padStart(2, '0')}</b><span>${step}</span></div>${stepIndex < bot.flow.length - 1 ? '<i aria-hidden="true">→</i>' : ''}`).join('')}</div><div class="bot-details-grid"><div><strong>Khusoosiyat</strong><ul>${bot.features.map((item) => `<li>${item}</li>`).join('')}</ul></div><div><strong>Misalein</strong><ul>${bot.cases.map((item) => `<li>${item}</li>`).join('')}</ul></div></div><pre><code>${bot.example}</code></pre></article>`).join('');
     const groqFlow = chapter.groqFlow.map((step, index) => `<div class="groq-flow-step"><b>0${index + 1}</b><span>${step}</span></div>${index < chapter.groqFlow.length - 1 ? '<i aria-hidden="true">→</i>' : ''}`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <div class="bot-type-grid">${botCards}</div>
       <section class="groq-architecture"><div class="groq-heading"><span>↗</span><div><h4>Groq kahan fit hota hai?</h4><p>${chapter.groqRole}</p></div></div><div class="groq-flow">${groqFlow}</div><div class="groq-security"><b>!</b><p><strong>API key server par rakho.</strong> ${chapter.securityTip}</p></div><a class="lesson-source-link" href="https://console.groq.com/docs/api-reference" target="_blank" rel="noreferrer">Groq API reference <span aria-hidden="true">↗</span></a></section>
       <div class="lesson-bottom"><span class="lesson-bottom-label">RULES MATCH KAREIN · AI MODEL JAWAB BANAYE</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
@@ -2589,7 +2665,7 @@ function renderLesson(chapter) {
     const groups = chapter.categoryGroups.map((group, index) => `<article class="chat-category-card ${group.color}"><div class="chat-category-head"><span>${group.icon}</span><div><small>0${index + 1}</small><h4>${group.title}</h4></div></div><ol>${group.items.map((item) => `<li>${item}</li>`).join('')}</ol></article>`).join('');
     const platforms = chapter.platformGroups.map((group) => `<section class="platform-group ${group.color}"><div class="platform-group-head"><span>${group.icon}</span><div><h4>${group.title}</h4><p>Examples — category ke mutabiq shortlist karein</p></div></div><div class="platform-chip-list">${group.items.map((item, index) => `<span class="platform-chip ${item === 'Chatwoot' ? 'featured' : ''}"><b>${String(index + 1).padStart(2, '0')}</b>${item}</span>`).join('')}</div></section>`).join('');
     lessonCard.innerHTML = `
-      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3><p class="definition">${chapter.definition}</p>
+      <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div><h3>${chapter.heading}</h3>
       <div class="chat-category-grid">${groups}</div>
       <section class="platforms-section"><div class="platform-section-title"><span>⇄</span><div><h4>Chatwoot ke qareeb tools</h4><p>Yeh customer support, shared inbox ya chatbot-builder ke examples hain; har product ka focus aik jaisa nahi.</p></div></div><div class="platform-groups">${platforms}</div><div class="chatwoot-focus"><span class="chatwoot-mark">C</span><p><strong>Chatwoot ka focus:</strong> ${chapter.chatwootNote}</p><a href="https://www.chatwoot.com/community" target="_blank" rel="noreferrer">Chatwoot Community Edition <span aria-hidden="true">↗</span></a></div><div class="platform-caveat"><span>i</span>${chapter.compareNote}</div></section>
       <div class="lesson-bottom"><span class="lesson-bottom-label">CATEGORY INTKHAAB → USER KI ZAROORAT KE MUTABIQ</span><button class="next-button" type="button">Next chapter <span aria-hidden="true">→</span></button></div>`;
@@ -2600,7 +2676,6 @@ function renderLesson(chapter) {
     lessonCard.innerHTML = `
       <div class="lesson-topline"><span class="lesson-tag">${chapter.concept}</span><span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span></div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <section class="env-meaning" aria-label="Environment variable ki tashreeh"><span class="env-meaning-icon">{ }</span><div><strong>Environment variable kya hai?</strong><p>App ke bahar rakhi hui setting, jaise database address ya API key. Is se aik hi code ko local, development aur production mein mukhtalif values mil sakti hain.</p></div><span class="env-meaning-tag">CONFIG → APP</span></section>
       <div class="env-file-grid">
         <article class="env-file-card local"><div class="env-file-head"><span>01</span><code>.env.local</code><b>PRIVATE</b></div><p>Apne computer ki local values aur secrets. Aam tor par Git mein commit nahi hoti.</p><div class="env-file-foot"><span class="env-status private">Git: ignore</span><span>Local kaam</span></div></article>
@@ -2642,7 +2717,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="dbsec-flow">${flowCards}</div>
       <section class="dbsec-section">
         <div class="rls-section-heading"><span>01</span><h4>Access ko kis level par control karein?</h4><p>Har level ka scope alag hai—requirements ke mutabiq sahi layer chunein.</p></div>
@@ -2697,7 +2771,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="gtm-tool-grid">${toolCards}</div>
       <section class="gtm-section">
         <div class="rls-section-heading"><span>01</span><h4>User action se report tak</h4><p>Event data website se analytics aur ads platforms tak jata hai.</p></div>
@@ -2753,7 +2826,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="hook-legend"><span><i class="legend-state"></i>State & context</span><span><i class="legend-effects"></i>Effects & refs</span><span><i class="legend-performance"></i>Performance</span><span><i class="legend-other"></i>Actions & other</span></div>
       <div class="hook-grid">${hookCards}</div>
       <section class="custom-hook-section">
@@ -2801,7 +2873,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <section class="auth-section">
         <div class="rls-section-heading"><span>01</span><h4>Bunyadi concepts</h4><p>OAuth login aur app ki pehchan ke liye bunyadi terms.</p></div>
         <div class="auth-concept-grid">${concepts}</div>
@@ -2876,7 +2947,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="rls-flow" aria-label="RLS request process">${flowSteps}</div>
       <section class="rls-section">
         <div class="rls-section-heading"><span>01</span><h4>Operation ke hisaab se policies</h4><p>Table par har kaam ke liye alag rule lagaya ja sakta hai.</p></div>
@@ -2948,7 +3018,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="manager-grid">${managerCards}</div>
       <section class="package-comparison" aria-label="Package managers ka aik line mein muqabla">
         <h4>Aik nazar mein muqabla</h4><div class="package-summary-grid">${comparisonCards}</div>
@@ -2985,7 +3054,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="app-type-grid">${appCards}</div>
       <section class="comparison-section" aria-labelledby="comparison-title">
         <h4 id="comparison-title">Mukhtasar muqabla</h4>
@@ -3024,7 +3092,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="editor-grid">${editorCards}</div>
       <aside class="editor-notes" aria-label="Notes about editor categories">
         <div class="important-note"><span class="note-icon">!</span><div><h4>Categories overlap kar sakti hain</h4><p>Yeh aath qismein ek doosre se alag ya mehdood nahi hain. Kai editors ek hi waqt mein aik se zyada categories mein aa sakte hain.</p></div></div>
@@ -3054,7 +3121,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
         <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
       </div>
       <h3>${chapter.heading}</h3>
-      <p class="definition">${chapter.definition}</p>
       <div class="glossary-content"><div class="glossary-grid">${typeCards}</div></div>
       <div class="lesson-bottom">
         <span class="lesson-bottom-label">${chapter.apparelTypes.length} ${chapter.title.toUpperCase()} KI QISMEIN</span>
@@ -3073,7 +3139,6 @@ API_SECRET=your-local-secret</code></pre></section><section class="env-public-ca
       <span class="lesson-index">${String(activeChapterPosition()).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}</span>
     </div>
     <h3>${chapter.heading}</h3>
-    <p class="definition">${chapter.definition}</p>
     <div class="example-card">
       <span class="example-mark" aria-hidden="true">✳</span>
       <div class="example-copy"><strong>Picture this</strong>${chapter.example}</div>
