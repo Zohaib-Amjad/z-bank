@@ -3398,3 +3398,9 @@ document.addEventListener('keydown', (event) => {
 
 selectDepartment(activeDepartment);
 updateDepartmentScrollHint();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}

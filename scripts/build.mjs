@@ -16,7 +16,7 @@ try {
 }
 await mkdir(outputDir, { recursive: true });
 
-for (const file of ['index.html', 'styles.css', 'script.js', 'links.js', 'names.js', 'communication.js']) {
+for (const file of ['index.html', 'styles.css', 'script.js', 'links.js', 'names.js', 'communication.js', 'sw.js', 'manifest.webmanifest']) {
   await cp(join(projectRoot, file), join(outputDir, file));
 }
 

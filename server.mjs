@@ -13,6 +13,7 @@ const contentTypes = {
   '.jpg': 'image/jpeg',
   '.js': 'text/javascript; charset=utf-8',
   '.png': 'image/png',
+  '.webmanifest': 'application/manifest+json',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
 };
