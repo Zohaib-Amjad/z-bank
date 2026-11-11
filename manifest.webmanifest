@@ -1,0 +1,10 @@
+{
+  "name": "Z-Book",
+  "short_name": "Z-Book",
+  "description": "Roman-English learning library",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#101713",
+  "theme_color": "#101713",
+  "icons": [{ "src": "/assets/favicon.svg?v=3", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
