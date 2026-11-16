@@ -1,7 +1,7 @@
 const CACHE = 'z-bank-v1';
 const PRECACHE = [
   '/', '/index.html', '/styles.css', '/script.js', '/links.js', '/names.js',
-  '/communication.js', '/assets/favicon.svg?v=3', '/manifest.webmanifest',
+  '/communication.js', '/abc.js','/assets/favicon.svg?v=3', '/manifest.webmanifest',
 ];
 
 self.addEventListener('install', (event) => {
