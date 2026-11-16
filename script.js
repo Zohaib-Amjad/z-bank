@@ -1170,7 +1170,9 @@ const departments = {
             { term: 'AOL', detail: 'America Online: 1990s ki tareekhi company jis ne millions logon ko pehli dafa dial-up se internet se jora, phir aahista aahista irrelevant ho gayi.', example: '1990s mein internet access ka mashhoor zariya AOL dial-up service thi.' },
             { term: 'API', detail: 'Application Programming Interface: software ke hisson ko aik doosre se interact karne ka agreed interface.' },
             { term: 'CDN', detail: 'Content Delivery Network: distributed servers ka network jo images, scripts aur doosre web assets ko users ke qareeb se serve kar sakta hai.' },
+            { term: 'CLS', detail: 'Cumulative Layout Shift: Core Web Vital jo napta hai ke page load hote waqt content kitna achanak khisakta hai. Kam score behtar hai (0.1 ya us se kam acha mana jata hai).', example: 'Image ki width/height na ho to load hone par text neeche khisak jata hai aur CLS barh jata hai.' },
             { term: 'CSS', detail: 'Cascading Style Sheets: web page ke rang, layout aur visual style define karne ki language.' },
+            { term: 'CWV', detail: 'Core Web Vitals: Google ke user-experience metrics (LCP, INP aur CLS) jo loading speed, responsiveness aur visual stability napte hain.', example: 'Search ranking aur page experience check karte waqt CWV report dekhi jati hai.' },
             { term: 'Dedicated Server', detail: 'Dedicated Server: aik mukammal physical computer jo kisi doosre customer ke sath share nahi hota; exclusive hardware resources aur full control deta hai.', example: 'Heavy enterprise workload ke liye dedicated bare-metal server chalaaya jata hai.' },
             { term: 'DNS', detail: 'Domain Name System: domain name, jaise example.com, ko IP address se map karta hai.' },
             { term: 'DNS Cache', detail: 'DNS Cache: browser, operating system, router ya resolver mein recent domain lookups ka temporary storage taake bar bar lookup na karna pare.', example: 'DNS cache ki wajah se browser website ko foran open kar leta hai.' },
@@ -1181,10 +1183,12 @@ const departments = {
             { term: 'HTTP', detail: 'Hypertext Transfer Protocol: browser aur server ke darmiyan web requests aur responses ka protocol.' },
             { term: 'HTTPS', detail: 'HTTP Secure: TLS encryption ke zariye HTTP connection ko protect karta hai.' },
             { term: 'IaC', detail: 'Infrastructure as Code: servers, networks aur cloud resources ko manual settings ke bajaye code aur configuration files (jaise Terraform ya Ansible) se manage karna.', example: 'Cloud architecture ko IaC scripts ke zariye automate kiya jata hai.' },
+            { term: 'INP', detail: 'Interaction to Next Paint: Core Web Vital jo napta hai ke click, tap ya key press ke baad page kitni jaldi screen par jawab dikhata hai. 200 ms ya kam acha mana jata hai.', example: 'Button dabane ke baad menu 500 ms baad khule to INP kharab hota hai.' },
             { term: 'IP', detail: 'Internet Protocol: network par packets address aur route karne ke rules ka set.' },
             { term: 'ISP', detail: 'Internet Service Provider: company ya idara jo internet connection deta hai.' },
             { term: 'JSON', detail: 'JavaScript Object Notation: structured data exchange ka text format; JSON khud API nahi hota.' },
             { term: 'LAN', detail: 'Local Area Network: ghar, school ya office jaisi chhoti jagah ka network.' },
+            { term: 'LCP', detail: 'Largest Contentful Paint: Core Web Vital jo napta hai ke page ka sab se bara visible content (image ya text block) kitni der mein dikhta hai. 2.5 seconds ya kam acha mana jata hai.', example: 'Hero image der se load ho to LCP slow ho jata hai.' },
             { term: 'MAC', detail: 'Media Access Control: network interface ka link-layer address; local network par device interface ko identify karta hai.' },
             { term: 'MAN', detail: 'Metropolitan Area Network: aik shehar ya metropolitan area mein networks ko jorne wala network.' },
             { term: 'Netscape', detail: 'Netscape Navigator: 1990s ka tareekhi web browser jise Marc Andreessen ne banaya tha — wahi shakhs jis ne pehle Mosaic banaya tha, jo inline images dikhane wala pehla web browser tha.', example: 'Marc Andreessen ne pehle Mosaic aur baad mein Netscape browser banaya.' },
@@ -1196,6 +1200,7 @@ const departments = {
             { term: 'TCP', detail: 'Transmission Control Protocol: reliable, ordered data delivery ke liye transport protocol.' },
             { term: 'TLD', detail: 'Top-Level Domain: domain name ka aakhri hissa, jaise `.com` ya `.dev`.', example: '`example.dev` mein `.dev` TLD hai.' },
             { term: 'TLS', detail: 'Transport Layer Security: SSL ka modern successor protocol jo browser aur server ke darmiyan data ki encryption aur privacy ensure karta hai.', example: 'Modern HTTPS connections TLS 1.3 encryption use karte hain.' },
+            { term: 'TTFB', detail: 'Time To First Byte: request bhejne se server ka pehla byte wapas milne tak ka waqt. Server speed, network aur redirects is par asar dalte hain; yeh CWV ka direct hissa nahi lekin LCP par asar dalta hai.', example: 'Slow server response ya zyada redirects se TTFB barh jata hai.' },
             { term: 'UDP', detail: 'User Datagram Protocol: connectionless transport protocol; delivery ya order ki guarantee nahi deta.' },
             { term: 'URI', detail: 'Uniform Resource Identifier: resource ko identify karne wali string; URL URI ki aik qisam hai.' },
             { term: 'URL', detail: 'Uniform Resource Locator: web ya network resource ka address aur us tak pohanchne ka tareeqa.' },
@@ -1861,6 +1866,10 @@ const departments = {
   communication: {
     name: 'Communication',
     chapters: window.zbookCommunication || [],
+  },
+  abc: {
+    name: 'ABC',
+    chapters: window.zbookAbc || [],
   },
 };
 
